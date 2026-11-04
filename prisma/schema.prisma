@@ -1,0 +1,44 @@
+generator client {
+ provider = "prisma-client-js"
+}
+datasource db {
+ provider = "postgresql"
+ url = env("DATABASE_URL")
+ directUrl = env("DIRECT_URL")
+}
+model Player {
+ id String @id @default(cuid())
+ tokenHash String @unique
+ name String
+ createdAt DateTime @default(now())
+ games Game[]
+}
+model Question {
+ id String @id
+ level Int
+ category String
+ prompt String
+ options String[]
+ answer Int
+ reference String
+ active Boolean @default(true)
+ updatedAt DateTime @updatedAt
+ @@index([level, active])
+}
+model Game {
+ id String @id @default(cuid())
+ playerId String
+ player Player @relation(fields: [playerId], references: [id])
+ status String @default("playing")
+ level Int @default(1)
+ amount Int @default(0)
+ version Int @default(0)
+ rounds Json
+ lifelines String[] @default([])
+ removed Int[] @default([])
+ deadline DateTime
+ createdAt DateTime @default(now())
+ finishedAt DateTime?
+ @@index([playerId, createdAt])
+ @@index([status, amount, finishedAt])
+}

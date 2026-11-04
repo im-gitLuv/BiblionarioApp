@@ -1,0 +1,677 @@
+[
+  {
+    "id": "es-001",
+    "level": 1,
+    "category": "Génesis",
+    "prompt": "¿Quién construyó el arca antes del diluvio?",
+    "options": [
+      "Noé",
+      "Moisés",
+      "Abraham",
+      "Elías"
+    ],
+    "answer": 0,
+    "reference": "Génesis 6:14",
+    "active": true
+  },
+  {
+    "id": "es-002",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿En qué ciudad nació Jesús?",
+    "options": [
+      "Belén",
+      "Nazaret",
+      "Jericó",
+      "Capernaúm"
+    ],
+    "answer": 0,
+    "reference": "Mateo 2:1",
+    "active": true
+  },
+  {
+    "id": "es-003",
+    "level": 1,
+    "category": "Génesis",
+    "prompt": "¿Cuál es el primer libro de la Biblia?",
+    "options": [
+      "Génesis",
+      "Éxodo",
+      "Salmos",
+      "Mateo"
+    ],
+    "answer": 0,
+    "reference": "Génesis 1:1",
+    "active": true
+  },
+  {
+    "id": "es-004",
+    "level": 2,
+    "category": "Éxodo",
+    "prompt": "¿Quién guio a Israel al salir de Egipto?",
+    "options": [
+      "Moisés",
+      "David",
+      "Samuel",
+      "Salomón"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 3:10",
+    "active": true
+  },
+  {
+    "id": "es-005",
+    "level": 2,
+    "category": "Evangelios",
+    "prompt": "¿Quién bautizó a Jesús?",
+    "options": [
+      "Juan el Bautista",
+      "Pedro",
+      "Pablo",
+      "Andrés"
+    ],
+    "answer": 0,
+    "reference": "Mateo 3:13-16",
+    "active": true
+  },
+  {
+    "id": "es-006",
+    "level": 2,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién venció a Goliat?",
+    "options": [
+      "David",
+      "Saúl",
+      "Sansón",
+      "Jonatán"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 17:49-50",
+    "active": true
+  },
+  {
+    "id": "es-007",
+    "level": 3,
+    "category": "Génesis",
+    "prompt": "¿Qué creó Dios cuando dijo «Sea la luz»?",
+    "options": [
+      "La luz",
+      "Los peces",
+      "Las aves",
+      "El hombre"
+    ],
+    "answer": 0,
+    "reference": "Génesis 1:3",
+    "active": true
+  },
+  {
+    "id": "es-008",
+    "level": 3,
+    "category": "Evangelios",
+    "prompt": "¿Cuántos apóstoles escogió Jesús?",
+    "options": [
+      "Doce",
+      "Siete",
+      "Diez",
+      "Veinticuatro"
+    ],
+    "answer": 0,
+    "reference": "Lucas 6:13",
+    "active": true
+  },
+  {
+    "id": "es-009",
+    "level": 3,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué profeta fue tragado por un gran pez?",
+    "options": [
+      "Jonás",
+      "Amós",
+      "Oseas",
+      "Isaías"
+    ],
+    "answer": 0,
+    "reference": "Jonás 1:17",
+    "active": true
+  },
+  {
+    "id": "es-010",
+    "level": 4,
+    "category": "Éxodo",
+    "prompt": "¿Cómo se llamaba el alimento que Israel recogía en el desierto?",
+    "options": [
+      "Maná",
+      "Lentejas",
+      "Higos",
+      "Cebada"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 16:31",
+    "active": true
+  },
+  {
+    "id": "es-011",
+    "level": 4,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién fue echado en el foso de los leones?",
+    "options": [
+      "Daniel",
+      "Jeremías",
+      "José",
+      "Eliseo"
+    ],
+    "answer": 0,
+    "reference": "Daniel 6:16",
+    "active": true
+  },
+  {
+    "id": "es-012",
+    "level": 4,
+    "category": "Evangelios",
+    "prompt": "¿Quién negó a Jesús tres veces?",
+    "options": [
+      "Pedro",
+      "Tomás",
+      "Juan",
+      "Felipe"
+    ],
+    "answer": 0,
+    "reference": "Lucas 22:61",
+    "active": true
+  },
+  {
+    "id": "es-013",
+    "level": 5,
+    "category": "Génesis",
+    "prompt": "¿Qué señal dio Dios de su pacto con Noé?",
+    "options": [
+      "El arcoíris",
+      "Una estrella",
+      "Una columna de fuego",
+      "Una nube negra"
+    ],
+    "answer": 0,
+    "reference": "Génesis 9:13",
+    "active": true
+  },
+  {
+    "id": "es-014",
+    "level": 5,
+    "category": "Éxodo",
+    "prompt": "¿Qué mar cruzó Israel al salir de Egipto?",
+    "options": [
+      "El mar Rojo",
+      "El mar Muerto",
+      "El mar de Galilea",
+      "El Mediterráneo"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 14:21-22",
+    "active": true
+  },
+  {
+    "id": "es-015",
+    "level": 5,
+    "category": "Reyes y profetas",
+    "prompt": "¿A quién le cortaron el cabello antes de perder su fuerza?",
+    "options": [
+      "Sansón",
+      "Gedeón",
+      "Saúl",
+      "Esaú"
+    ],
+    "answer": 0,
+    "reference": "Jueces 16:19",
+    "active": true
+  },
+  {
+    "id": "es-016",
+    "level": 6,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién fue el primer rey de Israel?",
+    "options": [
+      "Saúl",
+      "David",
+      "Salomón",
+      "Samuel"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 10:24",
+    "active": true
+  },
+  {
+    "id": "es-017",
+    "level": 6,
+    "category": "Éxodo",
+    "prompt": "¿En qué monte descendió Dios para dar la ley a Israel?",
+    "options": [
+      "Sinaí",
+      "Carmelo",
+      "Nebo",
+      "Sion"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 19:20",
+    "active": true
+  },
+  {
+    "id": "es-018",
+    "level": 6,
+    "category": "Evangelios",
+    "prompt": "¿Qué apóstol caminó sobre el agua hacia Jesús?",
+    "options": [
+      "Pedro",
+      "Juan",
+      "Jacobo",
+      "Andrés"
+    ],
+    "answer": 0,
+    "reference": "Mateo 14:29",
+    "active": true
+  },
+  {
+    "id": "es-019",
+    "level": 7,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué rey construyó el primer templo de Jerusalén?",
+    "options": [
+      "Salomón",
+      "David",
+      "Ezequías",
+      "Josías"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 6:1",
+    "active": true
+  },
+  {
+    "id": "es-020",
+    "level": 7,
+    "category": "Evangelios",
+    "prompt": "¿Cuántos panes había antes de alimentar a los cinco mil?",
+    "options": [
+      "Cinco",
+      "Dos",
+      "Siete",
+      "Doce"
+    ],
+    "answer": 0,
+    "reference": "Mateo 14:17",
+    "active": true
+  },
+  {
+    "id": "es-021",
+    "level": 7,
+    "category": "Génesis",
+    "prompt": "¿Cómo se llamó el hijo que Sara dio a Abraham?",
+    "options": [
+      "Isaac",
+      "Ismael",
+      "Jacob",
+      "Esaú"
+    ],
+    "answer": 0,
+    "reference": "Génesis 21:3",
+    "active": true
+  },
+  {
+    "id": "es-022",
+    "level": 8,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué reina visitó a Salomón para probar su sabiduría?",
+    "options": [
+      "La reina de Sabá",
+      "Ester",
+      "Jezabel",
+      "Atalía"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 10:1",
+    "active": true
+  },
+  {
+    "id": "es-023",
+    "level": 8,
+    "category": "Pentateuco",
+    "prompt": "¿Cuántos años llevó Israel sus rebeliones en el desierto?",
+    "options": [
+      "Cuarenta",
+      "Veinte",
+      "Treinta",
+      "Cincuenta"
+    ],
+    "answer": 0,
+    "reference": "Números 14:33-34",
+    "active": true
+  },
+  {
+    "id": "es-024",
+    "level": 8,
+    "category": "Pentateuco",
+    "prompt": "¿Qué animal habló a Balaam?",
+    "options": [
+      "Una asna",
+      "Un camello",
+      "Un cuervo",
+      "Una serpiente"
+    ],
+    "answer": 0,
+    "reference": "Números 22:28",
+    "active": true
+  },
+  {
+    "id": "es-025",
+    "level": 9,
+    "category": "Evangelios",
+    "prompt": "¿Quiénes aparecieron junto a Jesús en la transfiguración?",
+    "options": [
+      "Moisés y Elías",
+      "Abraham e Isaac",
+      "David y Salomón",
+      "Elías y Eliseo"
+    ],
+    "answer": 0,
+    "reference": "Mateo 17:3",
+    "active": true
+  },
+  {
+    "id": "es-026",
+    "level": 9,
+    "category": "Génesis",
+    "prompt": "¿Qué vendió Esaú a Jacob a cambio de comida?",
+    "options": [
+      "Su primogenitura",
+      "Su rebaño",
+      "Su casa",
+      "Su arco"
+    ],
+    "answer": 0,
+    "reference": "Génesis 25:33-34",
+    "active": true
+  },
+  {
+    "id": "es-027",
+    "level": 9,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién pidió un hijo y lo dedicó al servicio de Dios?",
+    "options": [
+      "Ana",
+      "Noemí",
+      "Raquel",
+      "Débora"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 1:27-28",
+    "active": true
+  },
+  {
+    "id": "es-028",
+    "level": 10,
+    "category": "Hechos",
+    "prompt": "¿Quién fue escogido para ocupar el lugar de Judas Iscariote?",
+    "options": [
+      "Matías",
+      "Bernabé",
+      "Silas",
+      "José Barsabás"
+    ],
+    "answer": 0,
+    "reference": "Hechos 1:26",
+    "active": true
+  },
+  {
+    "id": "es-029",
+    "level": 10,
+    "category": "Apocalipsis",
+    "prompt": "¿En qué isla estaba Juan al recibir la revelación?",
+    "options": [
+      "Patmos",
+      "Creta",
+      "Chipre",
+      "Malta"
+    ],
+    "answer": 0,
+    "reference": "Apocalipsis 1:9",
+    "active": true
+  },
+  {
+    "id": "es-030",
+    "level": 10,
+    "category": "Hechos",
+    "prompt": "¿Quién murió apedreado tras dar testimonio ante el concilio?",
+    "options": [
+      "Esteban",
+      "Felipe",
+      "Andrés",
+      "Bernabé"
+    ],
+    "answer": 0,
+    "reference": "Hechos 7:59",
+    "active": true
+  },
+  {
+    "id": "es-031",
+    "level": 11,
+    "category": "Evangelios",
+    "prompt": "¿Qué significa Emanuel?",
+    "options": [
+      "Dios con nosotros",
+      "Príncipe de paz",
+      "Dios proveerá",
+      "Mi estandarte"
+    ],
+    "answer": 0,
+    "reference": "Mateo 1:23",
+    "active": true
+  },
+  {
+    "id": "es-032",
+    "level": 11,
+    "category": "Evangelios",
+    "prompt": "¿De qué aldea era Lázaro, hermano de Marta y María?",
+    "options": [
+      "Betania",
+      "Betsaida",
+      "Betel",
+      "Belén"
+    ],
+    "answer": 0,
+    "reference": "Juan 11:1",
+    "active": true
+  },
+  {
+    "id": "es-033",
+    "level": 11,
+    "category": "Epístolas",
+    "prompt": "¿Cuántas personas se salvaron en el arca según Pedro?",
+    "options": [
+      "Ocho",
+      "Seis",
+      "Diez",
+      "Doce"
+    ],
+    "answer": 0,
+    "reference": "1 Pedro 3:20",
+    "active": true
+  },
+  {
+    "id": "es-034",
+    "level": 12,
+    "category": "Génesis",
+    "prompt": "¿Quién caminó con Dios y fue padre de Matusalén?",
+    "options": [
+      "Enoc",
+      "Jared",
+      "Lamec",
+      "Noé"
+    ],
+    "answer": 0,
+    "reference": "Génesis 5:21-24",
+    "active": true
+  },
+  {
+    "id": "es-035",
+    "level": 12,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué profeta sucedió a Elías?",
+    "options": [
+      "Eliseo",
+      "Isaías",
+      "Jeremías",
+      "Amós"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 2:15",
+    "active": true
+  },
+  {
+    "id": "es-036",
+    "level": 12,
+    "category": "Hechos",
+    "prompt": "¿En qué ciudad se llamó cristianos por primera vez a los discípulos?",
+    "options": [
+      "Antioquía",
+      "Jerusalén",
+      "Éfeso",
+      "Roma"
+    ],
+    "answer": 0,
+    "reference": "Hechos 11:26",
+    "active": true
+  },
+  {
+    "id": "es-037",
+    "level": 13,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué sacerdote encontró el libro de la ley en tiempos de Josías?",
+    "options": [
+      "Hilcías",
+      "Abiatar",
+      "Sadoc",
+      "Elí"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 22:8",
+    "active": true
+  },
+  {
+    "id": "es-038",
+    "level": 13,
+    "category": "Hechos",
+    "prompt": "¿Quién cayó de una ventana mientras Pablo hablaba?",
+    "options": [
+      "Eutico",
+      "Trófimo",
+      "Tíquico",
+      "Onésimo"
+    ],
+    "answer": 0,
+    "reference": "Hechos 20:9",
+    "active": true
+  },
+  {
+    "id": "es-039",
+    "level": 13,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué profeta tuvo una visión de un valle de huesos secos?",
+    "options": [
+      "Ezequiel",
+      "Daniel",
+      "Zacarías",
+      "Habacuc"
+    ],
+    "answer": 0,
+    "reference": "Ezequiel 37:1-2",
+    "active": true
+  },
+  {
+    "id": "es-040",
+    "level": 14,
+    "category": "Hechos",
+    "prompt": "¿Cómo se llamaba el procónsul que oyó a Pablo en Chipre?",
+    "options": [
+      "Sergio Paulo",
+      "Galión",
+      "Festo",
+      "Félix"
+    ],
+    "answer": 0,
+    "reference": "Hechos 13:7",
+    "active": true
+  },
+  {
+    "id": "es-041",
+    "level": 14,
+    "category": "Pentateuco",
+    "prompt": "¿Quién era el padre de Bezalel, artesano del tabernáculo?",
+    "options": [
+      "Uri",
+      "Hur",
+      "Aholiab",
+      "Ahisamac"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 31:2",
+    "active": true
+  },
+  {
+    "id": "es-042",
+    "level": 14,
+    "category": "Epístolas",
+    "prompt": "¿A quién dejó Pablo enfermo en Mileto?",
+    "options": [
+      "Trófimo",
+      "Timoteo",
+      "Tito",
+      "Epafrodito"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 4:20",
+    "active": true
+  },
+  {
+    "id": "es-043",
+    "level": 15,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué rey de Judá fue herido por el faraón Necao en Meguido?",
+    "options": [
+      "Josías",
+      "Joacim",
+      "Sedequías",
+      "Manasés"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 23:29",
+    "active": true
+  },
+  {
+    "id": "es-044",
+    "level": 15,
+    "category": "Pentateuco",
+    "prompt": "¿De qué tribu era Aholiab, colaborador de Bezalel en el tabernáculo?",
+    "options": [
+      "Dan",
+      "Judá",
+      "Leví",
+      "Benjamín"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 31:6",
+    "active": true
+  },
+  {
+    "id": "es-045",
+    "level": 15,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué profeta anunció a Jeroboam la división del reino usando un manto?",
+    "options": [
+      "Ahías silonita",
+      "Semaías",
+      "Natán",
+      "Gad"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 11:29-31",
+    "active": true
+  }
+]
