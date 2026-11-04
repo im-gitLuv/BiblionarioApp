@@ -267,6 +267,7 @@
   border-radius: 999px;
 }
 .warm-scroll {
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(240, 180, 41, 0.35) rgba(240, 180, 41, 0.06);
 }
