@@ -1,102 +1,265 @@
 "use client";
+
 import { useEffect, useRef, useState } from "react";
-import { Crown } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Check, Crown, DoorOpen, MessageCircleQuestion, PhoneCall, ScrollText } from "lucide-react";
 import { MoneyLadder } from "./MoneyLadder";
 import { api } from "@/lib/api-client";
+import { cn } from "@/lib/utils";
 import { LETTERS, formatCrowns, prizeForLevel, walkAwayAmount } from "@/lib/rules";
 import type { ActionReply, PublicGame, GameResult } from "@/lib/contracts";
-const button = "rounded-xl border border-amber-500/40 bg-[#2b1c0d] px-5 py-3 text-amber-100 transition hover:bg-amber-800/40 disabled:opacity-40";
-export function GameScreen({ onFinish, onBack }: {
-    onFinish: (result: GameResult) => void;
-    onBack: () => void;
-}) {
-    const [game, setGame] = useState<PublicGame | null>(null);
-    const [busy, setBusy] = useState(false);
-    const [error, setError] = useState("");
-    const [seconds, setSeconds] = useState(45);
-    const [reply, setReply] = useState<ActionReply | null>(null);
-    const [walk, setWalk] = useState(false);
-    const lock = useRef(false);
-    const started = useRef(false);
-    const mounted = useRef(true);
-    useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
-    const accept = (g: PublicGame) => { setGame(g); if (g.result)
-        onFinish(g.result); };
-    const load = async () => { setError(""); try {
-        accept(await api<PublicGame>("/api/games", {}));
+
+const panelButton = "rounded-xl border border-amber-500/35 bg-[#211407] px-5 py-3 text-sm text-amber-100 transition-all duration-300 hover:border-amber-300/60 hover:bg-amber-800/25 disabled:cursor-not-allowed disabled:opacity-40";
+
+const LIFELINES = [
+  { key: "fifty", label: "Sabiduría", short: "50:50", icon: ScrollText },
+  { key: "audience", label: "Congregación", short: "Asamblea", icon: MessageCircleQuestion },
+  { key: "prophet", label: "Voz profética", short: "Profeta", icon: PhoneCall },
+] as const;
+
+function categoryCounsel(category: string) {
+  const normalized = category.toLowerCase();
+  if (normalized.includes("génesis") || normalized.includes("patriarca")) return "Vuelve al origen de la historia y escucha bien los nombres.";
+  if (normalized.includes("evangel") || normalized.includes("cristo")) return "Recuerda las palabras y los pasos del Maestro.";
+  if (normalized.includes("rey") || normalized.includes("profeta")) return "En tiempos de reyes y profetas, cada nombre lleva una historia.";
+  if (normalized.includes("poes") || normalized.includes("sabidur")) return "La sabiduría suele esconderse en una palabra precisa.";
+  if (normalized.includes("apóstol") || normalized.includes("iglesia")) return "Piensa en quienes llevaron el mensaje más allá de Jerusalén.";
+  return "Respira, repasa el pasaje y confía en lo que has aprendido.";
+}
+
+function hostCopy(game: PublicGame, selected: number | null, reply: ActionReply | null, walk: boolean) {
+  if (walk) return "Retirarse también puede ser una decisión sabia. Mira lo que has ganado antes de elegir.";
+  if (reply?.reveal) return reply.reveal.correct
+    ? `¡Correcto! La Escritura confirma el camino: ${reply.reveal.reference}.`
+    : `Esta vez la corona deberá esperar. La referencia era ${reply.reveal.reference}.`;
+  if (reply?.hint) return reply.hint.votes
+    ? "La congregación ya ha dado su parecer. La decisión final, sin embargo, sigue siendo tuya."
+    : "Has escuchado la voz profética. Considera su consejo, pero recuerda que puede equivocarse.";
+  if (selected !== null && game.question) {
+    const option = game.question.options[selected];
+    return `Ante «${game.question.question}», eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)} ¿Es tu respuesta definitiva?`;
+  }
+  if (game.level <= 5) return "Comienza el recorrido. Lee cada palabra: a veces lo conocido esconde el primer tropiezo.";
+  if (game.level <= 10) return "La escalera se estrecha. No respondas por impulso; deja que la memoria encuentre el pasaje.";
+  return "Estás cerca de la corona. Aquí cada detalle de las Escrituras puede decidir el camino.";
+}
+
+export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult) => void; onBack: () => void }) {
+  const [game, setGame] = useState<PublicGame | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [seconds, setSeconds] = useState(45);
+  const [reply, setReply] = useState<ActionReply | null>(null);
+  const [walk, setWalk] = useState(false);
+  const [selected, setSelected] = useState<number | null>(null);
+  const lock = useRef(false);
+  const started = useRef(false);
+  const mounted = useRef(true);
+
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
+
+  const accept = (nextGame: PublicGame) => {
+    setGame(nextGame);
+    setSelected(null);
+    if (nextGame.result) onFinish(nextGame.result);
+  };
+
+  const load = async () => {
+    setError("");
+    try {
+      accept(await api<PublicGame>("/api/games", {}));
+    } catch (loadError) {
+      setError((loadError as Error).message);
     }
-    catch (e) {
-        setError((e as Error).message);
-    } };
-    useEffect(() => { if (!started.current) {
-        started.current = true;
-        void load();
-    } }, []);
-    const action = async (action: string, option?: number) => {
-        if (!game || lock.current)
-            return;
-        lock.current = true;
-        setBusy(true);
-        setError("");
-        setWalk(false);
-        try {
-            const response = await api<ActionReply>("/api/games/" + game.id, { version: game.version, action, option });
-            setReply(response);
-            if (response.reveal)
-                await new Promise(resolve => setTimeout(resolve, 2500));
-            if (mounted.current) {
-                accept(response.game);
-                if (response.reveal)
-                    setReply(null);
-            }
-        }
-        catch (e) {
-            setError((e as Error).message);
-        }
-        finally {
-            lock.current = false;
-            if (mounted.current)
-                setBusy(false);
-        }
+  };
+
+  useEffect(() => {
+    if (!started.current) {
+      started.current = true;
+      void load();
+    }
+  }, []);
+
+  const action = async (actionName: string, option?: number) => {
+    if (!game || lock.current) return;
+    lock.current = true;
+    setBusy(true);
+    setError("");
+    setWalk(false);
+    if (actionName !== "answer") setSelected(null);
+    try {
+      const response = await api<ActionReply>("/api/games/" + game.id, { version: game.version, action: actionName, option });
+      setReply(response);
+      if (response.reveal) await new Promise(resolve => setTimeout(resolve, 2300));
+      if (mounted.current) {
+        accept(response.game);
+        if (response.reveal) setReply(null);
+      }
+    } catch (actionError) {
+      setError((actionError as Error).message);
+    } finally {
+      lock.current = false;
+      if (mounted.current) setBusy(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!game || game.result) return;
+    const tick = () => setSeconds(Math.max(0, Math.ceil((new Date(game.deadline).getTime() - Date.now()) / 1000)));
+    tick();
+    const timer = setInterval(tick, 250);
+    return () => clearInterval(timer);
+  }, [game]);
+
+  useEffect(() => {
+    if (seconds === 0 && game && !game.result && !busy && !error) {
+      const timer = setTimeout(() => void action("timeout"), 0);
+      return () => clearTimeout(timer);
+    }
+  }, [seconds, game, busy, error]);
+
+  useEffect(() => {
+    const listener = (event: KeyboardEvent) => {
+      if (busy || reply?.hint || walk || !game) return;
+      const index = "abcd".indexOf(event.key.toLowerCase());
+      if (index >= 0 && !game.removed.includes(index)) setSelected(index);
+      if (event.key === "Enter" && selected !== null) void action("answer", selected);
+      if (event.key === "Escape") setSelected(null);
     };
-    useEffect(() => {
-        if (!game || game.result)
-            return;
-        const tick = () => setSeconds(Math.max(0, Math.ceil((new Date(game.deadline).getTime() - Date.now()) / 1000)));
-        tick();
-        const timer = setInterval(tick, 250);
-        return () => clearInterval(timer);
-    }, [game]);
-    useEffect(() => { if (seconds === 0 && game && !game.result && !busy && !error) { const timer = setTimeout(() => void action("timeout"), 0); return () => clearTimeout(timer); } }, [seconds, game, busy, error]);
-    useEffect(() => {
-        const listener = (e: KeyboardEvent) => { if (busy || reply?.hint || walk)
-            return; const index = "abcd".indexOf(e.key.toLowerCase()); if (index >= 0 && game && !game.removed.includes(index))
-            void action("answer", index); };
-        window.addEventListener("keydown", listener);
-        return () => window.removeEventListener("keydown", listener);
-    });
-    const recover = async () => { if (!game) {
-        await load();
-        return;
-    } setError(""); try {
-        accept(await api<PublicGame>("/api/games/" + game.id));
-        setReply(null);
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  });
+
+  const recover = async () => {
+    if (!game) {
+      await load();
+      return;
     }
-    catch (e) {
-        setError((e as Error).message);
-    } };
-    if (!game)
-        return <main className="relative m-auto flex flex-col gap-5 p-8 text-center"><Crown className="mx-auto text-amber-400"/><p role="status">Preparando tu camino…</p>{error && <p role="alert">{error}</p>}<button className={button} onClick={() => void load()}>Reintentar</button><button className={button} onClick={onBack}>Volver al menú</button></main>;
-    return <div className="relative flex min-h-screen flex-col">
- <header className="flex flex-wrap items-center justify-between gap-4 border-b border-amber-500/20 p-5"><span className="font-display text-xl text-amber-200">♛ Corona de Gloria</span><span>Pregunta {game.level} de 15 · {formatCrowns(prizeForLevel(game.level))} Coronas</span><span role="timer" aria-label={seconds + " segundos restantes"} className="text-xl text-amber-300">{seconds}s</span><button disabled={busy} className={button} onClick={() => setWalk(true)}>Retirarme</button></header>
- <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 p-4 sm:p-8 lg:flex-row"><main className="flex flex-1 flex-col justify-center gap-6">
- {error && <div role="alert" className="text-red-300">{error} <button className="underline" onClick={() => void recover()}>Recuperar partida</button></div>}
- <div className="flex flex-wrap justify-center gap-3">{[["fifty", "Sabiduría de Salomón · 50:50"], ["audience", "Preguntar a la congregación"], ["prophet", "Voz profética"]].map(([key, label]) => <button key={key} className={button + " text-sm"} disabled={busy || !!reply?.hint || game.lifelines.includes(key)} onClick={() => void action(key)}>{label}{game.lifelines.includes(key) ? " ✓" : ""}</button>)}</div>
- <p className="text-center text-xs uppercase tracking-widest text-amber-300">{game.question?.category}</p>
- <div className="clip-lozenge bg-gradient-to-r from-amber-700 via-yellow-400 to-amber-700 p-[2px]"><h1 className="clip-lozenge bg-[#241709] px-10 py-9 text-center font-display text-2xl text-amber-100">{game.question?.question}</h1></div>
- <div className="grid gap-4 md:grid-cols-2">{game.question?.options.map((text, i) => <button key={i} disabled={busy || !!reply?.hint || walk || game.removed.includes(i)} onClick={() => void action("answer", i)} className={button + " min-h-20 text-left " + (reply?.reveal?.answer === i ? " border-emerald-400 bg-emerald-900/60" : "")}><span className="mr-4 font-bold text-amber-300">{LETTERS[i]}</span>{game.removed.includes(i) ? "—" : text}</button>)}</div>
- {reply?.reveal && <p role="status" className="text-center text-amber-200">{reply.reveal.correct ? "¡Respuesta correcta!" : "La respuesta correcta era " + LETTERS[reply.reveal.answer] + "."} · {reply.reveal.reference}</p>}
- {reply?.hint && <section aria-label="Consejo del comodín" className="rounded-xl border border-amber-400/40 bg-[#241709] p-6"><h2 className="mb-3 font-display text-xl text-amber-200">{reply.hint.votes ? "La congregación ha hablado" : "Voz profética"}</h2><p className="mb-4 text-sm text-amber-200/70">Consejo simulado del juego; puede equivocarse. Tienes 10 segundos adicionales para leerlo.</p>{reply.hint.votes?.map((vote, i) => <p key={i}>{LETTERS[i]} · {vote}%</p>)}{reply.hint.suggestion !== undefined && <p>Mi consejo es {LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}.</p>}<button className={button + " mt-4"} onClick={() => setReply(null)}>Volver a la pregunta</button></section>}
- {walk && <section className="rounded-xl border border-amber-500/40 p-6"><p>¿Retirarte con {formatCrowns(walkAwayAmount(game.level))} Coronas?</p><div className="mt-4 flex gap-3"><button disabled={busy} className={button} onClick={() => void action("walk")}>Sí, retirarme</button><button className={button} onClick={() => setWalk(false)}>Seguir jugando</button></div></section>}
- </main><aside className="w-full lg:w-72"><MoneyLadder currentLevel={game.level}/></aside></div></div>;
+    setError("");
+    try {
+      accept(await api<PublicGame>("/api/games/" + game.id));
+      setReply(null);
+    } catch (recoverError) {
+      setError((recoverError as Error).message);
+    }
+  };
+
+  if (!game) {
+    return <main className="relative m-auto flex flex-col gap-5 p-8 text-center"><Crown className="mx-auto text-amber-400"/><p role="status">Preparando tu camino…</p>{error ? <p role="alert">{error}</p> : null}<button className={panelButton} onClick={() => void load()}>Reintentar</button><button className={panelButton} onClick={onBack}>Volver al menú</button></main>;
+  }
+
+  const timerProgress = Math.max(0, Math.min(100, (seconds / 45) * 100));
+  const hostMessage = hostCopy(game, selected, reply, walk);
+
+  return (
+    <div className="relative flex min-h-screen flex-col">
+      <header className="border-b border-amber-500/15 bg-[#150d06]/78 px-4 py-3 backdrop-blur-md sm:px-7">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+          <span className="flex items-center gap-2 font-display text-lg font-semibold text-amber-200 sm:text-xl"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Corona de Gloria</span>
+          <div className="hidden text-center sm:block">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400/80">Pregunta {game.level} de 15</p>
+            <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div role="timer" aria-label={seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${timerProgress}%, rgba(240,180,41,.14) 0)` }}>
+              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{seconds}</span>
+            </div>
+            <button type="button" disabled={busy} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
+          </div>
+        </div>
+      </header>
+
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-4 py-6 sm:px-7 lg:flex-row lg:items-stretch lg:py-8">
+        <main className="flex min-w-0 flex-1 flex-col justify-center gap-5">
+          {error ? <div role="alert" className="rounded-xl border border-red-400/30 bg-red-950/30 p-4 text-red-200">{error} <button className="underline" onClick={() => void recover()}>Recuperar partida</button></div> : null}
+
+          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.5 }} className="flex justify-center gap-5 sm:gap-8">
+            {LIFELINES.map(({ key, label, short, icon: Icon }) => {
+              const used = game.lifelines.includes(key);
+              return (
+                <button key={key} type="button" aria-label={label} disabled={busy || !!reply?.hint || used} onClick={() => void action(key)} className="group flex w-[76px] flex-col items-center gap-2 text-center disabled:cursor-not-allowed">
+                  <span className={cn("flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)]", used && "border-amber-700/25 text-amber-200/25")}>
+                    {key === "fifty" ? <span className="text-xs font-black">50:50</span> : <Icon className="h-6 w-6" aria-hidden="true"/>}
+                  </span>
+                  <span className={cn("text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/75", used && "line-through opacity-35")}>{short}{used ? " ✓" : ""}</span>
+                </button>
+              );
+            })}
+          </motion.div>
+
+          <motion.div key={game.version + "-question"} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: "easeOut" }} className="space-y-5">
+            <p className="mx-auto w-fit rounded-full border border-amber-500/30 bg-amber-500/5 px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.26em] text-amber-300">{game.question?.category}</p>
+            <div className="clip-lozenge bg-gradient-to-r from-amber-700 via-amber-400 to-amber-700 p-[2px] shadow-[0_12px_38px_rgba(0,0,0,0.22)]">
+              <h1 className="clip-lozenge bg-gradient-to-b from-[#2a190b] to-[#211307] px-9 py-8 text-center font-display text-xl font-semibold leading-snug text-amber-50 sm:px-14 sm:py-10 sm:text-2xl">{game.question?.question}</h1>
+            </div>
+          </motion.div>
+
+          <div className="grid gap-3 md:grid-cols-2">
+            {game.question?.options.map((text, index) => {
+              const removed = game.removed.includes(index);
+              const isSelected = selected === index;
+              const isCorrectReveal = reply?.reveal?.answer === index;
+              const isWrongReveal = !!reply?.reveal && isSelected && !reply.reveal.correct;
+              return (
+                <motion.button
+                  key={index}
+                  type="button"
+                  disabled={busy || !!reply?.hint || walk || removed}
+                  onClick={() => setSelected(index)}
+                  whileHover={removed ? undefined : { scale: 1.012 }}
+                  whileTap={removed ? undefined : { scale: 0.988 }}
+                  aria-pressed={isSelected}
+                  className={cn("clip-lozenge-md min-h-16 bg-gradient-to-r p-[2px] text-left transition-all duration-300", isSelected ? "from-amber-400 via-yellow-200 to-amber-400 glow-pulse" : "from-amber-700/75 via-amber-500/75 to-amber-700/75 hover:from-amber-500 hover:via-yellow-300 hover:to-amber-500", removed && "cursor-not-allowed opacity-25", isCorrectReveal && "from-emerald-500 via-emerald-200 to-emerald-500", isWrongReveal && "from-red-600 via-red-300 to-red-600")}
+                >
+                  <span className={cn("lozenge-inner clip-lozenge-md flex min-h-16 items-center gap-4 bg-[#28180a] px-7 py-3 text-amber-50", isSelected && !reply?.reveal && "state-selected", isCorrectReveal && "state-correct", isWrongReveal && "state-wrong")}>
+                    <span className="flex h-8 w-8 shrink-0 rotate-45 items-center justify-center rounded-md border border-amber-500/50 bg-[#231506] text-xs font-bold text-amber-300"><span className="-rotate-45">{LETTERS[index]}</span></span>
+                    <span className="text-sm font-medium sm:text-[15px]">{removed ? "—" : text}</span>
+                    {isSelected && !reply?.reveal ? <Check className="ml-auto h-4 w-4 text-amber-300" aria-hidden="true"/> : null}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          <AnimatePresence mode="wait">
+            {selected !== null && !reply?.reveal && !reply?.hint && !walk ? (
+              <motion.div key="confirm" initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }} className="flex justify-center">
+                <button type="button" disabled={busy} onClick={() => void action("answer", selected)} className="clip-lozenge-slim bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600 p-[2px] shadow-[0_0_28px_rgba(240,180,41,0.18)] transition hover:brightness-110 disabled:opacity-50">
+                  <span className="clip-lozenge-slim flex items-center gap-2 bg-gradient-to-b from-[#f5c454] to-[#df9517] px-9 py-3 text-sm font-bold text-[#241708]">¿Respuesta definitiva? <span className="rounded-full bg-[#241708]/12 px-2 py-0.5">{LETTERS[selected]}</span></span>
+                </button>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+
+          {reply?.hint ? (
+            <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} aria-label="Consejo del comodín" className="rounded-2xl border border-amber-400/35 bg-[#211307]/92 p-6 shadow-[0_14px_45px_rgba(0,0,0,0.22)]">
+              <h2 className="mb-2 font-display text-xl text-amber-200">{reply.hint.votes ? "La congregación ha hablado" : "Voz profética"}</h2>
+              <p className="mb-4 text-sm text-amber-100/55">Consejo simulado del juego; puede equivocarse. Tienes 10 segundos adicionales para leerlo.</p>
+              {reply.hint.votes?.map((vote, index) => <div key={index} className="mb-2 flex items-center gap-3 text-sm"><span className="w-5 text-amber-300">{LETTERS[index]}</span><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right">{vote}%</span></div>)}
+              {reply.hint.suggestion !== undefined ? <p className="text-amber-100">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
+              <button className={panelButton + " mt-5"} onClick={() => setReply(null)}>Volver a la pregunta</button>
+            </motion.section>
+          ) : null}
+
+          {walk ? (
+            <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-amber-500/40 bg-[#211307]/92 p-6 text-center">
+              <p className="font-display text-xl text-amber-100">¿Retirarte con {formatCrowns(walkAwayAmount(game.level))} Coronas?</p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3"><button disabled={busy} className={panelButton} onClick={() => void action("walk")}>Sí, retirarme</button><button className={panelButton} onClick={() => setWalk(false)}>Seguir jugando</button></div>
+            </motion.section>
+          ) : null}
+
+          <div className="sm:hidden"><button type="button" disabled={busy} className={panelButton + " w-full"} onClick={() => setWalk(true)}><DoorOpen className="mr-2 inline h-4 w-4"/>Retirarme</button></div>
+
+          <section aria-label="Mensaje del anfitrión" aria-live="polite" className="host-panel overflow-hidden rounded-2xl border border-amber-500/25 bg-[#150d06]/88 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,220,140,0.04)]">
+            <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.3em] text-amber-400/65">El anfitrión</p>
+            <AnimatePresence mode="wait">
+              <motion.p key={hostMessage} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.28 }} className="font-display text-sm italic leading-6 text-[#eadbc4] sm:text-[15px]">“{hostMessage}”</motion.p>
+            </AnimatePresence>
+          </section>
+        </main>
+
+        <aside className="w-full shrink-0 lg:w-72"><MoneyLadder currentLevel={game.level}/></aside>
+      </div>
+    </div>
+  );
 }
