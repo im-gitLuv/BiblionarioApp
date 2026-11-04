@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Crown, DoorOpen, MessageCircleQuestion, PhoneCall, ScrollText } from "lucide-react";
+import { Check, Crown, DoorOpen, ListOrdered, MessageCircleQuestion, PhoneCall, ScrollText, X } from "lucide-react";
 import { MoneyLadder } from "./MoneyLadder";
 import { api } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { LETTERS, formatCrowns, prizeForLevel, walkAwayAmount } from "@/lib/rules";
+import { getHostMessage } from "@/lib/host-messages";
 import type { ActionReply, PublicGame, GameResult } from "@/lib/contracts";
 
 const panelButton = "rounded-xl border border-amber-500/35 bg-[#211407] px-5 py-3 text-sm text-amber-100 transition-all duration-300 hover:border-amber-300/60 hover:bg-amber-800/25 disabled:cursor-not-allowed disabled:opacity-40";
@@ -17,33 +18,6 @@ const LIFELINES = [
   { key: "prophet", label: "Voz profética", short: "Profeta", icon: PhoneCall },
 ] as const;
 
-function categoryCounsel(category: string) {
-  const normalized = category.toLowerCase();
-  if (normalized.includes("génesis") || normalized.includes("patriarca")) return "Vuelve al origen de la historia y escucha bien los nombres.";
-  if (normalized.includes("evangel") || normalized.includes("cristo")) return "Recuerda las palabras y los pasos del Maestro.";
-  if (normalized.includes("rey") || normalized.includes("profeta")) return "En tiempos de reyes y profetas, cada nombre lleva una historia.";
-  if (normalized.includes("poes") || normalized.includes("sabidur")) return "La sabiduría suele esconderse en una palabra precisa.";
-  if (normalized.includes("apóstol") || normalized.includes("iglesia")) return "Piensa en quienes llevaron el mensaje más allá de Jerusalén.";
-  return "Respira, repasa el pasaje y confía en lo que has aprendido.";
-}
-
-function hostCopy(game: PublicGame, selected: number | null, reply: ActionReply | null, walk: boolean) {
-  if (walk) return "Retirarse también puede ser una decisión sabia. Mira lo que has ganado antes de elegir.";
-  if (reply?.reveal) return reply.reveal.correct
-    ? `¡Correcto! La Escritura confirma el camino: ${reply.reveal.reference}.`
-    : `Esta vez la corona deberá esperar. La referencia era ${reply.reveal.reference}.`;
-  if (reply?.hint) return reply.hint.votes
-    ? "La congregación ya ha dado su parecer. La decisión final, sin embargo, sigue siendo tuya."
-    : "Has escuchado la voz profética. Considera su consejo, pero recuerda que puede equivocarse.";
-  if (selected !== null && game.question) {
-    const option = game.question.options[selected];
-    return `Ante «${game.question.question}», eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)} ¿Es tu respuesta definitiva?`;
-  }
-  if (game.level <= 5) return "Comienza el recorrido. Lee cada palabra: a veces lo conocido esconde el primer tropiezo.";
-  if (game.level <= 10) return "La escalera se estrecha. No respondas por impulso; deja que la memoria encuentre el pasaje.";
-  return "Estás cerca de la corona. Aquí cada detalle de las Escrituras puede decidir el camino.";
-}
-
 export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult) => void; onBack: () => void }) {
   const [game, setGame] = useState<PublicGame | null>(null);
   const [busy, setBusy] = useState(false);
@@ -52,11 +26,19 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
   const [reply, setReply] = useState<ActionReply | null>(null);
   const [walk, setWalk] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
+  const [ladderOpen, setLadderOpen] = useState(false);
   const lock = useRef(false);
   const started = useRef(false);
   const mounted = useRef(true);
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
+
+  useEffect(() => {
+    if (!ladderOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [ladderOpen]);
 
   const accept = (nextGame: PublicGame) => {
     setGame(nextGame);
@@ -120,6 +102,10 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && ladderOpen) {
+        setLadderOpen(false);
+        return;
+      }
       if (busy || reply?.hint || walk || !game) return;
       const index = "abcd".indexOf(event.key.toLowerCase());
       if (index >= 0 && !game.removed.includes(index)) setSelected(index);
@@ -149,7 +135,7 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
   }
 
   const timerProgress = Math.max(0, Math.min(100, (seconds / 45) * 100));
-  const hostMessage = hostCopy(game, selected, reply, walk);
+  const hostMessage = getHostMessage(game, selected, reply, walk);
 
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -173,18 +159,24 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
         <main className="flex min-w-0 flex-1 flex-col justify-center gap-5">
           {error ? <div role="alert" className="rounded-xl border border-red-400/30 bg-red-950/30 p-4 text-red-200">{error} <button className="underline" onClick={() => void recover()}>Recuperar partida</button></div> : null}
 
-          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.5 }} className="flex justify-center gap-5 sm:gap-8">
+          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.5 }} className="flex justify-center gap-1 sm:gap-8">
             {LIFELINES.map(({ key, label, short, icon: Icon }) => {
               const used = game.lifelines.includes(key);
               return (
-                <button key={key} type="button" aria-label={label} disabled={busy || !!reply?.hint || used} onClick={() => void action(key)} className="group flex w-[76px] flex-col items-center gap-2 text-center disabled:cursor-not-allowed">
-                  <span className={cn("flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)]", used && "border-amber-700/25 text-amber-200/25")}>
+                <button key={key} type="button" aria-label={label} disabled={busy || !!reply?.hint || used} onClick={() => void action(key)} className="group flex w-16 flex-col items-center gap-2 text-center disabled:cursor-not-allowed sm:w-[76px]">
+                  <span className={cn("flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14", used && "border-amber-700/25 text-amber-200/25")}>
                     {key === "fifty" ? <span className="text-xs font-black">50:50</span> : <Icon className="h-6 w-6" aria-hidden="true"/>}
                   </span>
                   <span className={cn("text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/75", used && "line-through opacity-35")}>{short}{used ? " ✓" : ""}</span>
                 </button>
               );
             })}
+            <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={ladderOpen} onClick={() => setLadderOpen(true)} className="group flex w-16 flex-col items-center gap-2 text-center sm:w-[76px] lg:hidden">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-400 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-200 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.25)] sm:h-14 sm:w-14">
+                <ListOrdered className="h-6 w-6" aria-hidden="true"/>
+              </span>
+              <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/90">Escalera</span>
+            </button>
           </motion.div>
 
           <motion.div key={game.version + "-question"} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: "easeOut" }} className="space-y-5">
@@ -258,8 +250,33 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
           </section>
         </main>
 
-        <aside className="w-full shrink-0 lg:w-72"><MoneyLadder currentLevel={game.level}/></aside>
+        <aside className="hidden w-72 shrink-0 lg:block"><MoneyLadder currentLevel={game.level}/></aside>
       </div>
+
+      <AnimatePresence>
+        {ladderOpen ? (
+          <motion.div className="fixed inset-0 z-50 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <button type="button" aria-label="Cerrar Escalera de Coronas" className="absolute inset-0 h-full w-full bg-black/70 backdrop-blur-[2px]" onClick={() => setLadderOpen(false)}/>
+            <motion.aside
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-ladder-title"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 32 }}
+              className="absolute inset-y-0 right-0 w-[min(88vw,360px)] overflow-y-auto border-l border-amber-500/35 bg-[#1a1007] px-4 py-4 shadow-[-22px_0_60px_rgba(0,0,0,0.55)]"
+            >
+              <div className="mb-1 flex items-center justify-between gap-4">
+                <h2 id="mobile-ladder-title" className="flex items-center gap-2 font-display text-xl font-semibold text-amber-100"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Escalera de Coronas</h2>
+                <button type="button" aria-label="Cerrar" onClick={() => setLadderOpen(false)} className="flex h-9 w-9 items-center justify-center rounded-lg border border-amber-400/45 text-amber-200 transition hover:bg-amber-400/10"><X className="h-5 w-5" aria-hidden="true"/></button>
+              </div>
+              <p className="mb-4 text-sm text-amber-200/75">Refugios seguros en las preguntas 5 y 10</p>
+              <MoneyLadder currentLevel={game.level} scrollable={false} showHeader={false} className="border-0 bg-transparent p-0 shadow-none backdrop-blur-none"/>
+            </motion.aside>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
