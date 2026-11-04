@@ -43,6 +43,6 @@ Abrir la bóveda Biblionario App y comenzar por [[Biblionario - Inicio]] en Proy
 
 ## Estado de verificación
 
-Pruebas locales (3), TypeScript, lint y compilación de producción aprobados. Menú inspeccionado en navegador. La prueba integral necesita PostgreSQL y sigue pendiente; no se sustituye por resultados simulados.
+Pruebas locales (3), TypeScript, lint y compilación de producción aprobados. Menú inspeccionado en navegador. La prueba integral también pasó en GitHub Actions contra PostgreSQL temporal, con migración y semilla reales: https://github.com/im-gitLuv/BiblionarioApp/actions/runs/41830985426. La base permanente de producción sigue pendiente de conexión.
 
 Se eliminaron dependencias del scaffold sin uso, se actualizaron Prisma 6.19.3 y Sharp, y se fija deepmerge-ts 8 mediante override para corregir el aviso de recursión de la herramienta de configuración de Prisma. Se verifica generación de cliente y build tras este ajuste.
