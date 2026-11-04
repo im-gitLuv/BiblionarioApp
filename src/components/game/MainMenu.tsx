@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Crown, Sparkles, Trophy, BookOpen, HelpCircle, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   SCRIPTURE_ROTATION,
   formatCrowns,
+  shuffleScriptures,
   type ScoreRecord,
 } from "@/lib/game-data";
 
@@ -74,16 +75,36 @@ function MenuButton({
 }
 
 export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
-  const [verseIndex, setVerseIndex] = useState(0);
+  // The fixed first value keeps server/client rendering identical. Once mounted,
+  // the effect replaces it with a shuffled deck and walks that deck without repeats.
+  const [verse, setVerse] = useState(SCRIPTURE_ROTATION[0]);
 
   useEffect(() => {
-    const t = setInterval(() => {
-      setVerseIndex((i) => (i + 1) % SCRIPTURE_ROTATION.length);
-    }, 9000);
-    return () => clearInterval(t);
-  }, []);
+    let deck = shuffleScriptures();
+    let cursor = 0;
+    const firstFrame = requestAnimationFrame(() => setVerse(deck[cursor]));
 
-  const verse = SCRIPTURE_ROTATION[verseIndex];
+    const t = setInterval(() => {
+      const previousRef = deck[cursor].ref;
+      cursor += 1;
+
+      if (cursor >= deck.length) {
+        deck = shuffleScriptures();
+        cursor = 0;
+
+        // A new cycle should never begin with the verse that ended the last one.
+        if (deck.length > 1 && deck[0].ref === previousRef) {
+          [deck[0], deck[1]] = [deck[1], deck[0]];
+        }
+      }
+
+      setVerse(deck[cursor]);
+    }, 9000);
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      clearInterval(t);
+    };
+  }, []);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -147,18 +168,23 @@ export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
         </motion.div>
 
         {/* Rotating verse */}
-        <motion.p
-          key={verseIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="mt-6 max-w-md font-display text-[15px] italic leading-relaxed text-[#e9dcc4]/80 sm:text-base"
-        >
-          “{verse.text}”
-          <span className="mt-1 block text-xs font-semibold not-italic tracking-[0.2em] text-amber-300/70">
-            {verse.ref}
-          </span>
-        </motion.p>
+        <div className="mt-6 flex min-h-24 max-w-md items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={verse.ref}
+              initial={{ opacity: 0, y: 9, filter: "blur(5px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -7, filter: "blur(4px)" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="font-display text-[15px] italic leading-relaxed text-[#e9dcc4]/80 sm:text-base"
+            >
+              “{verse.text}”
+              <span className="mt-1 block text-xs font-semibold not-italic tracking-[0.2em] text-amber-300/70">
+                {verse.ref}
+              </span>
+            </motion.p>
+          </AnimatePresence>
+        </div>
 
         {/* Best score */}
         {best && (
