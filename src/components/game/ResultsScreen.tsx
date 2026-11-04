@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api-client";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -35,17 +37,26 @@ const VERSES: Record<GameResult["outcome"], { text: string; ref: string }> = {
 };
 
 export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsScreenProps) {
+  const [history, setHistory] = useState<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number } | null>(null);
+  const [historyError, setHistoryError] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    void api<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number }>("/api/player")
+      .then(value => { if (mounted) setHistory(value); })
+      .catch(() => { if (mounted) setHistoryError(true); });
+    return () => { mounted = false; };
+  }, []);
   const won = result.outcome === "won";
   const walked = result.outcome === "walked";
 
   const headline = won
-    ? "¡Corona de Gloria!"
+    ? "¡Eres Biblionario!"
     : walked
       ? "Te retiras en paz"
       : "El camino termina aquí";
 
   const subline = won
-    ? "Has respondido las quince preguntas. ¡Un millón de Coronas! Bien, buen siervo y fiel."
+    ? "Has respondido las quince preguntas: sumas un millón de Coronas a tu historial y una Corona de conocimiento por esta victoria."
     : walked
       ? `Te retiraste en la pregunta ${result.level}, conservando las Coronas ganadas.`
       : `Tu camino terminó en la pregunta ${result.level} de 15. Conservas lo ganado en el último refugio seguro.`;
@@ -121,6 +132,9 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
         </motion.div>
 
         {/* Subline */}
+        <div aria-live="polite" className="mt-5 text-sm text-amber-200">
+          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} Coronas de conocimiento · {history.gamesPlayed} partidas</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Fe." : "Consultando tu historial…"}</p>}
+        </div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

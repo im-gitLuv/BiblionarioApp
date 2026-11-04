@@ -141,7 +141,7 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
     <div className="relative flex min-h-screen flex-col">
       <header className="border-b border-amber-500/15 bg-[#150d06]/78 px-4 py-3 backdrop-blur-md sm:px-7">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-          <span className="flex items-center gap-2 font-display text-lg font-semibold text-amber-200 sm:text-xl"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Corona de Gloria</span>
+          <span className="flex items-center gap-2 font-display text-lg font-semibold text-amber-200 sm:text-xl"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Biblionario</span>
           <div className="hidden text-center sm:block">
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400/80">Pregunta {game.level} de 15</p>
             <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>

@@ -21,7 +21,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
- title: "Corona de Gloria — Biblionario",
+ title: "¿Quién quiere ser Biblionario?",
  description: "Quince preguntas bíblicas, tres comodines y un millón de Coronas. Recorre las Escrituras y entra al Salón de la Fe.",
  icons: {icon:"/crown.svg"},
 };

@@ -2,7 +2,16 @@ import { z } from 'zod';
 import { db } from '@/lib/db';
 import { createPlayer, handle, player, sameOrigin } from '@/lib/server/http';
 export const runtime = 'nodejs';
-export async function GET() { return handle(async () => { const p = await player(); return { name: p.name }; }); }
+export async function GET() {
+    return handle(async () => {
+        const p = await player();
+        const [totals, knowledgeCrowns] = await Promise.all([
+            db.game.aggregate({ where: { playerId: p.id, status: { in: ['won', 'walked', 'lost'] } }, _sum: { amount: true }, _count: true }),
+            db.game.count({ where: { playerId: p.id, status: 'won' } }),
+        ]);
+        return { name: p.name, totalCrowns: totals._sum.amount ?? 0, knowledgeCrowns, gamesPlayed: totals._count };
+    });
+}
 export async function POST(request: Request) {
     return handle(async () => {
         sameOrigin(request);

@@ -673,5 +673,6755 @@
     "answer": 0,
     "reference": "1 Reyes 11:29-31",
     "active": true
+  },
+  {
+    "id": "es-exp-l01-001",
+    "level": 1,
+    "category": "Creación",
+    "prompt": "¿Qué recibió la luz como nombre en el relato de la creación?",
+    "options": [
+      "Día",
+      "Cielo",
+      "Tierra",
+      "Aurora"
+    ],
+    "answer": 0,
+    "reference": "Génesis 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-002",
+    "level": 1,
+    "category": "Creación",
+    "prompt": "¿Qué día del relato de Génesis aparecieron el sol y la luna como grandes lumbreras?",
+    "options": [
+      "El cuarto",
+      "El primero",
+      "El segundo",
+      "El sexto"
+    ],
+    "answer": 0,
+    "reference": "Génesis 1:14-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-003",
+    "level": 1,
+    "category": "Génesis",
+    "prompt": "¿De qué material formó Dios al hombre según Génesis 2?",
+    "options": [
+      "Del polvo de la tierra",
+      "Del agua del río",
+      "De una piedra del huerto",
+      "De madera del jardín"
+    ],
+    "answer": 0,
+    "reference": "Génesis 2:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-004",
+    "level": 1,
+    "category": "Génesis",
+    "prompt": "¿Qué oficio ejercía Abel, a diferencia de Caín?",
+    "options": [
+      "Pastor de ovejas",
+      "Labrador",
+      "Herrero",
+      "Constructor de ciudades"
+    ],
+    "answer": 0,
+    "reference": "Génesis 4:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-005",
+    "level": 1,
+    "category": "Patriarcas",
+    "prompt": "¿Quién recibió la orden de salir de su tierra hacia una tierra que Dios le mostraría?",
+    "options": [
+      "Abram",
+      "Labán",
+      "Esaú",
+      "Abimelec"
+    ],
+    "answer": 0,
+    "reference": "Génesis 12:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-006",
+    "level": 1,
+    "category": "Patriarcas",
+    "prompt": "¿Qué parentesco tenía Lot con Abram?",
+    "options": [
+      "Era su sobrino",
+      "Era su hermano",
+      "Era su hijo",
+      "Era su suegro"
+    ],
+    "answer": 0,
+    "reference": "Génesis 12:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-007",
+    "level": 1,
+    "category": "Patriarcas",
+    "prompt": "¿Qué nombre recibió Jacob después de luchar durante la noche?",
+    "options": [
+      "Israel",
+      "Edom",
+      "Judá",
+      "Benjamín"
+    ],
+    "answer": 0,
+    "reference": "Génesis 32:28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-008",
+    "level": 1,
+    "category": "Patriarcas",
+    "prompt": "¿Qué hijo de Jacob recibió de su padre una túnica especial que provocó celos?",
+    "options": [
+      "José",
+      "Rubén",
+      "Dan",
+      "Leví"
+    ],
+    "answer": 0,
+    "reference": "Génesis 37:3-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-009",
+    "level": 1,
+    "category": "Éxodo",
+    "prompt": "¿Quién encontró al niño Moisés dentro de una arquilla en el río?",
+    "options": [
+      "La hija de Faraón",
+      "La esposa de Aarón",
+      "Una hija de Jetro",
+      "La madre de Josué"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 2:5-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-010",
+    "level": 1,
+    "category": "Éxodo",
+    "prompt": "¿Qué veía Moisés en la zarza que llamó su atención?",
+    "options": [
+      "Ardía sin consumirse",
+      "Se convertía en serpiente",
+      "Daba fruto en invierno",
+      "Se movía sin viento"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 3:2-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-011",
+    "level": 1,
+    "category": "Éxodo",
+    "prompt": "¿Quién acompañó a Moisés como portavoz ante el pueblo y Faraón?",
+    "options": [
+      "Aarón",
+      "Caleb",
+      "Hur",
+      "Josué"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 4:14-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-012",
+    "level": 1,
+    "category": "Ley y vida diaria",
+    "prompt": "¿Qué mandamiento relaciona honrar a los padres con prolongar los días en la tierra?",
+    "options": [
+      "Honrar al padre y a la madre",
+      "No levantar falso testimonio",
+      "No codiciar",
+      "No hurtar"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 20:12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-013",
+    "level": 1,
+    "category": "Conquista",
+    "prompt": "¿Qué río cruzó Israel al entrar en la tierra bajo el liderazgo de Josué?",
+    "options": [
+      "El Jordán",
+      "El Nilo",
+      "El Éufrates",
+      "El Tigris"
+    ],
+    "answer": 0,
+    "reference": "Josué 3:14-17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-014",
+    "level": 1,
+    "category": "Jueces",
+    "prompt": "¿Qué mujer ejercía como profetisa y juzgaba a Israel bajo una palmera?",
+    "options": [
+      "Débora",
+      "Jezabel",
+      "Dalila",
+      "Mical"
+    ],
+    "answer": 0,
+    "reference": "Jueces 4:4-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-015",
+    "level": 1,
+    "category": "Rut",
+    "prompt": "¿A quién decidió acompañar Rut cuando pudo regresar a su propio pueblo?",
+    "options": [
+      "A Noemí",
+      "A Ester",
+      "A Rahab",
+      "A Débora"
+    ],
+    "answer": 0,
+    "reference": "Rut 1:16-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-016",
+    "level": 1,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién oyó que lo llamaban de noche mientras servía con el sacerdote Elí?",
+    "options": [
+      "Samuel",
+      "Salomón",
+      "Natán",
+      "Gad"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 3:4-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-017",
+    "level": 1,
+    "category": "Reyes",
+    "prompt": "¿Qué pidió Salomón a Dios para gobernar al pueblo?",
+    "options": [
+      "Entendimiento para juzgar",
+      "Más riquezas que Egipto",
+      "La muerte de todos sus enemigos",
+      "Una vida sin fin"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 3:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-018",
+    "level": 1,
+    "category": "Poesía",
+    "prompt": "En el Salmo 23, ¿con qué figura describe David a Jehová?",
+    "options": [
+      "Un pastor",
+      "Un alfarero",
+      "Un centinela",
+      "Un labrador"
+    ],
+    "answer": 0,
+    "reference": "Salmos 23:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-019",
+    "level": 1,
+    "category": "Sabiduría",
+    "prompt": "Según Proverbios 3, ¿en quién debe confiar una persona con todo su corazón?",
+    "options": [
+      "En Jehová",
+      "En su propia prudencia",
+      "En su riqueza",
+      "En su fama"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 3:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-020",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Qué oficio tenían Simón y Andrés cuando Jesús los llamó junto al mar?",
+    "options": [
+      "Pescadores",
+      "Recaudadores",
+      "Carpinteros",
+      "Sacerdotes"
+    ],
+    "answer": 0,
+    "reference": "Marcos 1:16-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-021",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Qué pidió Jesús al recaudador Mateo cuando lo vio sentado al banco de los tributos?",
+    "options": [
+      "Que lo siguiera",
+      "Que entregara su bolsa a Pedro",
+      "Que viajara a Roma",
+      "Que cerrara el templo"
+    ],
+    "answer": 0,
+    "reference": "Mateo 9:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-022",
+    "level": 1,
+    "category": "Parábolas",
+    "prompt": "En la parábola del sembrador, ¿qué representa la semilla según la explicación de Jesús en Lucas?",
+    "options": [
+      "La palabra de Dios",
+      "El dinero de los discípulos",
+      "Las obras de los fariseos",
+      "Los imperios de la tierra"
+    ],
+    "answer": 0,
+    "reference": "Lucas 8:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-023",
+    "level": 1,
+    "category": "Parábolas",
+    "prompt": "¿Qué encontró el pastor de la parábola después de dejar las noventa y nueve?",
+    "options": [
+      "La oveja perdida",
+      "Una moneda de plata",
+      "Un hijo fugitivo",
+      "Un tesoro enterrado"
+    ],
+    "answer": 0,
+    "reference": "Lucas 15:4-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-024",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Qué mujer se sentó a los pies de Jesús para oír su palabra mientras su hermana servía?",
+    "options": [
+      "María",
+      "Marta",
+      "Elisabet",
+      "Salomé"
+    ],
+    "answer": 0,
+    "reference": "Lucas 10:39-40",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-025",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Qué hizo Jesús antes de repartir los panes a la multitud en Juan 6?",
+    "options": [
+      "Dio gracias",
+      "Pidió comprar trigo",
+      "Ordenó encender un horno",
+      "Envió a todos a sus casas"
+    ],
+    "answer": 0,
+    "reference": "Juan 6:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-026",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Quién subió a un árbol para poder ver a Jesús entre la multitud?",
+    "options": [
+      "Zaqueo",
+      "Nicodemo",
+      "Bartimeo",
+      "Jairo"
+    ],
+    "answer": 0,
+    "reference": "Lucas 19:2-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-027",
+    "level": 1,
+    "category": "Evangelios",
+    "prompt": "¿Qué gritó Bartimeo cuando oyó que Jesús pasaba?",
+    "options": [
+      "Que tuviera misericordia de él",
+      "Que le pagara una deuda",
+      "Que entrara en su sinagoga",
+      "Que detuviera a los soldados"
+    ],
+    "answer": 0,
+    "reference": "Marcos 10:46-48",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-028",
+    "level": 1,
+    "category": "Hechos",
+    "prompt": "¿Qué hacían Pablo y Silas en la cárcel a medianoche?",
+    "options": [
+      "Oraban y cantaban",
+      "Discutían sobre el viaje",
+      "Escribían una carta a César",
+      "Dormían junto al carcelero"
+    ],
+    "answer": 0,
+    "reference": "Hechos 16:25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-029",
+    "level": 1,
+    "category": "Epístolas",
+    "prompt": "¿Qué enseña Santiago que debe pedir a Dios quien carece de sabiduría?",
+    "options": [
+      "Sabiduría",
+      "Una señal astronómica",
+      "Una posición de autoridad",
+      "Un templo propio"
+    ],
+    "answer": 0,
+    "reference": "Santiago 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l01-030",
+    "level": 1,
+    "category": "Epístolas",
+    "prompt": "¿Cuál de estos frutos aparece expresamente en la lista del fruto del Espíritu?",
+    "options": [
+      "Paciencia",
+      "Prestigio",
+      "Riqueza",
+      "Popularidad"
+    ],
+    "answer": 0,
+    "reference": "Gálatas 5:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-001",
+    "level": 2,
+    "category": "Patriarcas",
+    "prompt": "¿De qué salió Abram con Lot cuando se dirigieron a Canaán en Génesis 12?",
+    "options": [
+      "De Harán",
+      "De Nínive",
+      "De Jerusalén",
+      "De Susa"
+    ],
+    "answer": 0,
+    "reference": "Génesis 12:4-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-002",
+    "level": 2,
+    "category": "Patriarcas",
+    "prompt": "¿Qué propuso Abram a Lot para terminar la contienda entre sus pastores?",
+    "options": [
+      "Separarse y escoger territorios",
+      "Vender todos los rebaños",
+      "Acudir al rey de Egipto",
+      "Expulsar a los siervos de Lot"
+    ],
+    "answer": 0,
+    "reference": "Génesis 13:8-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-003",
+    "level": 2,
+    "category": "Patriarcas",
+    "prompt": "¿Qué estaba haciendo Rebeca cuando el siervo de Abraham la encontró junto al pozo?",
+    "options": [
+      "Sacando agua",
+      "Vendiendo telas",
+      "Cuidando ovejas",
+      "Recogiendo espigas"
+    ],
+    "answer": 0,
+    "reference": "Génesis 24:15-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-004",
+    "level": 2,
+    "category": "Patriarcas",
+    "prompt": "¿Qué relación unía a Jacob y Esaú al nacer?",
+    "options": [
+      "Eran gemelos",
+      "Eran primos",
+      "Eran tío y sobrino",
+      "Eran hermanastros de distinta madre"
+    ],
+    "answer": 0,
+    "reference": "Génesis 25:24-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-005",
+    "level": 2,
+    "category": "Génesis",
+    "prompt": "¿A qué país fue llevado José después de ser vendido por sus hermanos?",
+    "options": [
+      "Egipto",
+      "Asiria",
+      "Moab",
+      "Media"
+    ],
+    "answer": 0,
+    "reference": "Génesis 37:28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-006",
+    "level": 2,
+    "category": "Génesis",
+    "prompt": "¿Qué explicaba José sobre la capacidad de interpretar sueños ante Faraón?",
+    "options": [
+      "Que Dios daría la respuesta",
+      "Que venía de estudiar magia",
+      "Que era exclusiva de los egipcios",
+      "Que dependía de una copa de oro"
+    ],
+    "answer": 0,
+    "reference": "Génesis 41:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-007",
+    "level": 2,
+    "category": "Éxodo",
+    "prompt": "¿Qué debían quitarse los israelitas de sus casas durante la fiesta de los panes sin levadura?",
+    "options": [
+      "La levadura",
+      "Todas las vasijas",
+      "Las lámparas",
+      "Los vestidos de lana"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 12:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-008",
+    "level": 2,
+    "category": "Éxodo",
+    "prompt": "¿Con qué guiaba Jehová al pueblo de noche durante la salida de Egipto?",
+    "options": [
+      "Una columna de fuego",
+      "Una estrella sobre el mar",
+      "Una lámpara llevada por Aarón",
+      "Una nube de langostas"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 13:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-009",
+    "level": 2,
+    "category": "Éxodo",
+    "prompt": "¿Qué mandamiento prohíbe dar testimonio falso contra otra persona?",
+    "options": [
+      "No hablar contra el prójimo falso testimonio",
+      "No tomar el nombre de Dios en vano",
+      "No codiciar la casa del prójimo",
+      "No trabajar el séptimo día"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 20:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-010",
+    "level": 2,
+    "category": "Ley y justicia",
+    "prompt": "¿Cómo debía tratar Israel al extranjero que vivía entre ellos según Levítico 19?",
+    "options": [
+      "Amarlo como a uno mismo",
+      "Negarle el acceso al trabajo",
+      "Cobrarle doble en el mercado",
+      "Obligarlo a vivir fuera del territorio"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:33-34",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-011",
+    "level": 2,
+    "category": "Ley y justicia",
+    "prompt": "¿A quiénes se destinaban las espigas que quedaban después de la siega?",
+    "options": [
+      "Al pobre y al extranjero",
+      "Solo al sacerdote principal",
+      "Solo al dueño de la parcela",
+      "A los soldados del rey"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:9-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-012",
+    "level": 2,
+    "category": "Deuteronomio",
+    "prompt": "¿Con qué debía amar Israel a Jehová según Deuteronomio 6?",
+    "options": [
+      "Con corazón, alma y fuerzas",
+      "Solo con ofrendas",
+      "Solo con conocimientos",
+      "Con campañas militares"
+    ],
+    "answer": 0,
+    "reference": "Deuteronomio 6:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-013",
+    "level": 2,
+    "category": "Conquista",
+    "prompt": "¿Quién protegió a los espías enviados por Josué a Jericó?",
+    "options": [
+      "Rahab",
+      "Rut",
+      "Acsa",
+      "Débora"
+    ],
+    "answer": 0,
+    "reference": "Josué 2:1-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-014",
+    "level": 2,
+    "category": "Conquista",
+    "prompt": "¿Qué ciudad vio caer sus muros después de las vueltas de Israel y el clamor del pueblo?",
+    "options": [
+      "Jericó",
+      "Hai",
+      "Hebrón",
+      "Gabaón"
+    ],
+    "answer": 0,
+    "reference": "Josué 6:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-015",
+    "level": 2,
+    "category": "Jueces",
+    "prompt": "¿Qué redujo Dios antes de que Gedeón enfrentara a los madianitas?",
+    "options": [
+      "El número de sus soldados",
+      "La duración de la noche",
+      "La altura del monte",
+      "El caudal del río Jordán"
+    ],
+    "answer": 0,
+    "reference": "Jueces 7:2-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-016",
+    "level": 2,
+    "category": "Rut",
+    "prompt": "¿Qué actividad realizaba Rut en los campos de Booz para conseguir alimento?",
+    "options": [
+      "Recogía espigas",
+      "Pisaba uvas",
+      "Fabricaba aceite",
+      "Vendía ganado"
+    ],
+    "answer": 0,
+    "reference": "Rut 2:2-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-017",
+    "level": 2,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué llevaba David además de su cayado cuando se acercó a Goliat?",
+    "options": [
+      "Una honda y piedras del arroyo",
+      "Una lanza de bronce",
+      "La armadura completa de Saúl",
+      "Un arco filisteo"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 17:40",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-018",
+    "level": 2,
+    "category": "Reyes y profetas",
+    "prompt": "¿Quién alimentó a Elías junto al arroyo Querit por orden de Dios?",
+    "options": [
+      "Los cuervos",
+      "Los sacerdotes de Baal",
+      "Los soldados de Acab",
+      "Los pescadores de Sidón"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 17:4-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-019",
+    "level": 2,
+    "category": "Reyes y profetas",
+    "prompt": "¿En qué río debía lavarse Naamán para ser limpio de su lepra?",
+    "options": [
+      "El Jordán",
+      "El Abana",
+      "El Farfar",
+      "El Nilo"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 5:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-020",
+    "level": 2,
+    "category": "Exilio y retorno",
+    "prompt": "¿Qué oficio desempeñaba Nehemías ante el rey antes de ir a Jerusalén?",
+    "options": [
+      "Copero",
+      "Jefe de caballería",
+      "Médico",
+      "Escriba del templo"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 1:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-021",
+    "level": 2,
+    "category": "Sabiduría",
+    "prompt": "Según Proverbios 15:1, ¿qué efecto puede tener una respuesta suave?",
+    "options": [
+      "Calmar la ira",
+      "Hacer inútil toda corrección",
+      "Garantizar riquezas",
+      "Eliminar la necesidad de escuchar"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 15:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-022",
+    "level": 2,
+    "category": "Sabiduría",
+    "prompt": "¿Qué recomienda Proverbios 6 observar para aprender diligencia?",
+    "options": [
+      "La hormiga",
+      "El león",
+      "El pavo real",
+      "El caballo de guerra"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 6:6-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-023",
+    "level": 2,
+    "category": "Evangelios",
+    "prompt": "¿Qué convirtió Jesús en vino en la boda de Caná?",
+    "options": [
+      "Agua",
+      "Aceite",
+      "Leche",
+      "Vinagre"
+    ],
+    "answer": 0,
+    "reference": "Juan 2:7-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-024",
+    "level": 2,
+    "category": "Evangelios",
+    "prompt": "¿En qué lugar habló Jesús con la mujer samaritana sobre el agua viva?",
+    "options": [
+      "Junto al pozo de Jacob",
+      "Dentro del templo de Jerusalén",
+      "En el palacio de Herodes",
+      "En una barca del mar de Galilea"
+    ],
+    "answer": 0,
+    "reference": "Juan 4:6-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-025",
+    "level": 2,
+    "category": "Parábolas",
+    "prompt": "¿Quién ayudó al herido en la parábola del buen samaritano?",
+    "options": [
+      "Un samaritano",
+      "El sacerdote que pasó",
+      "El levita que pasó",
+      "El dueño del campo"
+    ],
+    "answer": 0,
+    "reference": "Lucas 10:30-35",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-026",
+    "level": 2,
+    "category": "Evangelios",
+    "prompt": "¿Qué llevó el hijo menor a pedir a su padre antes de partir lejos en la parábola?",
+    "options": [
+      "La parte de la herencia",
+      "El puesto de su hermano",
+      "Una carta para el rey",
+      "Un rebaño prestado"
+    ],
+    "answer": 0,
+    "reference": "Lucas 15:11-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-027",
+    "level": 2,
+    "category": "Evangelios",
+    "prompt": "¿Quién acudió de noche a conversar con Jesús sobre nacer de nuevo?",
+    "options": [
+      "Nicodemo",
+      "Caifás",
+      "Anás",
+      "Herodes"
+    ],
+    "answer": 0,
+    "reference": "Juan 3:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-028",
+    "level": 2,
+    "category": "Hechos",
+    "prompt": "¿Qué oficio tenía la mujer llamada Lidia en Filipos?",
+    "options": [
+      "Vendedora de púrpura",
+      "Fabricante de tiendas",
+      "Alfarera",
+      "Recaudadora de tributos"
+    ],
+    "answer": 0,
+    "reference": "Hechos 16:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-029",
+    "level": 2,
+    "category": "Epístolas",
+    "prompt": "¿Qué compara Santiago con un fuego pequeño capaz de encender un gran bosque?",
+    "options": [
+      "La lengua",
+      "La pobreza",
+      "La hospitalidad",
+      "El ayuno"
+    ],
+    "answer": 0,
+    "reference": "Santiago 3:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l02-030",
+    "level": 2,
+    "category": "Epístolas",
+    "prompt": "En 1 Corintios 13, ¿qué permanece junto con la fe y la esperanza y es mayor que ellas?",
+    "options": [
+      "El amor",
+      "El conocimiento de idiomas",
+      "La profecía",
+      "La elocuencia"
+    ],
+    "answer": 0,
+    "reference": "1 Corintios 13:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-001",
+    "level": 3,
+    "category": "Creación",
+    "prompt": "¿Qué colocó Dios al oriente de Edén para guardar el acceso al árbol de la vida?",
+    "options": [
+      "Querubines y una espada encendida",
+      "Un altar y un arcoíris",
+      "Una torre y una muralla",
+      "Una nube y una columna de humo"
+    ],
+    "answer": 0,
+    "reference": "Génesis 3:24",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-002",
+    "level": 3,
+    "category": "Génesis",
+    "prompt": "¿Qué ciudad construían quienes intentaron hacerse un nombre con una torre?",
+    "options": [
+      "Babel",
+      "Nínive",
+      "Jericó",
+      "Siquem"
+    ],
+    "answer": 0,
+    "reference": "Génesis 11:4-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-003",
+    "level": 3,
+    "category": "Patriarcas",
+    "prompt": "¿Qué nombre puso Abraham al lugar donde Dios proveyó el carnero para el sacrificio?",
+    "options": [
+      "Jehová-jireh",
+      "Betel",
+      "Mahanaim",
+      "Peniel"
+    ],
+    "answer": 0,
+    "reference": "Génesis 22:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-004",
+    "level": 3,
+    "category": "Patriarcas",
+    "prompt": "¿De quién era hija Rebeca según el relato de su encuentro con el siervo de Abraham?",
+    "options": [
+      "De Betuel",
+      "De Labán",
+      "De Nacor",
+      "De Harán"
+    ],
+    "answer": 0,
+    "reference": "Génesis 24:24",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-005",
+    "level": 3,
+    "category": "Patriarcas",
+    "prompt": "¿Qué soñó Jacob mientras dormía en el lugar que llamó Betel?",
+    "options": [
+      "Una escalera con ángeles que subían y descendían",
+      "Siete vacas devoradas por otras siete",
+      "Once estrellas inclinándose",
+      "Un candelabro entre olivos"
+    ],
+    "answer": 0,
+    "reference": "Génesis 28:12-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-006",
+    "level": 3,
+    "category": "Génesis",
+    "prompt": "¿Qué hermano de José propuso venderlo en lugar de matarlo?",
+    "options": [
+      "Judá",
+      "Benjamín",
+      "Simeón",
+      "Neftalí"
+    ],
+    "answer": 0,
+    "reference": "Génesis 37:26-27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-007",
+    "level": 3,
+    "category": "Éxodo",
+    "prompt": "¿Cómo respondió Faraón inicialmente a la petición de Moisés de dejar ir a Israel?",
+    "options": [
+      "Dijo que no conocía a Jehová y no dejaría ir al pueblo",
+      "Prometió escoltar al pueblo hasta Canaán",
+      "Abdicó en favor de Aarón",
+      "Ordenó construir el tabernáculo"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 5:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-008",
+    "level": 3,
+    "category": "Éxodo",
+    "prompt": "¿Dónde debían poner la sangre del cordero en la primera Pascua?",
+    "options": [
+      "En los postes y el dintel de la puerta",
+      "En el techo y las ventanas",
+      "En el suelo de la cocina",
+      "En la entrada del campamento"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 12:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-009",
+    "level": 3,
+    "category": "Éxodo",
+    "prompt": "¿Qué ocurrió con el maná guardado de un día para otro contra la instrucción de Moisés?",
+    "options": [
+      "Crio gusanos y hedió",
+      "Se convirtió en harina",
+      "Se transformó en codornices",
+      "Quedó conservado durante años"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 16:19-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-010",
+    "level": 3,
+    "category": "Éxodo",
+    "prompt": "¿Quiénes sostuvieron las manos de Moisés durante la batalla contra Amalec?",
+    "options": [
+      "Aarón y Hur",
+      "Josué y Caleb",
+      "Nadab y Abiú",
+      "Eliezer y Finees"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 17:12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-011",
+    "level": 3,
+    "category": "Ley y justicia",
+    "prompt": "¿Qué práctica comercial condena Levítico 19 al hablar de medidas y pesas?",
+    "options": [
+      "Usar medidas injustas",
+      "Vender aceite de oliva",
+      "Cultivar en terrazas",
+      "Intercambiar cebada por trigo"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:35-36",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-012",
+    "level": 3,
+    "category": "Ley y vida diaria",
+    "prompt": "¿Qué prohíbe Levítico 19 hacer delante de una persona ciega?",
+    "options": [
+      "Ponerle tropiezo",
+      "Ofrecerle alimento",
+      "Hablar con su familia",
+      "Darle un asiento"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-013",
+    "level": 3,
+    "category": "Deuteronomio",
+    "prompt": "¿En qué situaciones debían los padres hablar a sus hijos de las palabras mandadas por Dios?",
+    "options": [
+      "En casa, por el camino, al acostarse y al levantarse",
+      "Solo durante la peregrinación anual",
+      "Solo al cumplir treinta años",
+      "Únicamente antes de una batalla"
+    ],
+    "answer": 0,
+    "reference": "Deuteronomio 6:6-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-014",
+    "level": 3,
+    "category": "Conquista",
+    "prompt": "¿Qué señal debía poner Rahab en su ventana para que su casa fuera reconocida?",
+    "options": [
+      "Un cordón de grana",
+      "Una rama de olivo",
+      "Una lámpara de aceite",
+      "Un paño blanco"
+    ],
+    "answer": 0,
+    "reference": "Josué 2:18-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-015",
+    "level": 3,
+    "category": "Jueces",
+    "prompt": "¿Qué llevaba cada grupo de los hombres de Gedeón al rodear el campamento?",
+    "options": [
+      "Trompetas y cántaros con teas",
+      "Arcos y carros de hierro",
+      "Escudos de oro y lanzas",
+      "Redes y cadenas"
+    ],
+    "answer": 0,
+    "reference": "Jueces 7:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-016",
+    "level": 3,
+    "category": "Rut",
+    "prompt": "¿Cómo se llamaba la suegra a quien Rut acompañó hasta Belén?",
+    "options": [
+      "Noemí",
+      "Orfa",
+      "Lea",
+      "Tamar"
+    ],
+    "answer": 0,
+    "reference": "Rut 1:19-22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-017",
+    "level": 3,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué pidió el pueblo a Samuel al querer parecerse a las demás naciones?",
+    "options": [
+      "Un rey que los juzgara",
+      "Un nuevo templo en Betel",
+      "Un sacerdote extranjero",
+      "Una alianza con Asiria"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 8:4-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-018",
+    "level": 3,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué respondió Samuel a Saúl acerca del valor de obedecer frente a sacrificar?",
+    "options": [
+      "Obedecer es mejor que los sacrificios",
+      "Los sacrificios sustituyen cualquier obediencia",
+      "Solo importa la cantidad de animales",
+      "La obediencia depende del rango militar"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 15:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-019",
+    "level": 3,
+    "category": "Exilio y retorno",
+    "prompt": "¿Qué pidió Ester que hicieran los judíos de Susa antes de que ella entrara ante el rey?",
+    "options": [
+      "Que ayunaran tres días",
+      "Que abandonaran la ciudad",
+      "Que se armaran esa misma noche",
+      "Que llevaran regalos a Amán"
+    ],
+    "answer": 0,
+    "reference": "Ester 4:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-020",
+    "level": 3,
+    "category": "Job",
+    "prompt": "¿Qué hicieron los amigos de Job durante sus primeros siete días junto a él?",
+    "options": [
+      "Se sentaron con él sin hablar",
+      "Le exigieron que pagara una deuda",
+      "Reconstruyeron su casa",
+      "Presentaron una denuncia al rey"
+    ],
+    "answer": 0,
+    "reference": "Job 2:11-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-021",
+    "level": 3,
+    "category": "Poesía",
+    "prompt": "¿Qué compara el Salmo 1 con un árbol plantado junto a corrientes de aguas?",
+    "options": [
+      "A quien se deleita en la ley de Jehová",
+      "A quien obtiene fama entre reyes",
+      "A quien reúne muchas armas",
+      "A quien cambia de consejo cada día"
+    ],
+    "answer": 0,
+    "reference": "Salmos 1:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-022",
+    "level": 3,
+    "category": "Sabiduría",
+    "prompt": "¿Qué recomienda Proverbios 3:7 a quien se cree sabio en su propia opinión?",
+    "options": [
+      "Temer a Jehová y apartarse del mal",
+      "Confiar más en sus posesiones",
+      "Evitar toda corrección",
+      "Buscar un título de autoridad"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 3:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-023",
+    "level": 3,
+    "category": "Evangelios",
+    "prompt": "¿Qué respondió Jesús a quienes querían impedir que los niños se acercaran?",
+    "options": [
+      "Que los dejaran venir a él",
+      "Que esperaran hasta ser adultos",
+      "Que primero aprendieran un oficio",
+      "Que se quedaran fuera de la casa"
+    ],
+    "answer": 0,
+    "reference": "Marcos 10:13-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-024",
+    "level": 3,
+    "category": "Evangelios",
+    "prompt": "¿Qué observó Jesús en quienes llevaron al paralítico y lo bajaron por el techo?",
+    "options": [
+      "Fe",
+      "Riqueza",
+      "Autoridad sacerdotal",
+      "Ciudadanía romana"
+    ],
+    "answer": 0,
+    "reference": "Marcos 2:3-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-025",
+    "level": 3,
+    "category": "Parábolas",
+    "prompt": "¿Qué construyó el hombre que oyó las palabras de Jesús y las puso en práctica en la comparación de Mateo 7?",
+    "options": [
+      "Una casa sobre la roca",
+      "Una casa sobre la arena",
+      "Un granero sobre la playa",
+      "Una torre sin fundamento"
+    ],
+    "answer": 0,
+    "reference": "Mateo 7:24-27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-026",
+    "level": 3,
+    "category": "Evangelios",
+    "prompt": "¿Qué sucedió con los diez leprosos mientras iban a mostrarse a los sacerdotes?",
+    "options": [
+      "Fueron limpiados",
+      "Se les prohibió entrar en cualquier ciudad",
+      "Recibieron monedas de los sacerdotes",
+      "Fueron enviados al Jordán"
+    ],
+    "answer": 0,
+    "reference": "Lucas 17:12-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-027",
+    "level": 3,
+    "category": "Evangelios",
+    "prompt": "¿Cuántos de los diez leprosos regresaron a glorificar a Dios y agradecer a Jesús?",
+    "options": [
+      "Uno",
+      "Dos",
+      "Cinco",
+      "Los diez"
+    ],
+    "answer": 0,
+    "reference": "Lucas 17:15-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-028",
+    "level": 3,
+    "category": "Hechos",
+    "prompt": "¿Qué hacía la iglesia mientras Pedro estaba preso bajo custodia de Herodes?",
+    "options": [
+      "Oraba sin cesar por él",
+      "Elegía a su sucesor definitivo",
+      "Organizaba un ejército",
+      "Abandonaba Jerusalén por orden de Pedro"
+    ],
+    "answer": 0,
+    "reference": "Hechos 12:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-029",
+    "level": 3,
+    "category": "Epístolas",
+    "prompt": "¿Qué aconseja Pablo en Romanos 12:21 frente al mal?",
+    "options": [
+      "Vencerlo con el bien",
+      "Responder con un mal mayor",
+      "Ignorarlo siempre sin actuar",
+      "Delegarlo a los más fuertes"
+    ],
+    "answer": 0,
+    "reference": "Romanos 12:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l03-030",
+    "level": 3,
+    "category": "Epístolas",
+    "prompt": "¿Qué debe hacer el creyente además de oír la palabra, según Santiago?",
+    "options": [
+      "Ponerla por obra",
+      "Esperar que otros la obedezcan",
+      "Confiar solo en recordarla",
+      "Evitar examinar su conducta"
+    ],
+    "answer": 0,
+    "reference": "Santiago 1:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-001",
+    "level": 4,
+    "category": "Patriarcas",
+    "prompt": "¿Qué ofreció Melquisedec cuando salió al encuentro de Abram?",
+    "options": [
+      "Pan y vino",
+      "Aceite y sal",
+      "Leche y miel",
+      "Trigo y lentejas"
+    ],
+    "answer": 0,
+    "reference": "Génesis 14:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-002",
+    "level": 4,
+    "category": "Patriarcas",
+    "prompt": "¿Qué hizo Abram después de recibir la bendición de Melquisedec?",
+    "options": [
+      "Abram le dio los diezmos de todo",
+      "Abram lo nombró rey de Egipto",
+      "Abram lo convirtió en sacerdote de su casa",
+      "Abram le entregó a Lot como siervo"
+    ],
+    "answer": 0,
+    "reference": "Génesis 14:19-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-003",
+    "level": 4,
+    "category": "Patriarcas",
+    "prompt": "¿Cómo mostró Rebeca hospitalidad al siervo de Abraham más allá de darle de beber?",
+    "options": [
+      "También sacó agua para sus camellos",
+      "Le regaló todas sus joyas",
+      "Lo acompañó inmediatamente a Egipto",
+      "Le ofreció el pozo como propiedad"
+    ],
+    "answer": 0,
+    "reference": "Génesis 24:18-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-004",
+    "level": 4,
+    "category": "Génesis",
+    "prompt": "¿Qué cargo tenía Potifar, quien compró a José en Egipto?",
+    "options": [
+      "Capitán de la guardia de Faraón",
+      "Jefe de los panaderos",
+      "Intérprete principal de sueños",
+      "Gobernador de Gosén"
+    ],
+    "answer": 0,
+    "reference": "Génesis 39:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-005",
+    "level": 4,
+    "category": "Génesis",
+    "prompt": "¿Qué hizo José al reconocer a sus hermanos, mientras ellos no lo reconocieron?",
+    "options": [
+      "Les habló ásperamente y los trató como extraños",
+      "Les reveló de inmediato quién era",
+      "Mandó matar a todos",
+      "Renunció a su cargo delante de ellos"
+    ],
+    "answer": 0,
+    "reference": "Génesis 42:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-006",
+    "level": 4,
+    "category": "Éxodo",
+    "prompt": "¿Qué excusa presentó Moisés acerca de su manera de hablar al recibir el llamado?",
+    "options": [
+      "Que era torpe de boca y de lengua",
+      "Que solo hablaba griego",
+      "Que había hecho voto de silencio",
+      "Que nunca había escuchado hablar a un egipcio"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 4:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-007",
+    "level": 4,
+    "category": "Éxodo",
+    "prompt": "¿Qué motivo dio Dios para no guiar a Israel por el camino cercano de los filisteos?",
+    "options": [
+      "Que el pueblo podía arrepentirse al ver la guerra y volver a Egipto",
+      "Que el mar Rojo estaba seco permanentemente",
+      "Que Canaán quedaba fuera de ese camino",
+      "Que los filisteos ya habían abandonado su tierra"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 13:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-008",
+    "level": 4,
+    "category": "Éxodo",
+    "prompt": "¿En qué día debían recoger una doble porción de maná para descansar al siguiente?",
+    "options": [
+      "El sexto",
+      "El primero",
+      "El tercero",
+      "El séptimo"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 16:22-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-009",
+    "level": 4,
+    "category": "Éxodo",
+    "prompt": "¿Qué nombre se dio al altar edificado por Moisés tras vencer a Amalec?",
+    "options": [
+      "Jehová-nisi",
+      "Jehová-jireh",
+      "Betel",
+      "Ebenezer"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 17:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-010",
+    "level": 4,
+    "category": "Ley y justicia",
+    "prompt": "Según Levítico 19:15, ¿qué debe evitar quien juzga un pleito?",
+    "options": [
+      "Favorecer al pobre o complacer al poderoso por su condición",
+      "Escuchar a ambas partes",
+      "Examinar las pruebas",
+      "Aplicar una misma norma"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-011",
+    "level": 4,
+    "category": "Ley y justicia",
+    "prompt": "¿Qué debía hacer Israel con el salario del jornalero según Levítico 19?",
+    "options": [
+      "No retenerlo hasta la mañana",
+      "Retenerlo hasta la próxima cosecha",
+      "Pagar solo la mitad al extranjero",
+      "Entregarlo siempre a un sacerdote"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-012",
+    "level": 4,
+    "category": "Números",
+    "prompt": "¿Qué llevaron los exploradores desde el valle de Escol como muestra de la tierra?",
+    "options": [
+      "Un gran racimo de uvas",
+      "Un becerro de oro",
+      "Una vasija de maná",
+      "Un cofre de perfumes"
+    ],
+    "answer": 0,
+    "reference": "Números 13:23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-013",
+    "level": 4,
+    "category": "Deuteronomio",
+    "prompt": "¿De qué debía cuidarse Israel cuando disfrutara casas llenas y cisternas que no había hecho?",
+    "options": [
+      "De olvidarse de Jehová que lo sacó de Egipto",
+      "De sembrar trigo junto a su casa",
+      "De recibir visitantes",
+      "De beber agua de sus cisternas"
+    ],
+    "answer": 0,
+    "reference": "Deuteronomio 6:10-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-014",
+    "level": 4,
+    "category": "Conquista",
+    "prompt": "¿Dónde escondió Rahab a los dos espías cuando fueron a buscarlos?",
+    "options": [
+      "Entre manojos de lino en el terrado",
+      "En un sepulcro fuera de Jericó",
+      "Dentro de un pozo seco",
+      "Bajo el altar de un templo"
+    ],
+    "answer": 0,
+    "reference": "Josué 2:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-015",
+    "level": 4,
+    "category": "Jueces",
+    "prompt": "¿Quién clavó una estaca en la sien de Sísara mientras dormía?",
+    "options": [
+      "Jael",
+      "Débora",
+      "Acsa",
+      "Dalila"
+    ],
+    "answer": 0,
+    "reference": "Jueces 4:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-016",
+    "level": 4,
+    "category": "Jueces",
+    "prompt": "¿Qué pidió Gedeón en la primera señal relacionada con el vellón?",
+    "options": [
+      "Rocío solo sobre el vellón y tierra seca alrededor",
+      "Tierra mojada y vellón seco",
+      "Fuego sobre el vellón",
+      "Que el vellón cambiara de color"
+    ],
+    "answer": 0,
+    "reference": "Jueces 6:36-38",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-017",
+    "level": 4,
+    "category": "Rut",
+    "prompt": "¿Qué explicación dio Booz de por qué había oído hablar bien de Rut?",
+    "options": [
+      "Su cuidado de Noemí y haber dejado su tierra",
+      "Que había sido reina de Moab",
+      "Que poseía los mayores campos de Belén",
+      "Que descendía de Aarón"
+    ],
+    "answer": 0,
+    "reference": "Rut 2:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-018",
+    "level": 4,
+    "category": "Reyes y profetas",
+    "prompt": "¿Por qué Samuel dejó de mirar solo la estatura y apariencia de los hijos de Isaí?",
+    "options": [
+      "Porque Jehová mira el corazón",
+      "Porque David ya era el mayor",
+      "Porque todos eran sacerdotes",
+      "Porque Saúl había elegido al nuevo rey"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 16:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-019",
+    "level": 4,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué hizo David con Saúl cuando lo tuvo a su alcance en la cueva?",
+    "options": [
+      "Cortó la orilla de su manto y le perdonó la vida",
+      "Lo mató con su propia lanza",
+      "Lo llevó preso ante Samuel",
+      "Le quitó la corona y lo expulsó"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 24:4-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-020",
+    "level": 4,
+    "category": "Exilio y retorno",
+    "prompt": "¿Qué hizo Nehemías antes de responder al rey sobre su petición por Jerusalén?",
+    "options": [
+      "Oró al Dios de los cielos",
+      "Consultó un sorteo",
+      "Pidió la opinión de Sanbalat",
+      "Ayunó cuarenta días en la sala"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 2:4-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-021",
+    "level": 4,
+    "category": "Ester",
+    "prompt": "¿Qué advirtió Mardoqueo a Ester acerca de su posición en el palacio?",
+    "options": [
+      "Que no debía pensar que por ello escaparía de la amenaza",
+      "Que ya no pertenecía al pueblo judío",
+      "Que debía obedecer a Amán en todo",
+      "Que había sido elegida por sorteo entre los sacerdotes"
+    ],
+    "answer": 0,
+    "reference": "Ester 4:13-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-022",
+    "level": 4,
+    "category": "Job",
+    "prompt": "¿Qué aconsejó la esposa de Job cuando él estaba herido con llagas?",
+    "options": [
+      "Que maldijera a Dios y muriera",
+      "Que viajara a Jerusalén",
+      "Que pidiera otro sacrificio a sus amigos",
+      "Que se escondiera en Egipto"
+    ],
+    "answer": 0,
+    "reference": "Job 2:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-023",
+    "level": 4,
+    "category": "Sabiduría",
+    "prompt": "¿Qué comparación usa Proverbios 25 para una palabra dicha oportunamente?",
+    "options": [
+      "Manzanas de oro con figuras de plata",
+      "Hierro oxidado sobre la arena",
+      "Un muro derribado sin puertas",
+      "Una lámpara apagada al mediodía"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 25:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-024",
+    "level": 4,
+    "category": "Sabiduría",
+    "prompt": "Según Eclesiastés 3, ¿qué hay para todo lo que se quiere debajo del cielo?",
+    "options": [
+      "Un tiempo",
+      "Un precio fijo",
+      "Una respuesta inmediata",
+      "Una sola estación"
+    ],
+    "answer": 0,
+    "reference": "Eclesiastés 3:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-025",
+    "level": 4,
+    "category": "Evangelios",
+    "prompt": "¿Qué sintió el padre al ver de lejos al hijo que regresaba en Lucas 15?",
+    "options": [
+      "Misericordia",
+      "Deseos de venderlo",
+      "Temor de sus vecinos",
+      "Indiferencia"
+    ],
+    "answer": 0,
+    "reference": "Lucas 15:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-026",
+    "level": 4,
+    "category": "Evangelios",
+    "prompt": "¿Qué pidió el centurión de Capernaúm como suficiente para sanar a su criado?",
+    "options": [
+      "Que Jesús dijera la palabra",
+      "Que Jesús tocara su armadura",
+      "Que Pedro llevara agua del Jordán",
+      "Que el criado viajara a Jerusalén"
+    ],
+    "answer": 0,
+    "reference": "Mateo 8:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-027",
+    "level": 4,
+    "category": "Evangelios",
+    "prompt": "¿Qué autoridad quiso demostrar Jesús al ordenar que el paralítico se levantara?",
+    "options": [
+      "Que tenía autoridad para perdonar pecados",
+      "Que el paralítico era ciudadano romano",
+      "Que los fariseos habían perdido su oficio",
+      "Que la enfermedad se debía a un accidente"
+    ],
+    "answer": 0,
+    "reference": "Marcos 2:9-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-028",
+    "level": 4,
+    "category": "Hechos",
+    "prompt": "¿Qué hacía Dorcas antes de su muerte, según el testimonio sobre su vida?",
+    "options": [
+      "Abundaba en buenas obras y limosnas",
+      "Cobraba tributos en Jope",
+      "Comandaba la guarnición local",
+      "Vendía animales para sacrificios"
+    ],
+    "answer": 0,
+    "reference": "Hechos 9:36",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-029",
+    "level": 4,
+    "category": "Epístolas",
+    "prompt": "¿Qué ilustran la mano, el pie y el ojo en la enseñanza de 1 Corintios 12?",
+    "options": [
+      "La diversidad y unidad del cuerpo",
+      "La superioridad del que habla más",
+      "La inutilidad de los miembros débiles",
+      "La necesidad de un solo oficio para todos"
+    ],
+    "answer": 0,
+    "reference": "1 Corintios 12:14-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l04-030",
+    "level": 4,
+    "category": "Epístolas",
+    "prompt": "¿Qué debe acompañar a la fe para que no esté muerta, según Santiago 2?",
+    "options": [
+      "Obras",
+      "Ascendencia israelita",
+      "Fama pública",
+      "Un voto de pobreza"
+    ],
+    "answer": 0,
+    "reference": "Santiago 2:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-001",
+    "level": 5,
+    "category": "Patriarcas",
+    "prompt": "¿Qué rey de Salem era también sacerdote del Dios Altísimo?",
+    "options": [
+      "Melquisedec",
+      "Abimelec",
+      "Bera",
+      "Quedorlaomer"
+    ],
+    "answer": 0,
+    "reference": "Génesis 14:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-002",
+    "level": 5,
+    "category": "Patriarcas",
+    "prompt": "¿Qué cambió Dios en el nombre de Sarai al prometerle un hijo?",
+    "options": [
+      "La llamó Sara",
+      "La llamó Rebeca",
+      "La llamó Milca",
+      "La llamó Cetura"
+    ],
+    "answer": 0,
+    "reference": "Génesis 17:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-003",
+    "level": 5,
+    "category": "Patriarcas",
+    "prompt": "¿Qué había pedido el siervo de Abraham como señal al acercarse al pozo?",
+    "options": [
+      "Que la joven ofreciera agua también a los camellos",
+      "Que la joven llevara un anillo de oro",
+      "Que su padre estuviera sentado junto al pozo",
+      "Que el pozo estuviera completamente seco"
+    ],
+    "answer": 0,
+    "reference": "Génesis 24:12-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-004",
+    "level": 5,
+    "category": "Patriarcas",
+    "prompt": "¿Quién era el hermano de Rebeca que recibió al siervo de Abraham?",
+    "options": [
+      "Labán",
+      "Betuel",
+      "Isaac",
+      "Eliezer"
+    ],
+    "answer": 0,
+    "reference": "Génesis 24:29-31",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-005",
+    "level": 5,
+    "category": "Patriarcas",
+    "prompt": "¿Cuántos años sirvió Jacob primero por Raquel, antes de que Labán le diera a Lea?",
+    "options": [
+      "Siete",
+      "Tres",
+      "Diez",
+      "Catorce"
+    ],
+    "answer": 0,
+    "reference": "Génesis 29:18-25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-006",
+    "level": 5,
+    "category": "Génesis",
+    "prompt": "¿Qué pidió José al copero después de interpretar favorablemente su sueño?",
+    "options": [
+      "Que lo recordara ante Faraón",
+      "Que le diera el cargo de panadero",
+      "Que regresara a Canaán con Benjamín",
+      "Que escondiera una copa en un costal"
+    ],
+    "answer": 0,
+    "reference": "Génesis 40:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-007",
+    "level": 5,
+    "category": "Génesis",
+    "prompt": "¿Qué significaban los siete años de las vacas gordas y espigas llenas en el sueño de Faraón?",
+    "options": [
+      "Siete años de abundancia",
+      "Siete reyes aliados",
+      "Siete invasiones enemigas",
+      "Siete meses de lluvias"
+    ],
+    "answer": 0,
+    "reference": "Génesis 41:26-29",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-008",
+    "level": 5,
+    "category": "Éxodo",
+    "prompt": "¿Qué debía hacerse con los huesos del cordero de Pascua según la instrucción de Éxodo 12?",
+    "options": [
+      "No quebrarlos",
+      "Quemarlos antes de degollar el cordero",
+      "Enterrarlos fuera de Egipto",
+      "Colgarlos en el dintel"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 12:46",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-009",
+    "level": 5,
+    "category": "Éxodo",
+    "prompt": "¿Qué consejo dio Jetro a Moisés para no agotarse juzgando solo al pueblo?",
+    "options": [
+      "Nombrar hombres capaces para juzgar los asuntos menores",
+      "Dejar que Faraón resolviera los pleitos",
+      "Suspender todo juicio hasta llegar a Canaán",
+      "Entregar el cargo exclusivamente a Aarón"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 18:17-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-010",
+    "level": 5,
+    "category": "Éxodo",
+    "prompt": "¿Qué representación fabricó Aarón con el oro del pueblo mientras Moisés estaba en el monte?",
+    "options": [
+      "Un becerro",
+      "Una serpiente",
+      "Un león",
+      "Un querubín"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 32:2-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-011",
+    "level": 5,
+    "category": "Ley y justicia",
+    "prompt": "¿Qué mandato aparece junto con la prohibición de vengarse y guardar rencor?",
+    "options": [
+      "Amar al prójimo como a uno mismo",
+      "Duplicar toda restitución",
+      "Evitar al extranjero en el mercado",
+      "Dar toda la cosecha al rey"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-012",
+    "level": 5,
+    "category": "Ley y adoración",
+    "prompt": "¿Qué debían guardar los israelitas y reverenciar según Levítico 19:30?",
+    "options": [
+      "Los días de reposo y el santuario",
+      "Los caminos reales y los palacios",
+      "Las ciudades de refugio y los ejércitos",
+      "Los mercados y las balanzas"
+    ],
+    "answer": 0,
+    "reference": "Levítico 19:30",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-013",
+    "level": 5,
+    "category": "Números",
+    "prompt": "¿Qué dos exploradores rasgaron sus vestidos al oír la rebelión del pueblo y defendieron entrar en la tierra?",
+    "options": [
+      "Josué y Caleb",
+      "Moisés y Aarón",
+      "Nadab y Abiú",
+      "Eleazar y Finees"
+    ],
+    "answer": 0,
+    "reference": "Números 14:6-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-014",
+    "level": 5,
+    "category": "Deuteronomio",
+    "prompt": "¿Qué respuesta debían dar los padres cuando sus hijos preguntaran por las leyes y testimonios?",
+    "options": [
+      "Recordar que fueron esclavos en Egipto y Jehová los sacó",
+      "Decir que eran costumbres recibidas de Faraón",
+      "Explicar que cada tribu inventó sus reglas",
+      "Responder que solo los sacerdotes podían saberlo"
+    ],
+    "answer": 0,
+    "reference": "Deuteronomio 6:20-24",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-015",
+    "level": 5,
+    "category": "Conquista",
+    "prompt": "¿Por qué no se consumió por completo la casa de Rahab con Jericó?",
+    "options": [
+      "Había escondido a los mensajeros de Josué",
+      "Era la residencia del rey",
+      "Estaba fuera de las murallas",
+      "Los espías habían nacido allí"
+    ],
+    "answer": 0,
+    "reference": "Josué 6:25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-016",
+    "level": 5,
+    "category": "Conquista",
+    "prompt": "¿Qué familia fue señalada tras la derrota de Israel en Hai por haber tomado del anatema?",
+    "options": [
+      "La de Acán",
+      "La de Caleb",
+      "La de Finees",
+      "La de Booz"
+    ],
+    "answer": 0,
+    "reference": "Josué 7:18-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-017",
+    "level": 5,
+    "category": "Jueces",
+    "prompt": "¿Con qué objeto mató Sansón a mil hombres según Jueces 15?",
+    "options": [
+      "Una quijada de asno",
+      "Una espada de bronce",
+      "Una piedra de molino",
+      "Una vara de almendro"
+    ],
+    "answer": 0,
+    "reference": "Jueces 15:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-018",
+    "level": 5,
+    "category": "Rut",
+    "prompt": "¿Qué pidió Booz a sus criados respecto de Rut mientras ella espigaba?",
+    "options": [
+      "Dejar caer espigas a propósito para ella",
+      "Impedirle acercarse a las gavillas",
+      "Cobrarle por el grano recogido",
+      "Enviarla a trabajar fuera de Belén"
+    ],
+    "answer": 0,
+    "reference": "Rut 2:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-019",
+    "level": 5,
+    "category": "Rut",
+    "prompt": "¿Qué hijo de Rut y Booz aparece como abuelo de David?",
+    "options": [
+      "Obed",
+      "Isaí",
+      "Elimelec",
+      "Mahlón"
+    ],
+    "answer": 0,
+    "reference": "Rut 4:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-020",
+    "level": 5,
+    "category": "Reyes y profetas",
+    "prompt": "¿Cómo reprendió Natán a David antes de decirle que era el hombre culpable?",
+    "options": [
+      "Con una historia de un rico que tomó la única corderita de un pobre",
+      "Con el sueño de una estatua",
+      "Con la lectura de una carta de Saúl",
+      "Con una parábola sobre un sembrador"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 12:1-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-021",
+    "level": 5,
+    "category": "Reyes y profetas",
+    "prompt": "¿Qué hizo la viuda de Sarepta al seguir la palabra de Elías durante la escasez?",
+    "options": [
+      "Preparó primero una pequeña torta para él",
+      "Vendió su casa para comprar trigo",
+      "Viajó al palacio de Acab",
+      "Pidió a los sacerdotes de Baal que lloviera"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 17:13-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-022",
+    "level": 5,
+    "category": "Exilio y retorno",
+    "prompt": "¿Qué contó Nehemías a los habitantes de Jerusalén para animarlos a reconstruir?",
+    "options": [
+      "Les contó la buena mano de Dios y las palabras del rey",
+      "Les garantizó que nunca habría oposición",
+      "Les anunció que Asiria financiaría todo",
+      "Les ofreció coronar a Sanbalat"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 2:17-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-023",
+    "level": 5,
+    "category": "Ester",
+    "prompt": "¿Qué decisión expresó Ester después de pedir ayuno por ella?",
+    "options": [
+      "Entraría al rey aunque fuera contra la ley",
+      "Esperaría a que Amán la convocara",
+      "Abandonaría Susa esa misma noche",
+      "Rechazaría toda ayuda de Mardoqueo"
+    ],
+    "answer": 0,
+    "reference": "Ester 4:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-024",
+    "level": 5,
+    "category": "Job",
+    "prompt": "¿Con qué se rascaba Job cuando estaba sentado en medio de ceniza?",
+    "options": [
+      "Un tiesto",
+      "Un cuchillo de sacerdote",
+      "Una rama de cedro",
+      "Una piedra preciosa"
+    ],
+    "answer": 0,
+    "reference": "Job 2:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-025",
+    "level": 5,
+    "category": "Sabiduría",
+    "prompt": "¿Con qué compara Proverbios 3:11-12 la disciplina de Jehová?",
+    "options": [
+      "La corrección de un padre al hijo que ama",
+      "Una prueba de que Dios no ama al corregido",
+      "La cancelación automática de toda consecuencia",
+      "La promesa de gobernar naciones"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 3:11-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-026",
+    "level": 5,
+    "category": "Poesía",
+    "prompt": "¿Qué imagen usa el Salmo 119:105 para describir la palabra de Dios?",
+    "options": [
+      "Lámpara a los pies y luz en el camino",
+      "Escudo de bronce y lanza de hierro",
+      "Aceite en una herida y vino en una copa",
+      "Pan cocido y sal sobre la mesa"
+    ],
+    "answer": 0,
+    "reference": "Salmos 119:105",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-027",
+    "level": 5,
+    "category": "Evangelios",
+    "prompt": "¿Qué pidió la madre de los hijos de Zebedeo a Jesús para sus hijos?",
+    "options": [
+      "Que se sentaran a su derecha y a su izquierda en su reino",
+      "Que fueran gobernadores de Galilea",
+      "Que compraran un campo en Jerusalén",
+      "Que reemplazaran a Moisés y Elías"
+    ],
+    "answer": 0,
+    "reference": "Mateo 20:20-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-028",
+    "level": 5,
+    "category": "Evangelios",
+    "prompt": "¿Por qué reprendió Jesús a Marta cuando ella reclamó que María no la ayudaba?",
+    "options": [
+      "Estaba afanada con muchas cosas y María había escogido la buena parte",
+      "Servir comida estaba prohibido ese día",
+      "Había invitado a demasiados fariseos",
+      "No había lavado los pies de los discípulos"
+    ],
+    "answer": 0,
+    "reference": "Lucas 10:40-42",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-029",
+    "level": 5,
+    "category": "Hechos",
+    "prompt": "¿Qué explicaron Priscila y Aquila a Apolos al oírlo predicar?",
+    "options": [
+      "Más exactamente el camino de Dios",
+      "Cómo presentar una defensa ante César",
+      "La técnica para navegar hacia Roma",
+      "La interpretación del sueño de Faraón"
+    ],
+    "answer": 0,
+    "reference": "Hechos 18:24-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l05-030",
+    "level": 5,
+    "category": "Epístolas",
+    "prompt": "¿Qué pide Pablo que hagan los creyentes con los que se gozan y con los que lloran?",
+    "options": [
+      "Compartir su gozo y su llanto",
+      "Corregirlos antes de escucharlos",
+      "Apartarse de ambos grupos",
+      "Dar más honra solo al que prospera"
+    ],
+    "answer": 0,
+    "reference": "Romanos 12:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-001",
+    "level": 6,
+    "category": "Rut",
+    "prompt": "¿Qué pariente acompañó a Noemí hasta Belén, en vez de regresar a su pueblo?",
+    "options": [
+      "Rut",
+      "Orfa",
+      "Raquel",
+      "Mical"
+    ],
+    "answer": 0,
+    "reference": "Rut 1:14-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-002",
+    "level": 6,
+    "category": "1 Samuel",
+    "prompt": "¿Qué joven escuchó su nombre durante la noche y al principio creyó que Elí lo llamaba?",
+    "options": [
+      "Jonatán",
+      "David",
+      "Abner",
+      "Samuel"
+    ],
+    "answer": 3,
+    "reference": "1 Samuel 3:4-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-003",
+    "level": 6,
+    "category": "2 Samuel",
+    "prompt": "¿Qué profeta confrontó a David mediante el relato de un hombre rico y una sola corderita?",
+    "options": [
+      "Ahías",
+      "Samuel",
+      "Natán",
+      "Gad"
+    ],
+    "answer": 2,
+    "reference": "2 Samuel 12:1-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-004",
+    "level": 6,
+    "category": "1 Reyes",
+    "prompt": "¿Qué pidió Salomón al recibir la oportunidad de solicitar un don a Dios?",
+    "options": [
+      "Riquezas sin límite",
+      "Discernimiento para juzgar",
+      "Una larga vida",
+      "La derrota de sus enemigos"
+    ],
+    "answer": 1,
+    "reference": "1 Reyes 3:9-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-005",
+    "level": 6,
+    "category": "2 Reyes",
+    "prompt": "¿Qué debía hacer Naamán en el Jordán para quedar limpio?",
+    "options": [
+      "Sumergirse siete veces",
+      "Lavar siete animales",
+      "Permanecer siete días sin beber",
+      "Construir siete altares"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 5:10-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-006",
+    "level": 6,
+    "category": "1 Crónicas",
+    "prompt": "¿Quién pidió que Dios ampliara su territorio y lo librara del mal?",
+    "options": [
+      "Obed",
+      "Benaía",
+      "Asaf",
+      "Jabes"
+    ],
+    "answer": 3,
+    "reference": "1 Crónicas 4:9-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-007",
+    "level": 6,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué rey consultó a Dios ante un gran ejército y recibió la instrucción de estar firme?",
+    "options": [
+      "Acaz",
+      "Joacim",
+      "Josafat",
+      "Roboam"
+    ],
+    "answer": 2,
+    "reference": "2 Crónicas 20:3-17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-008",
+    "level": 6,
+    "category": "Esdras",
+    "prompt": "¿Qué rey persa autorizó la reconstrucción de la casa de Dios en Jerusalén?",
+    "options": [
+      "Belsasar",
+      "Ciro",
+      "Asuero",
+      "Nabucodonosor"
+    ],
+    "answer": 1,
+    "reference": "Esdras 1:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-009",
+    "level": 6,
+    "category": "Nehemías",
+    "prompt": "Antes de viajar a Jerusalén, ¿qué oficio tenía Nehemías en la corte?",
+    "options": [
+      "Copero",
+      "Escriba de guerra",
+      "Capitán de guardia",
+      "Intérprete de sueños"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 1:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-010",
+    "level": 6,
+    "category": "Ester",
+    "prompt": "¿Qué hizo Ester antes de presentarse al rey sin ser llamada?",
+    "options": [
+      "Se ocultó durante siete años",
+      "Abandonó el palacio",
+      "Reunió un ejército",
+      "Pidió un ayuno de tres días"
+    ],
+    "answer": 3,
+    "reference": "Ester 4:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-011",
+    "level": 6,
+    "category": "Job",
+    "prompt": "¿Cómo se llamaban los tres amigos que acordaron visitar y consolar a Job?",
+    "options": [
+      "Bildad, Zofar y Natán",
+      "Eliú, Asaf y Hemán",
+      "Elifaz, Bildad y Zofar",
+      "Elifaz, Eliú y Asaf"
+    ],
+    "answer": 2,
+    "reference": "Job 2:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-012",
+    "level": 6,
+    "category": "Salmos",
+    "prompt": "Según el Salmo 1, ¿a qué se compara al que medita en la ley de Dios?",
+    "options": [
+      "Un águila sobre el desierto",
+      "Un árbol junto a corrientes de agua",
+      "Un barco en alta mar",
+      "Una montaña sin senderos"
+    ],
+    "answer": 1,
+    "reference": "Salmos 1:2-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-013",
+    "level": 6,
+    "category": "Proverbios",
+    "prompt": "¿Qué contrasta Proverbios con la respuesta suave que calma la ira?",
+    "options": [
+      "La palabra áspera que provoca furor",
+      "El silencio que siempre causa paz",
+      "La riqueza que elimina discusiones",
+      "La fuerza que convence al necio"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 15:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-014",
+    "level": 6,
+    "category": "Eclesiastés",
+    "prompt": "¿Qué imagen usa Eclesiastés para describir la fortaleza de la compañía?",
+    "options": [
+      "Una lámpara sin aceite",
+      "Un pozo sin agua",
+      "Un árbol sin ramas",
+      "Un cordón de tres dobleces"
+    ],
+    "answer": 3,
+    "reference": "Eclesiastés 4:9-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-015",
+    "level": 6,
+    "category": "Cantares",
+    "prompt": "En Cantares, ¿qué animales pequeños se pide capturar porque dañan las viñas?",
+    "options": [
+      "Las palomas",
+      "Los cabritos",
+      "Las zorras",
+      "Las ovejas"
+    ],
+    "answer": 2,
+    "reference": "Cantares 2:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-016",
+    "level": 6,
+    "category": "Isaías",
+    "prompt": "En la visión de su llamamiento, ¿qué tocó los labios de Isaías?",
+    "options": [
+      "Una copa de agua",
+      "Un carbón encendido",
+      "Una rama de almendro",
+      "Una piedra de ónice"
+    ],
+    "answer": 1,
+    "reference": "Isaías 6:6-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-017",
+    "level": 6,
+    "category": "Jeremías",
+    "prompt": "¿Con qué oficio compara Dios su autoridad sobre la casa de Israel?",
+    "options": [
+      "El alfarero que trabaja el barro",
+      "El mercader que pesa plata",
+      "El pescador que remienda redes",
+      "El herrero que vende armas"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 18:1-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-018",
+    "level": 6,
+    "category": "Lamentaciones",
+    "prompt": "¿Qué se afirma que se renueva cada mañana en Lamentaciones?",
+    "options": [
+      "Los muros de Jerusalén",
+      "Los ejércitos de Judá",
+      "Las riquezas del templo",
+      "Las misericordias de Dios"
+    ],
+    "answer": 3,
+    "reference": "Lamentaciones 3:22-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-019",
+    "level": 6,
+    "category": "Ezequiel",
+    "prompt": "¿Qué orden recibió Ezequiel respecto del rollo que se le presentó?",
+    "options": [
+      "Romperlo delante del rey",
+      "Entregarlo al sumo sacerdote",
+      "Comerlo antes de hablar a Israel",
+      "Enterrarlo junto al río"
+    ],
+    "answer": 2,
+    "reference": "Ezequiel 3:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-020",
+    "level": 6,
+    "category": "Daniel",
+    "prompt": "¿Quién interpretó para Belsasar las palabras escritas en la pared?",
+    "options": [
+      "Zorobabel",
+      "Daniel",
+      "Sadrac",
+      "Nehemías"
+    ],
+    "answer": 1,
+    "reference": "Daniel 5:13-28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-021",
+    "level": 6,
+    "category": "Oseas",
+    "prompt": "¿Con qué vínculo humano ilustra Oseas la relación entre Dios e Israel?",
+    "options": [
+      "El matrimonio",
+      "La alianza de comerciantes",
+      "La sociedad de pescadores",
+      "La rivalidad de hermanos"
+    ],
+    "answer": 0,
+    "reference": "Oseas 1:2; 3:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-022",
+    "level": 6,
+    "category": "Joel",
+    "prompt": "Según Joel, ¿quiénes profetizarían cuando Dios derramara su Espíritu?",
+    "options": [
+      "Solo los reyes",
+      "Solo los sacerdotes ancianos",
+      "Solo los extranjeros",
+      "Los hijos y las hijas"
+    ],
+    "answer": 3,
+    "reference": "Joel 2:28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-023",
+    "level": 6,
+    "category": "Amós",
+    "prompt": "¿Qué ocupación mencionó Amós al responder al sacerdote Amasías?",
+    "options": [
+      "Pescador y vendedor de púrpura",
+      "Carpintero y constructor de barcos",
+      "Boyero y recolector de higos silvestres",
+      "Escriba y recaudador de impuestos"
+    ],
+    "answer": 2,
+    "reference": "Amós 7:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-024",
+    "level": 6,
+    "category": "Abdías",
+    "prompt": "¿Contra qué pueblo se dirige principalmente la visión de Abdías?",
+    "options": [
+      "Asiria",
+      "Edom",
+      "Moab",
+      "Filistea"
+    ],
+    "answer": 1,
+    "reference": "Abdías 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-025",
+    "level": 6,
+    "category": "Jonás",
+    "prompt": "Después de la predicación de Jonás, ¿cómo respondió Nínive a la advertencia?",
+    "options": [
+      "Creyó a Dios y proclamó ayuno",
+      "Coronó a Jonás como rey",
+      "Envió un ejército a Israel",
+      "Reconstruyó el templo de Jerusalén"
+    ],
+    "answer": 0,
+    "reference": "Jonás 3:5-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-026",
+    "level": 6,
+    "category": "Miqueas",
+    "prompt": "¿Qué localidad identifica Miqueas como origen del gobernante de Israel?",
+    "options": [
+      "Betel",
+      "Berseba",
+      "Jericó",
+      "Belén Efrata"
+    ],
+    "answer": 3,
+    "reference": "Miqueas 5:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-027",
+    "level": 6,
+    "category": "Nahúm",
+    "prompt": "¿Qué ciudad recibe el anuncio de juicio que encabeza el libro de Nahúm?",
+    "options": [
+      "Tiro",
+      "Samaria",
+      "Nínive",
+      "Damasco"
+    ],
+    "answer": 2,
+    "reference": "Nahúm 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-028",
+    "level": 6,
+    "category": "Habacuc",
+    "prompt": "¿Cómo responde Habacuc al posible fracaso de higuera, vid y rebaños?",
+    "options": [
+      "Renuncia a esperar justicia",
+      "Decide alegrarse en Dios",
+      "Promete abandonar su tierra",
+      "Pide volver a Egipto"
+    ],
+    "answer": 1,
+    "reference": "Habacuc 3:17-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-029",
+    "level": 6,
+    "category": "Sofonías",
+    "prompt": "¿Cómo describe Sofonías el canto de Dios sobre su pueblo restaurado?",
+    "options": [
+      "Como alegría y regocijo",
+      "Como una orden de exilio",
+      "Como una queja sin esperanza",
+      "Como un lamento por Egipto"
+    ],
+    "answer": 0,
+    "reference": "Sofonías 3:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l06-030",
+    "level": 6,
+    "category": "Hageo",
+    "prompt": "¿Qué prioridad denuncia Hageo al contrastar las casas del pueblo con la casa de Dios?",
+    "options": [
+      "El templo era demasiado pequeño para sus casas",
+      "Nadie había construido viviendas",
+      "El palacio había sido convertido en templo",
+      "Sus casas estaban atendidas y el templo desierto"
+    ],
+    "answer": 3,
+    "reference": "Hageo 1:4-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-001",
+    "level": 7,
+    "category": "Zacarías",
+    "prompt": "En Zacarías, ¿sobre qué animal viene el rey justo y humilde?",
+    "options": [
+      "Un asno y un pollino",
+      "Un caballo de guerra",
+      "Un camello blanco",
+      "Un mulo cubierto de oro"
+    ],
+    "answer": 0,
+    "reference": "Zacarías 9:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-002",
+    "level": 7,
+    "category": "Malaquías",
+    "prompt": "¿Qué relación cuestiona Malaquías al preguntar por el honor debido a un padre?",
+    "options": [
+      "La autoridad política de Ciro",
+      "La obediencia de Nínive a Jonás",
+      "La amistad de David y Jonatán",
+      "La honra que los sacerdotes daban a Dios"
+    ],
+    "answer": 3,
+    "reference": "Malaquías 1:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-003",
+    "level": 7,
+    "category": "Mateo",
+    "prompt": "¿Qué discípulo respondió que Jesús era el Cristo, el Hijo del Dios viviente?",
+    "options": [
+      "Tomás",
+      "Andrés",
+      "Simón Pedro",
+      "Felipe"
+    ],
+    "answer": 2,
+    "reference": "Mateo 16:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-004",
+    "level": 7,
+    "category": "Marcos",
+    "prompt": "En Marcos, ¿qué hizo Bartimeo cuando muchos le ordenaban callarse?",
+    "options": [
+      "Guardó silencio hasta la noche",
+      "Clamó todavía más",
+      "Se volvió a su casa",
+      "Pidió dinero al gobernador"
+    ],
+    "answer": 1,
+    "reference": "Marcos 10:46-48",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-005",
+    "level": 7,
+    "category": "Lucas",
+    "prompt": "En la parábola del samaritano, ¿quién se acercó al herido después del sacerdote y el levita?",
+    "options": [
+      "Un samaritano",
+      "Un fariseo",
+      "Un soldado romano",
+      "Un publicano"
+    ],
+    "answer": 0,
+    "reference": "Lucas 10:30-35",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-006",
+    "level": 7,
+    "category": "Juan",
+    "prompt": "¿Qué pidió Jesús a los sirvientes antes de convertir el agua en vino?",
+    "options": [
+      "Vaciar las lámparas",
+      "Traer panes y peces",
+      "Llevar vino al templo",
+      "Llenar de agua las tinajas"
+    ],
+    "answer": 3,
+    "reference": "Juan 2:6-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-007",
+    "level": 7,
+    "category": "Hechos",
+    "prompt": "¿Qué matrimonio instruyó más exactamente a Apolos en el camino de Dios?",
+    "options": [
+      "Andrónico y Junias",
+      "Félix y Drusila",
+      "Priscila y Aquila",
+      "Ananías y Safira"
+    ],
+    "answer": 2,
+    "reference": "Hechos 18:24-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-008",
+    "level": 7,
+    "category": "Romanos",
+    "prompt": "¿Qué metáfora emplea Pablo para explicar la diversidad de funciones de los creyentes?",
+    "options": [
+      "Una casa sin puertas",
+      "Un cuerpo con muchos miembros",
+      "Un ejército con un solo soldado",
+      "Un campo con una sola espiga"
+    ],
+    "answer": 1,
+    "reference": "Romanos 12:4-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-009",
+    "level": 7,
+    "category": "1 Corintios",
+    "prompt": "¿Qué afirma Pablo sobre sus dones si le falta amor?",
+    "options": [
+      "Que no le aprovechan",
+      "Que sustituyen la obediencia",
+      "Que prueban su superioridad",
+      "Que aseguran riquezas"
+    ],
+    "answer": 0,
+    "reference": "1 Corintios 13:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-010",
+    "level": 7,
+    "category": "2 Corintios",
+    "prompt": "¿Con qué objetos compara Pablo a quienes llevan el tesoro del evangelio?",
+    "options": [
+      "Escudos de hierro",
+      "Coronas de oro",
+      "Copas de plata",
+      "Vasos de barro"
+    ],
+    "answer": 3,
+    "reference": "2 Corintios 4:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-011",
+    "level": 7,
+    "category": "Gálatas",
+    "prompt": "Según Gálatas, ¿qué debe hacer quien sorprende a otro en una falta?",
+    "options": [
+      "Ignorarlo siempre",
+      "Declararse incapaz de caer",
+      "Restaurarlo con mansedumbre",
+      "Exhibirlo para ganar prestigio"
+    ],
+    "answer": 2,
+    "reference": "Gálatas 6:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-012",
+    "level": 7,
+    "category": "Efesios",
+    "prompt": "En la armadura de Dios, ¿qué se identifica como el escudo?",
+    "options": [
+      "La salvación",
+      "La fe",
+      "La justicia",
+      "La verdad"
+    ],
+    "answer": 1,
+    "reference": "Efesios 6:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-013",
+    "level": 7,
+    "category": "Filipenses",
+    "prompt": "¿Qué dos mujeres reciben el ruego de ponerse de acuerdo en el Señor?",
+    "options": [
+      "Evodia y Síntique",
+      "Trifena y Trifosa",
+      "Loida y Eunice",
+      "María y Marta"
+    ],
+    "answer": 0,
+    "reference": "Filipenses 4:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-014",
+    "level": 7,
+    "category": "Colosenses",
+    "prompt": "¿Qué relación presenta Colosenses entre Cristo y la iglesia?",
+    "options": [
+      "Él es un miembro entre iguales",
+      "Él es solo un visitante",
+      "Él es el escriba de sus leyes civiles",
+      "Él es la cabeza del cuerpo"
+    ],
+    "answer": 3,
+    "reference": "Colosenses 1:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-015",
+    "level": 7,
+    "category": "1 Tesalonicenses",
+    "prompt": "¿Qué exhortación acompaña a orar sin cesar y estar siempre gozosos?",
+    "options": [
+      "Rechazar toda profecía sin examinarla",
+      "Fijar una fecha para la venida",
+      "Dar gracias en todo",
+      "Dejar de trabajar"
+    ],
+    "answer": 2,
+    "reference": "1 Tesalonicenses 5:16-18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-016",
+    "level": 7,
+    "category": "2 Tesalonicenses",
+    "prompt": "¿Qué regla menciona Pablo acerca de quien no quiere trabajar?",
+    "options": [
+      "Que sea nombrado anciano",
+      "Que tampoco coma",
+      "Que gobierne a los demás",
+      "Que reciba doble salario"
+    ],
+    "answer": 1,
+    "reference": "2 Tesalonicenses 3:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-017",
+    "level": 7,
+    "category": "1 Timoteo",
+    "prompt": "¿Qué recomienda Pablo que no se descuide mientras Timoteo espera su llegada?",
+    "options": [
+      "La lectura, la exhortación y la enseñanza",
+      "La edificación de murallas",
+      "La búsqueda de un cargo público",
+      "El comercio de telas"
+    ],
+    "answer": 0,
+    "reference": "1 Timoteo 4:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-018",
+    "level": 7,
+    "category": "2 Timoteo",
+    "prompt": "¿Qué familiares de Timoteo son recordados por su fe sincera?",
+    "options": [
+      "Su abuela Ana y su madre Lidia",
+      "Su hermana Febe y su madre Priscila",
+      "Su tía Marta y su abuela Noemí",
+      "Su abuela Loida y su madre Eunice"
+    ],
+    "answer": 3,
+    "reference": "2 Timoteo 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-019",
+    "level": 7,
+    "category": "Tito",
+    "prompt": "¿Con qué fin dejó Pablo a Tito en Creta?",
+    "options": [
+      "Preparar una flota para Roma",
+      "Escribir el censo de las tribus",
+      "Corregir lo deficiente y establecer ancianos",
+      "Recaudar el impuesto del templo"
+    ],
+    "answer": 2,
+    "reference": "Tito 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-020",
+    "level": 7,
+    "category": "Filemón",
+    "prompt": "¿Qué nuevo trato pide Pablo para Onésimo?",
+    "options": [
+      "Enviarlo a las minas",
+      "Recibirlo como hermano amado",
+      "Venderlo para pagar deudas",
+      "Nombrarlo gobernador"
+    ],
+    "answer": 1,
+    "reference": "Filemón 1:15-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-021",
+    "level": 7,
+    "category": "Hebreos",
+    "prompt": "¿Qué personaje es presentado como rey de Salem y sacerdote del Dios Altísimo?",
+    "options": [
+      "Melquisedec",
+      "Aarón",
+      "Sadoc",
+      "Eleazar"
+    ],
+    "answer": 0,
+    "reference": "Hebreos 7:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-022",
+    "level": 7,
+    "category": "Santiago",
+    "prompt": "¿Qué debe pedir a Dios quien reconoce que le falta sabiduría?",
+    "options": [
+      "Riquezas como señal obligatoria",
+      "Un puesto de autoridad",
+      "Que otros decidan siempre por él",
+      "Sabiduría con fe"
+    ],
+    "answer": 3,
+    "reference": "Santiago 1:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-023",
+    "level": 7,
+    "category": "1 Pedro",
+    "prompt": "¿Qué actitud debe acompañar la defensa de la esperanza del creyente?",
+    "options": [
+      "Secreto absoluto",
+      "Orgullo y rivalidad",
+      "Mansedumbre y reverencia",
+      "Burla y amenazas"
+    ],
+    "answer": 2,
+    "reference": "1 Pedro 3:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-024",
+    "level": 7,
+    "category": "2 Pedro",
+    "prompt": "¿A qué animal compara Pedro al que vuelve a su propia inmundicia, junto con la puerca lavada?",
+    "options": [
+      "Un cuervo",
+      "Un perro",
+      "Un león",
+      "Un caballo"
+    ],
+    "answer": 1,
+    "reference": "2 Pedro 2:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-025",
+    "level": 7,
+    "category": "1 Juan",
+    "prompt": "¿Qué contradicción señala Juan en quien dice amar a Dios pero aborrece a su hermano?",
+    "options": [
+      "Que es mentiroso",
+      "Que ya ha alcanzado madurez",
+      "Que tiene un don superior",
+      "Que solo necesita más conocimiento"
+    ],
+    "answer": 0,
+    "reference": "1 Juan 4:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-026",
+    "level": 7,
+    "category": "2 Juan",
+    "prompt": "¿En qué consiste el amor según la exhortación de la segunda carta de Juan?",
+    "options": [
+      "En recibir cualquier enseñanza sin examen",
+      "En evitar toda relación humana",
+      "En buscar honores de la comunidad",
+      "En andar conforme a los mandamientos de Dios"
+    ],
+    "answer": 3,
+    "reference": "2 Juan 1:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-027",
+    "level": 7,
+    "category": "3 Juan",
+    "prompt": "¿Quién es censurado por querer tener el primer lugar y no recibir a los hermanos?",
+    "options": [
+      "Gayo",
+      "Silvano",
+      "Diótrefes",
+      "Demetrio"
+    ],
+    "answer": 2,
+    "reference": "3 Juan 1:9-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-028",
+    "level": 7,
+    "category": "Judas",
+    "prompt": "¿Qué exhortación central dirige Judas respecto de la fe entregada a los santos?",
+    "options": [
+      "Reservarla a una sola familia",
+      "Contender por ella",
+      "Ocultarla hasta el fin",
+      "Sustituirla por novedades"
+    ],
+    "answer": 1,
+    "reference": "Judas 1:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-029",
+    "level": 7,
+    "category": "Apocalipsis",
+    "prompt": "¿A qué iglesia se le reprocha haber abandonado su primer amor?",
+    "options": [
+      "Éfeso",
+      "Esmirna",
+      "Filadelfia",
+      "Pérgamo"
+    ],
+    "answer": 0,
+    "reference": "Apocalipsis 2:1-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l07-030",
+    "level": 7,
+    "category": "Génesis",
+    "prompt": "¿Quién reconoció que Dios había encaminado para bien el mal que sus hermanos intentaron hacerle?",
+    "options": [
+      "Benjamín",
+      "Rubén",
+      "Judá",
+      "José"
+    ],
+    "answer": 3,
+    "reference": "Génesis 50:19-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-001",
+    "level": 8,
+    "category": "Éxodo",
+    "prompt": "¿Qué dos hombres sostuvieron las manos de Moisés durante la batalla contra Amalec?",
+    "options": [
+      "Aarón y Hur",
+      "Josué y Caleb",
+      "Nadab y Abiú",
+      "Eleazar e Itamar"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 17:11-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-002",
+    "level": 8,
+    "category": "Levítico",
+    "prompt": "¿Qué práctica agrícola debía realizarse en el séptimo año según la ley del reposo de la tierra?",
+    "options": [
+      "Duplicar la siembra",
+      "Vender todos los campos",
+      "Arrancar los árboles frutales",
+      "Dejar reposar la tierra"
+    ],
+    "answer": 3,
+    "reference": "Levítico 25:3-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-003",
+    "level": 8,
+    "category": "Números",
+    "prompt": "¿Qué consecuencia tuvo para María haber hablado contra Moisés?",
+    "options": [
+      "Fue enviada a Moab",
+      "Su vara se secó",
+      "Quedó leprosa",
+      "Perdió la vista"
+    ],
+    "answer": 2,
+    "reference": "Números 12:1-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-004",
+    "level": 8,
+    "category": "Deuteronomio",
+    "prompt": "¿Qué debía hacer el rey con la ley al sentarse en el trono?",
+    "options": [
+      "Entregarla exclusivamente al ejército",
+      "Escribir para sí una copia y leerla",
+      "Reemplazarla con decretos propios",
+      "Guardarla sin consultarla"
+    ],
+    "answer": 1,
+    "reference": "Deuteronomio 17:18-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-005",
+    "level": 8,
+    "category": "Josué",
+    "prompt": "¿Qué pidió Acsa a Caleb además de la tierra del Neguev?",
+    "options": [
+      "Fuentes de agua",
+      "Carros de hierro",
+      "Una ciudad costera",
+      "Un rebaño de camellos"
+    ],
+    "answer": 0,
+    "reference": "Josué 15:18-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-006",
+    "level": 8,
+    "category": "Jueces",
+    "prompt": "¿Qué prueba redujo el ejército de Gedeón a trescientos hombres?",
+    "options": [
+      "La capacidad de lanzar piedras",
+      "El orden de nacimiento",
+      "El número de armas que llevaban",
+      "La manera de beber agua"
+    ],
+    "answer": 3,
+    "reference": "Jueces 7:4-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-007",
+    "level": 8,
+    "category": "Rut",
+    "prompt": "¿Qué gesto sellaba antiguamente una transacción de redención en Israel, según Rut?",
+    "options": [
+      "Encender una lámpara",
+      "Cortar una rama de olivo",
+      "Quitarse un zapato y entregarlo",
+      "Romper un cántaro"
+    ],
+    "answer": 2,
+    "reference": "Rut 4:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-008",
+    "level": 8,
+    "category": "1 Samuel",
+    "prompt": "¿Qué tomó David del campamento de Saúl mientras este dormía?",
+    "options": [
+      "El manto y el escudo",
+      "La lanza y la vasija de agua",
+      "La corona y el brazalete",
+      "La espada y el arpa"
+    ],
+    "answer": 1,
+    "reference": "1 Samuel 26:11-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-009",
+    "level": 8,
+    "category": "2 Samuel",
+    "prompt": "¿Qué hijo de Jonatán recibió un lugar permanente en la mesa de David?",
+    "options": [
+      "Mefi-boset",
+      "Is-boset",
+      "Absalón",
+      "Adonías"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 9:6-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-010",
+    "level": 8,
+    "category": "1 Reyes",
+    "prompt": "¿Qué encontró Elías en la cueva después del viento, el terremoto y el fuego?",
+    "options": [
+      "Una columna de nube",
+      "Un ejército de carros",
+      "Una lluvia de piedras",
+      "Un silbo apacible y delicado"
+    ],
+    "answer": 3,
+    "reference": "1 Reyes 19:11-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-011",
+    "level": 8,
+    "category": "2 Reyes",
+    "prompt": "¿Qué objeto pidió Eliseo que se lanzara al agua cuando se perdió el hacha?",
+    "options": [
+      "Una moneda",
+      "Una capa",
+      "Un palo",
+      "Una piedra"
+    ],
+    "answer": 2,
+    "reference": "2 Reyes 6:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-012",
+    "level": 8,
+    "category": "1 Crónicas",
+    "prompt": "¿Qué capacidad se atribuye a los hombres de Isacar al decir que entendían los tiempos?",
+    "options": [
+      "Predecían siempre las cosechas",
+      "Sabían qué debía hacer Israel",
+      "Podían interpretar todos los sueños",
+      "Conocían la edad de cada estrella"
+    ],
+    "answer": 1,
+    "reference": "1 Crónicas 12:32",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-013",
+    "level": 8,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué rey se humilló después de ser llevado cautivo a Babilonia?",
+    "options": [
+      "Manasés",
+      "Acaz",
+      "Amón",
+      "Joacaz"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 33:10-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-014",
+    "level": 8,
+    "category": "Esdras",
+    "prompt": "Antes de enseñar en Israel, ¿para qué había preparado Esdras su corazón?",
+    "options": [
+      "Reunir un ejército persa",
+      "Fundar un nuevo sacerdocio",
+      "Ocupar el trono de Judá",
+      "Investigar la ley y cumplirla"
+    ],
+    "answer": 3,
+    "reference": "Esdras 7:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-015",
+    "level": 8,
+    "category": "Nehemías",
+    "prompt": "¿Qué combinación de acciones tomó el pueblo ante las amenazas a la reconstrucción?",
+    "options": [
+      "Pagar tributo a Sanbalat",
+      "Pedir que Egipto los defendiera",
+      "Orar y poner guardia",
+      "Abandonar los muros y huir"
+    ],
+    "answer": 2,
+    "reference": "Nehemías 4:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-016",
+    "level": 8,
+    "category": "Ester",
+    "prompt": "¿Qué acción de Mardoqueo quedó registrada y después fue leída al rey durante una noche de insomnio?",
+    "options": [
+      "Tradujo la ley al persa",
+      "Descubrió una conspiración contra el rey",
+      "Ganó una batalla naval",
+      "Financió la reconstrucción del templo"
+    ],
+    "answer": 1,
+    "reference": "Ester 2:21-23; 6:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-017",
+    "level": 8,
+    "category": "Job",
+    "prompt": "¿Qué amigo más joven esperó para hablar porque los otros eran mayores?",
+    "options": [
+      "Eliú",
+      "Elifaz",
+      "Zofar",
+      "Bildad"
+    ],
+    "answer": 0,
+    "reference": "Job 32:4-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-018",
+    "level": 8,
+    "category": "Salmos",
+    "prompt": "¿A qué compara el Salmo 133 la unidad entre hermanos, además del buen óleo?",
+    "options": [
+      "Al río de Egipto",
+      "Al fuego del Carmelo",
+      "A la arena de la costa",
+      "Al rocío de Hermón"
+    ],
+    "answer": 3,
+    "reference": "Salmos 133:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-019",
+    "level": 8,
+    "category": "Proverbios",
+    "prompt": "¿Qué hierro se menciona al describir el efecto de una persona sobre otra?",
+    "options": [
+      "El hierro que flota solo",
+      "El hierro que se convierte en oro",
+      "El hierro que afila hierro",
+      "El hierro que nunca se oxida"
+    ],
+    "answer": 2,
+    "reference": "Proverbios 27:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-020",
+    "level": 8,
+    "category": "Eclesiastés",
+    "prompt": "¿Por qué advierte Eclesiastés que no debe maldecirse al rey ni en el pensamiento?",
+    "options": [
+      "Porque cesaría la lluvia",
+      "Porque un ave podría divulgar lo dicho",
+      "Porque el rey puede leer todo pensamiento",
+      "Porque el oro perdería valor"
+    ],
+    "answer": 1,
+    "reference": "Eclesiastés 10:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-021",
+    "level": 8,
+    "category": "Cantares",
+    "prompt": "Según Cantares, ¿qué no pueden apagar las muchas aguas?",
+    "options": [
+      "El amor",
+      "La lámpara del santuario",
+      "El fuego de Sodoma",
+      "La sed del desierto"
+    ],
+    "answer": 0,
+    "reference": "Cantares 8:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-022",
+    "level": 8,
+    "category": "Isaías",
+    "prompt": "¿Qué señal recibió Ezequías por medio de Isaías respecto de su recuperación?",
+    "options": [
+      "El Jordán dejó de correr",
+      "El sol permaneció un día completo",
+      "Una vara floreció",
+      "La sombra retrocedió diez grados"
+    ],
+    "answer": 3,
+    "reference": "Isaías 38:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-023",
+    "level": 8,
+    "category": "Jeremías",
+    "prompt": "¿Qué debía procurar el pueblo deportado por la ciudad donde vivía?",
+    "options": [
+      "El cierre de sus mercados",
+      "La huida antes de plantar huertos",
+      "Su paz, y orar por ella",
+      "Su destrucción inmediata"
+    ],
+    "answer": 2,
+    "reference": "Jeremías 29:4-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-024",
+    "level": 8,
+    "category": "Lamentaciones",
+    "prompt": "¿Qué invita a hacer Lamentaciones antes de volver a Jehová?",
+    "options": [
+      "Elegir otro rey",
+      "Examinar e investigar los caminos propios",
+      "Contar las riquezas perdidas",
+      "Culpar únicamente a los vecinos"
+    ],
+    "answer": 1,
+    "reference": "Lamentaciones 3:40",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-025",
+    "level": 8,
+    "category": "Ezequiel",
+    "prompt": "¿Qué dos casas representan los dos palos que Ezequiel debe unir?",
+    "options": [
+      "Judá e Israel representado por José",
+      "Moab y Edom",
+      "Asiria y Babilonia",
+      "Egipto y Filistea"
+    ],
+    "answer": 0,
+    "reference": "Ezequiel 37:15-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-026",
+    "level": 8,
+    "category": "Daniel",
+    "prompt": "¿Qué significado dio Daniel al árbol cortado en el sueño de Nabucodonosor?",
+    "options": [
+      "La desaparición de Persia",
+      "La muerte inmediata de Daniel",
+      "La destrucción de Jerusalén por Roma",
+      "La humillación temporal del rey"
+    ],
+    "answer": 3,
+    "reference": "Daniel 4:20-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-027",
+    "level": 8,
+    "category": "Oseas",
+    "prompt": "¿Qué pide Dios en Oseas por encima del sacrificio y los holocaustos?",
+    "options": [
+      "Riqueza para el rey",
+      "Alianzas con Egipto",
+      "Misericordia y conocimiento de Dios",
+      "Mayor número de altares"
+    ],
+    "answer": 2,
+    "reference": "Oseas 6:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-028",
+    "level": 8,
+    "category": "Joel",
+    "prompt": "¿Qué debe rasgar el pueblo en su regreso a Dios?",
+    "options": [
+      "Las cortinas de todas las casas",
+      "El corazón y no solo los vestidos",
+      "Las puertas de la ciudad",
+      "Las tablas de la ley"
+    ],
+    "answer": 1,
+    "reference": "Joel 2:12-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-029",
+    "level": 8,
+    "category": "Amós",
+    "prompt": "¿Qué pide Amós que corra como aguas y como un arroyo permanente?",
+    "options": [
+      "El juicio y la justicia",
+      "La plata y el oro",
+      "El vino y el aceite",
+      "La fama y el poder"
+    ],
+    "answer": 0,
+    "reference": "Amós 5:24",
+    "active": true
+  },
+  {
+    "id": "es-exp-l08-030",
+    "level": 8,
+    "category": "Abdías",
+    "prompt": "¿Qué parentesco agrava la violencia de Edom contra Jacob?",
+    "options": [
+      "Compartían el mismo rey",
+      "Pertenecían a la misma tribu",
+      "Edom descendía de Leví",
+      "Eran pueblos hermanos"
+    ],
+    "answer": 3,
+    "reference": "Abdías 1:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-001",
+    "level": 9,
+    "category": "Jonás",
+    "prompt": "¿Qué hizo Dios para quitarle a Jonás la planta que le daba sombra?",
+    "options": [
+      "Preparó un gusano que la hirió",
+      "Envió un león que la arrancó",
+      "Mandó nieve sobre ella",
+      "Hizo que los ninivitas la quemaran"
+    ],
+    "answer": 0,
+    "reference": "Jonás 4:6-7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-002",
+    "level": 9,
+    "category": "Miqueas",
+    "prompt": "¿Qué tres exigencias resume Miqueas para el ser humano?",
+    "options": [
+      "Ayunar, conquistar tierras y acumular ofrendas",
+      "Ser rico, fuerte y famoso",
+      "Hablar mucho, viajar y gobernar",
+      "Hacer justicia, amar misericordia y humillarse ante Dios"
+    ],
+    "answer": 3,
+    "reference": "Miqueas 6:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-003",
+    "level": 9,
+    "category": "Nahúm",
+    "prompt": "¿A qué ciudad egipcia alude Nahúm al preguntar a Nínive si es mejor que ella?",
+    "options": [
+      "Ramesés",
+      "Pitón",
+      "Tebas (No-amón)",
+      "On"
+    ],
+    "answer": 2,
+    "reference": "Nahúm 3:8-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-004",
+    "level": 9,
+    "category": "Habacuc",
+    "prompt": "¿Qué instrucción recibe Habacuc acerca de la visión?",
+    "options": [
+      "Memorizarla sin escribir nada",
+      "Escribirla claramente en tablas",
+      "Sellarla en una vasija y enterrarla",
+      "Enviarla solo al faraón"
+    ],
+    "answer": 1,
+    "reference": "Habacuc 2:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-005",
+    "level": 9,
+    "category": "Sofonías",
+    "prompt": "¿Qué promete Dios dar a los pueblos para que le invoquen y sirvan de común acuerdo?",
+    "options": [
+      "Pureza de labios",
+      "Un único rey persa",
+      "Una nueva moneda",
+      "Un ejército de caballos"
+    ],
+    "answer": 0,
+    "reference": "Sofonías 3:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-006",
+    "level": 9,
+    "category": "Hageo",
+    "prompt": "¿Qué comparación usa Hageo para el salario de quienes descuidan la casa de Dios?",
+    "options": [
+      "Se convierte en piedras",
+      "Se entierra bajo el altar",
+      "Se entrega íntegro al rey",
+      "Se guarda en un saco roto"
+    ],
+    "answer": 3,
+    "reference": "Hageo 1:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-007",
+    "level": 9,
+    "category": "Zacarías",
+    "prompt": "En la visión del sumo sacerdote Josué, ¿qué se le quita como señal de que su pecado es removido?",
+    "options": [
+      "Los zapatos de guerra",
+      "Una cadena de plata",
+      "Las vestiduras viles",
+      "Una corona de hierro"
+    ],
+    "answer": 2,
+    "reference": "Zacarías 3:3-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-008",
+    "level": 9,
+    "category": "Malaquías",
+    "prompt": "¿Qué instrucción debía guardar y comunicar el sacerdote según Malaquías?",
+    "options": [
+      "El censo militar de Persia",
+      "El conocimiento de la ley",
+      "Los planes secretos del rey",
+      "Las rutas del comercio"
+    ],
+    "answer": 1,
+    "reference": "Malaquías 2:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-009",
+    "level": 9,
+    "category": "Mateo",
+    "prompt": "En la parábola de los trabajadores de la viña, ¿qué provocó la queja de los contratados primero?",
+    "options": [
+      "Los últimos recibieron el mismo pago",
+      "Los últimos recibieron una viña",
+      "No recibieron ningún salario",
+      "El dueño canceló la cosecha"
+    ],
+    "answer": 0,
+    "reference": "Mateo 20:9-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-010",
+    "level": 9,
+    "category": "Marcos",
+    "prompt": "¿Qué parábola de Marcos compara el crecimiento del reino con una semilla que brota mientras el hombre duerme?",
+    "options": [
+      "Las diez vírgenes",
+      "La oveja perdida",
+      "El hijo pródigo",
+      "La semilla que crece por sí sola"
+    ],
+    "answer": 3,
+    "reference": "Marcos 4:26-29",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-011",
+    "level": 9,
+    "category": "Lucas",
+    "prompt": "¿Qué pidió el publicano de la parábola mientras permanecía lejos y no alzaba los ojos?",
+    "options": [
+      "Un lugar junto al sacerdote",
+      "Que se castigara al fariseo",
+      "Misericordia para él, pecador",
+      "Reconocimiento de sus ayunos"
+    ],
+    "answer": 2,
+    "reference": "Lucas 18:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-012",
+    "level": 9,
+    "category": "Juan",
+    "prompt": "¿Qué ejemplo práctico dio Jesús a los discípulos antes de mandarles hacer lo mismo entre sí?",
+    "options": [
+      "Les enseñó a reparar barcos",
+      "Les lavó los pies",
+      "Les edificó casas",
+      "Les repartió monedas"
+    ],
+    "answer": 1,
+    "reference": "Juan 13:12-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-013",
+    "level": 9,
+    "category": "Hechos",
+    "prompt": "¿Qué mujer de Jope fue presentada como rica en buenas obras y limosnas?",
+    "options": [
+      "Tabita, llamada Dorcas",
+      "Lidia",
+      "Dámaris",
+      "Priscila"
+    ],
+    "answer": 0,
+    "reference": "Hechos 9:36",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-014",
+    "level": 9,
+    "category": "Romanos",
+    "prompt": "Según Romanos, ¿qué se le contó a Abraham como justicia?",
+    "options": [
+      "Ser circuncidado antes de creer",
+      "Poseer la tierra de Canaán",
+      "Construir una ciudad",
+      "Creer a Dios"
+    ],
+    "answer": 3,
+    "reference": "Romanos 4:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-015",
+    "level": 9,
+    "category": "1 Corintios",
+    "prompt": "¿Por qué prefirió Pablo hablar cinco palabras con entendimiento a diez mil en lengua desconocida en la reunión?",
+    "options": [
+      "Para demostrar que era más culto",
+      "Para reemplazar toda oración",
+      "Para enseñar también a otros",
+      "Para evitar aprender idiomas"
+    ],
+    "answer": 2,
+    "reference": "1 Corintios 14:19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-016",
+    "level": 9,
+    "category": "2 Corintios",
+    "prompt": "¿Qué respuesta recibió Pablo al rogar que se apartara su aguijón?",
+    "options": [
+      "Que recibiría un reino terrenal",
+      "Que la gracia le bastaba y el poder se perfecciona en la debilidad",
+      "Que nunca volvería a sufrir",
+      "Que debía dejar de predicar"
+    ],
+    "answer": 1,
+    "reference": "2 Corintios 12:8-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-017",
+    "level": 9,
+    "category": "Gálatas",
+    "prompt": "¿Qué discípulo fue reprendido por Pablo en Antioquía por apartarse de los gentiles?",
+    "options": [
+      "Cefas",
+      "Juan Marcos",
+      "Esteban",
+      "Felipe"
+    ],
+    "answer": 0,
+    "reference": "Gálatas 2:11-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-018",
+    "level": 9,
+    "category": "Efesios",
+    "prompt": "¿Qué imagen describe a los creyentes junto con los santos, edificados sobre el fundamento apostólico?",
+    "options": [
+      "Un palacio cuya base es Roma",
+      "Una torre fundada por César",
+      "Una muralla reservada a una tribu",
+      "Un templo santo cuya piedra angular es Cristo"
+    ],
+    "answer": 3,
+    "reference": "Efesios 2:19-22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-019",
+    "level": 9,
+    "category": "Filipenses",
+    "prompt": "¿Qué circunstancias menciona Pablo al decidir enviar a Epafrodito de regreso a los filipenses?",
+    "options": [
+      "Se negó a servir a Pablo",
+      "Fue nombrado gobernador",
+      "Había estado enfermo, cerca de morir, y anhelaba verlos",
+      "Había abandonado la fe"
+    ],
+    "answer": 2,
+    "reference": "Filipenses 2:25-30",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-020",
+    "level": 9,
+    "category": "Colosenses",
+    "prompt": "¿Qué colaborador es llamado médico amado en los saludos de Colosenses?",
+    "options": [
+      "Demas",
+      "Lucas",
+      "Marcos",
+      "Aristarco"
+    ],
+    "answer": 1,
+    "reference": "Colosenses 4:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-021",
+    "level": 9,
+    "category": "1 Tesalonicenses",
+    "prompt": "¿Qué imagen usa Pablo para describir la llegada del día del Señor?",
+    "options": [
+      "Un ladrón en la noche",
+      "Una cosecha anunciada por contrato",
+      "Un rey cuya fecha todos conocen",
+      "Una lluvia que nunca sorprende"
+    ],
+    "answer": 0,
+    "reference": "1 Tesalonicenses 5:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-022",
+    "level": 9,
+    "category": "2 Tesalonicenses",
+    "prompt": "¿Qué pide Pablo que se haga con quien vive desordenadamente, sin tratarlo como enemigo?",
+    "options": [
+      "Nombrarlo maestro",
+      "Ignorar toda su conducta",
+      "Declararlo incapaz de arrepentirse",
+      "Amonestarlo como hermano"
+    ],
+    "answer": 3,
+    "reference": "2 Tesalonicenses 3:14-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-023",
+    "level": 9,
+    "category": "1 Timoteo",
+    "prompt": "¿Qué actitud hacia el dinero identifica Pablo como raíz de todos los males?",
+    "options": [
+      "El trabajo manual",
+      "La ayuda económica a las viudas",
+      "El amor al dinero",
+      "El simple uso de monedas"
+    ],
+    "answer": 2,
+    "reference": "1 Timoteo 6:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-024",
+    "level": 9,
+    "category": "2 Timoteo",
+    "prompt": "¿Qué tres imágenes emplea Pablo para ilustrar disciplina, esfuerzo y recompensa?",
+    "options": [
+      "Pastor, marinero y constructor",
+      "Soldado, atleta y labrador",
+      "Pescador, rey y mercader",
+      "Alfarero, músico y juez"
+    ],
+    "answer": 1,
+    "reference": "2 Timoteo 2:3-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-025",
+    "level": 9,
+    "category": "Tito",
+    "prompt": "Según Tito, ¿por qué medio nos salvó Dios, y no por obras de justicia hechas por nosotros?",
+    "options": [
+      "Su misericordia, el lavamiento de regeneración y la renovación del Espíritu",
+      "Nuestra genealogía sacerdotal",
+      "La posesión de la ley civil",
+      "La victoria militar de Israel"
+    ],
+    "answer": 0,
+    "reference": "Tito 3:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-026",
+    "level": 9,
+    "category": "Filemón",
+    "prompt": "¿Qué ofrece Pablo hacer si Onésimo dañó a Filemón o le debe algo?",
+    "options": [
+      "Pedir que Gayo lo pague",
+      "Anular todas las deudas del imperio",
+      "Vender los bienes de Timoteo",
+      "Cargarlo a su propia cuenta"
+    ],
+    "answer": 3,
+    "reference": "Filemón 1:18-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-027",
+    "level": 9,
+    "category": "Hebreos",
+    "prompt": "¿A qué invita Hebreos a acercarse confiadamente para recibir misericordia y ayuda?",
+    "options": [
+      "Al altar de un dios desconocido",
+      "Al palacio de Herodes",
+      "Al trono de la gracia",
+      "Al tribunal de César"
+    ],
+    "answer": 2,
+    "reference": "Hebreos 4:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-028",
+    "level": 9,
+    "category": "Santiago",
+    "prompt": "¿Qué distingue Santiago entre la sabiduría de lo alto y la terrenal?",
+    "options": [
+      "La de lo alto depende de riquezas",
+      "La de lo alto es pura y pacífica",
+      "La de lo alto produce celos amargos",
+      "La terrenal siempre evita conflictos"
+    ],
+    "answer": 1,
+    "reference": "Santiago 3:14-17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-029",
+    "level": 9,
+    "category": "1 Pedro",
+    "prompt": "¿Qué ejemplo se ofrece de sufrimiento injusto sin devolver maldición ni amenazas?",
+    "options": [
+      "Cristo",
+      "Caifás",
+      "Pilato",
+      "Herodes"
+    ],
+    "answer": 0,
+    "reference": "1 Pedro 2:21-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l09-030",
+    "level": 9,
+    "category": "2 Pedro",
+    "prompt": "¿Por qué no debe interpretarse la paciencia del Señor como simple tardanza?",
+    "options": [
+      "Porque olvidó su promesa",
+      "Porque depende de la decisión del imperio",
+      "Porque dejó de juzgar el mal",
+      "Porque no quiere que ninguno perezca, sino que se arrepientan"
+    ],
+    "answer": 3,
+    "reference": "2 Pedro 3:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-001",
+    "level": 10,
+    "category": "1 Juan",
+    "prompt": "¿Qué dos acciones deben acompañar al amor, en contraste con amar solo de palabra?",
+    "options": [
+      "Hechos y verdad",
+      "Riquezas y prestigio",
+      "Discursos y títulos",
+      "Silencio y aislamiento"
+    ],
+    "answer": 0,
+    "reference": "1 Juan 3:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-002",
+    "level": 10,
+    "category": "2 Juan",
+    "prompt": "¿A quién no debe recibirse ni darse bienvenida según la advertencia doctrinal de la carta?",
+    "options": [
+      "A cualquier viajero pobre",
+      "A todo creyente extranjero",
+      "A quien no sepa escribir",
+      "Al que no permanece en la doctrina de Cristo"
+    ],
+    "answer": 3,
+    "reference": "2 Juan 1:9-11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-003",
+    "level": 10,
+    "category": "3 Juan",
+    "prompt": "¿Quién recibe buen testimonio de todos y de la verdad misma?",
+    "options": [
+      "Alejandro",
+      "Himeneo",
+      "Demetrio",
+      "Diótrefes"
+    ],
+    "answer": 2,
+    "reference": "3 Juan 1:12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-004",
+    "level": 10,
+    "category": "Judas",
+    "prompt": "¿Sobre qué cuerpo disputó el arcángel Miguel con el diablo?",
+    "options": [
+      "El de Aarón",
+      "El de Moisés",
+      "El de Elías",
+      "El de Enoc"
+    ],
+    "answer": 1,
+    "reference": "Judas 1:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-005",
+    "level": 10,
+    "category": "Apocalipsis",
+    "prompt": "¿Qué iglesia recibe la promesa de una puerta abierta que nadie puede cerrar?",
+    "options": [
+      "Filadelfia",
+      "Laodicea",
+      "Sardis",
+      "Tiatira"
+    ],
+    "answer": 0,
+    "reference": "Apocalipsis 3:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-006",
+    "level": 10,
+    "category": "Génesis",
+    "prompt": "¿Qué pidió el siervo de Abraham como señal para reconocer a la futura esposa de Isaac?",
+    "options": [
+      "Que conociera su nombre sin preguntarlo",
+      "Que trajera pan de Egipto",
+      "Que perteneciera a una familia real",
+      "Que ofreciera agua a él y a sus camellos"
+    ],
+    "answer": 3,
+    "reference": "Génesis 24:12-14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-007",
+    "level": 10,
+    "category": "Éxodo",
+    "prompt": "¿Qué debía hacer Israel con el doble de maná recogido el sexto día?",
+    "options": [
+      "Entregarlo al ejército de Amalec",
+      "Sembrarlo junto al campamento",
+      "Guardarlo para el reposo del séptimo",
+      "Quemarlo antes de la noche"
+    ],
+    "answer": 2,
+    "reference": "Éxodo 16:22-30",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-008",
+    "level": 10,
+    "category": "Levítico",
+    "prompt": "¿Quiénes murieron al ofrecer fuego extraño que Dios no había mandado?",
+    "options": [
+      "Hofni y Finees",
+      "Nadab y Abiú",
+      "Coré y Datán",
+      "Elí y Samuel"
+    ],
+    "answer": 1,
+    "reference": "Levítico 10:1-2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-009",
+    "level": 10,
+    "category": "Números",
+    "prompt": "¿Qué señal confirmó la elección de Aarón frente a las demás casas paternas?",
+    "options": [
+      "Su vara floreció y produjo almendras",
+      "Su manto se volvió blanco",
+      "Su tienda fue trasladada por el viento",
+      "Su bastón se convirtió en serpiente de bronce"
+    ],
+    "answer": 0,
+    "reference": "Números 17:6-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-010",
+    "level": 10,
+    "category": "Deuteronomio",
+    "prompt": "¿Qué se mandaba devolver al dueño antes de ponerse el sol si había sido tomado como prenda?",
+    "options": [
+      "El campo del rey",
+      "La espada del soldado",
+      "La piedra del altar",
+      "El vestido del pobre"
+    ],
+    "answer": 3,
+    "reference": "Deuteronomio 24:12-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-011",
+    "level": 10,
+    "category": "Josué",
+    "prompt": "¿Qué objetos provocaron el pecado de Acán después de la caída de Jericó?",
+    "options": [
+      "Dos caballos y un carro",
+      "Un arca de bronce y un cetro",
+      "Un manto babilónico, plata y un lingote de oro",
+      "Un ídolo egipcio y siete espadas"
+    ],
+    "answer": 2,
+    "reference": "Josué 7:20-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-012",
+    "level": 10,
+    "category": "Jueces",
+    "prompt": "¿Qué juez hizo un voto imprudente antes de enfrentar a los amonitas?",
+    "options": [
+      "Samgar",
+      "Jefté",
+      "Otoniel",
+      "Aod"
+    ],
+    "answer": 1,
+    "reference": "Jueces 11:30-35",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-013",
+    "level": 10,
+    "category": "Rut",
+    "prompt": "¿Qué impidió que el pariente más cercano redimiera la heredad vinculada con Rut?",
+    "options": [
+      "Temía perjudicar su propia herencia",
+      "No tenía parentesco con Elimelec",
+      "Boaz le prohibió participar",
+      "Rut era hija del rey de Moab"
+    ],
+    "answer": 0,
+    "reference": "Rut 4:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-014",
+    "level": 10,
+    "category": "1 Samuel",
+    "prompt": "¿Qué mujer evitó con su intervención que David se vengara de Nabal?",
+    "options": [
+      "Ahinoam",
+      "Mical",
+      "Betsabé",
+      "Abigail"
+    ],
+    "answer": 3,
+    "reference": "1 Samuel 25:23-35",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-015",
+    "level": 10,
+    "category": "2 Samuel",
+    "prompt": "¿Qué consejero de Absalón propuso perseguir inmediatamente a David con doce mil hombres?",
+    "options": [
+      "Sadoc",
+      "Abiatar",
+      "Ahitofel",
+      "Husai"
+    ],
+    "answer": 2,
+    "reference": "2 Samuel 17:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-016",
+    "level": 10,
+    "category": "1 Reyes",
+    "prompt": "¿Qué profeta anunció que no habría lluvia ni rocío sino por su palabra?",
+    "options": [
+      "Ahías",
+      "Elías",
+      "Eliseo",
+      "Micaías"
+    ],
+    "answer": 1,
+    "reference": "1 Reyes 17:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-017",
+    "level": 10,
+    "category": "2 Reyes",
+    "prompt": "¿Qué rey ordenó reparar el templo cuando el sacerdote Hilcías encontró el libro de la ley?",
+    "options": [
+      "Josías",
+      "Ezequías",
+      "Joás",
+      "Amasías"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 22:3-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-018",
+    "level": 10,
+    "category": "1 Crónicas",
+    "prompt": "¿Quién murió al extender su mano al arca cuando tropezaban los bueyes?",
+    "options": [
+      "Ahío",
+      "Obed-edom",
+      "Quenánías",
+      "Uza"
+    ],
+    "answer": 3,
+    "reference": "1 Crónicas 13:9-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-019",
+    "level": 10,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué rey de Judá se volvió leproso tras intentar quemar incienso en el templo?",
+    "options": [
+      "Asa",
+      "Abías",
+      "Uzías",
+      "Jotam"
+    ],
+    "answer": 2,
+    "reference": "2 Crónicas 26:16-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-020",
+    "level": 10,
+    "category": "Esdras",
+    "prompt": "¿Por qué Esdras tuvo vergüenza de pedir al rey escolta de soldados para el viaje?",
+    "options": [
+      "El rey había prohibido todo viaje",
+      "Había afirmado que la mano de Dios favorece a quienes lo buscan",
+      "No conocía el idioma persa",
+      "Ya había prometido viajar solo"
+    ],
+    "answer": 1,
+    "reference": "Esdras 8:21-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-021",
+    "level": 10,
+    "category": "Nehemías",
+    "prompt": "¿Qué respondió Nehemías a quienes querían que descendiera para reunirse con ellos?",
+    "options": [
+      "Que hacía una gran obra y no podía descender",
+      "Que esperaría una señal en sueños",
+      "Que aceptaría si le enviaban oro",
+      "Que entregaría el mando a Tobías"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 6:2-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-022",
+    "level": 10,
+    "category": "Ester",
+    "prompt": "¿Qué nombre dio Mardoqueo a las cartas que establecían los días de celebración por la liberación?",
+    "options": [
+      "La fiesta de los Tabernáculos",
+      "La dedicación del templo",
+      "La fiesta de las Trompetas",
+      "Los días de Purim"
+    ],
+    "answer": 3,
+    "reference": "Ester 9:20-26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-023",
+    "level": 10,
+    "category": "Job",
+    "prompt": "¿Qué reconoce Job sobre su conocimiento anterior al decir que ahora sus ojos ven a Dios?",
+    "options": [
+      "Que sus amigos siempre tuvieron razón",
+      "Que sus sufrimientos eran imaginarios",
+      "Que antes lo había oído de oídas",
+      "Que nunca había escuchado de él"
+    ],
+    "answer": 2,
+    "reference": "Job 42:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-024",
+    "level": 10,
+    "category": "Salmos",
+    "prompt": "¿Qué figura del Salmo 118, luego citada en el Nuevo Testamento, fue rechazada por los edificadores?",
+    "options": [
+      "La torre que no tuvo fundamento",
+      "La piedra que llegó a ser cabeza del ángulo",
+      "La columna que cayó sobre el altar",
+      "La puerta que nunca se abrió"
+    ],
+    "answer": 1,
+    "reference": "Salmos 118:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-025",
+    "level": 10,
+    "category": "Proverbios",
+    "prompt": "¿Por qué recomienda Proverbios no responder antes de haber oído?",
+    "options": [
+      "Porque es necedad y vergüenza",
+      "Porque siempre revela secretos militares",
+      "Porque las palabras pierden valor",
+      "Porque solo deben hablar los ancianos"
+    ],
+    "answer": 0,
+    "reference": "Proverbios 18:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-026",
+    "level": 10,
+    "category": "Eclesiastés",
+    "prompt": "¿Qué contraste presenta Eclesiastés entre la casa del luto y la casa del banquete?",
+    "options": [
+      "El banquete evita inevitablemente la muerte",
+      "El luto impide toda sabiduría",
+      "Ambas son prohibidas al sabio",
+      "La primera ayuda a considerar el fin de todos"
+    ],
+    "answer": 3,
+    "reference": "Eclesiastés 7:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-027",
+    "level": 10,
+    "category": "Cantares",
+    "prompt": "¿Con qué se compara la fuerza del amor en Cantares 8?",
+    "options": [
+      "Con la juventud",
+      "Con el viento",
+      "Con la muerte",
+      "Con la riqueza"
+    ],
+    "answer": 2,
+    "reference": "Cantares 8:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-028",
+    "level": 10,
+    "category": "Isaías",
+    "prompt": "¿Qué rey es llamado por nombre como instrumento de Dios para cumplir su propósito?",
+    "options": [
+      "Belsasar",
+      "Ciro",
+      "Darío",
+      "Asuero"
+    ],
+    "answer": 1,
+    "reference": "Isaías 44:28; 45:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-029",
+    "level": 10,
+    "category": "Jeremías",
+    "prompt": "¿Qué objeto compró Jeremías en Anatot como señal de que volverían a comprarse propiedades?",
+    "options": [
+      "Una heredad de su primo Hanameel",
+      "Una corona de su tío Salum",
+      "Una casa del rey Sedequías",
+      "Un viñedo del sacerdote Pasur"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 32:6-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l10-030",
+    "level": 10,
+    "category": "Ezequiel",
+    "prompt": "¿Qué responsabilidad ilustra la figura del atalaya para Ezequiel?",
+    "options": [
+      "Determinar quién puede ocupar el trono",
+      "Recaudar tributos para Babilonia",
+      "Contar los animales del templo",
+      "Advertir al pueblo cuando oye la palabra de Dios"
+    ],
+    "answer": 3,
+    "reference": "Ezequiel 33:7-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-001",
+    "level": 11,
+    "category": "Hebreos",
+    "prompt": "Según Hebreos 7, ¿a qué tribu atribuye el autor al Señor al argumentar un cambio del sacerdocio?",
+    "options": [
+      "Judá",
+      "Leví",
+      "Benjamín",
+      "Efraín"
+    ],
+    "answer": 0,
+    "reference": "Hebreos 7:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-002",
+    "level": 11,
+    "category": "Santiago",
+    "prompt": "¿Qué comparación cierra específicamente el argumento sobre la fe y las obras en Santiago 2?",
+    "options": [
+      "El cuerpo sin espíritu",
+      "El cuerpo sin alimento",
+      "El cuerpo sin vestido",
+      "El cuerpo sin descanso"
+    ],
+    "answer": 0,
+    "reference": "Santiago 2:26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-003",
+    "level": 11,
+    "category": "Juan",
+    "prompt": "¿A quién presenta Juan como el sumo sacerdote que aconsejó que uno muriera por el pueblo?",
+    "options": [
+      "Caifás",
+      "Anás",
+      "Ananías",
+      "Gamaliel"
+    ],
+    "answer": 0,
+    "reference": "Juan 11:49-50",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-004",
+    "level": 11,
+    "category": "Juan",
+    "prompt": "En la cena de Juan 13, ¿qué discípulo preguntó quién era el traidor, recostado cerca de Jesús?",
+    "options": [
+      "El discípulo amado",
+      "Tomás",
+      "Felipe",
+      "Judas Tadeo"
+    ],
+    "answer": 0,
+    "reference": "Juan 13:23-25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-005",
+    "level": 11,
+    "category": "Marcos",
+    "prompt": "Según Marcos, ¿qué nombre tenía el padre de Alejandro y Rufo, obligado a llevar la cruz?",
+    "options": [
+      "Simón de Cirene",
+      "Simón el leproso",
+      "José de Arimatea",
+      "Bartimeo"
+    ],
+    "answer": 0,
+    "reference": "Marcos 15:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-006",
+    "level": 11,
+    "category": "Hechos",
+    "prompt": "¿Qué mujer de Hechos 9 tenía también el nombre griego Dorcas?",
+    "options": [
+      "Tabita",
+      "Lidia",
+      "Priscila",
+      "Dámaris"
+    ],
+    "answer": 0,
+    "reference": "Hechos 9:36",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-007",
+    "level": 11,
+    "category": "Hechos",
+    "prompt": "¿En qué ciudad estaba Festo durante la audiencia en la que Pablo apeló a César?",
+    "options": [
+      "Cesarea",
+      "Jerusalén",
+      "Antioquía",
+      "Tarso"
+    ],
+    "answer": 0,
+    "reference": "Hechos 25:1,6-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-008",
+    "level": 11,
+    "category": "Hechos",
+    "prompt": "En Hechos 18, ¿quiénes explicaron con mayor precisión el camino de Dios a Apolos?",
+    "options": [
+      "Priscila y Aquila",
+      "Pablo y Bernabé",
+      "Silas y Timoteo",
+      "Pedro y Juan"
+    ],
+    "answer": 0,
+    "reference": "Hechos 18:26",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-009",
+    "level": 11,
+    "category": "Filipenses",
+    "prompt": "¿A quién envió Pablo a los filipenses después de que enfermara gravemente?",
+    "options": [
+      "Epafrodito",
+      "Tíquico",
+      "Onésimo",
+      "Aristarco"
+    ],
+    "answer": 0,
+    "reference": "Filipenses 2:25-30",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-010",
+    "level": 11,
+    "category": "Colosenses",
+    "prompt": "¿Qué dos colaboradores envían saludos juntos en Colosenses 4:14, uno de ellos identificado como médico?",
+    "options": [
+      "Lucas y Demas",
+      "Marcos y Demas",
+      "Lucas y Epafras",
+      "Aristarco y Marcos"
+    ],
+    "answer": 0,
+    "reference": "Colosenses 4:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-011",
+    "level": 11,
+    "category": "Filemón",
+    "prompt": "En Filemón, ¿qué propone Pablo respecto a una deuda o daño causado por Onésimo?",
+    "options": [
+      "Que se cargue a la cuenta de Pablo",
+      "Que se perdone solo la mitad",
+      "Que lo pague la iglesia de Roma",
+      "Que lo resuelva un tribunal local"
+    ],
+    "answer": 0,
+    "reference": "Filemón 1:18-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-012",
+    "level": 11,
+    "category": "Judas",
+    "prompt": "En Judas, ¿qué respuesta pronunció Miguel al disputar por el cuerpo de Moisés?",
+    "options": [
+      "El Señor te reprenda",
+      "Vete de mí, Satanás",
+      "Escrito está: no tentarás al Señor",
+      "Hasta aquí llegarás, y no pasarás adelante"
+    ],
+    "answer": 0,
+    "reference": "Judas 1:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-013",
+    "level": 11,
+    "category": "Judas",
+    "prompt": "¿Qué antepasado describe Judas como séptimo desde Adán?",
+    "options": [
+      "Enoc",
+      "Noé",
+      "Matusalén",
+      "Lamec"
+    ],
+    "answer": 0,
+    "reference": "Judas 1:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-014",
+    "level": 11,
+    "category": "Nahúm",
+    "prompt": "¿Qué imagen emplea Nahúm para describir a los mercaderes de Nínive que se multiplicaron y luego huyeron?",
+    "options": [
+      "Langostas que levantan el vuelo",
+      "Peces que abandonan la red",
+      "Ovejas que oyen al pastor",
+      "Águilas que vuelven al nido"
+    ],
+    "answer": 0,
+    "reference": "Nahúm 3:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-015",
+    "level": 11,
+    "category": "Abdías",
+    "prompt": "¿Contra qué pueblo se dirige inicialmente la visión de Abdías?",
+    "options": [
+      "Edom",
+      "Moab",
+      "Amón",
+      "Filistea"
+    ],
+    "answer": 0,
+    "reference": "Abdías 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-016",
+    "level": 11,
+    "category": "Abdías",
+    "prompt": "¿Qué parentesco colectivo invoca Abdías al condenar la violencia de Edom?",
+    "options": [
+      "Su hermandad con Jacob",
+      "Su descendencia de Leví",
+      "Su alianza con Egipto",
+      "Su parentesco con Lot"
+    ],
+    "answer": 0,
+    "reference": "Abdías 1:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-017",
+    "level": 11,
+    "category": "Hageo",
+    "prompt": "En Hageo 1, ¿quién era gobernador de Judá?",
+    "options": [
+      "Zorobabel",
+      "Nehemías",
+      "Esdras",
+      "Sesbasar"
+    ],
+    "answer": 0,
+    "reference": "Hageo 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-018",
+    "level": 11,
+    "category": "Hageo",
+    "prompt": "En el libro de Hageo, ¿qué sumo sacerdote aparece junto a Zorobabel?",
+    "options": [
+      "Josué hijo de Josadac",
+      "Josué hijo de Nun",
+      "Joiada hijo de Benaía",
+      "Eleazar hijo de Aarón"
+    ],
+    "answer": 0,
+    "reference": "Hageo 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-019",
+    "level": 11,
+    "category": "Jeremías",
+    "prompt": "¿Qué compró Jeremías a Hanameel como señal de esperanza para la tierra?",
+    "options": [
+      "Una heredad en Anatot",
+      "Una viña en Jezreel",
+      "Una casa en Belén",
+      "Un campo en Hebrón"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 32:7-9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-020",
+    "level": 11,
+    "category": "Jeremías",
+    "prompt": "¿En qué recipiente ordenó Jeremías guardar las escrituras de compra del campo?",
+    "options": [
+      "Una vasija de barro",
+      "Un arca de cedro",
+      "Una bolsa de cuero",
+      "Una caja de bronce"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 32:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-021",
+    "level": 11,
+    "category": "Ezequiel",
+    "prompt": "En Ezequiel 3, ¿qué sabor tuvo el rollo que comió el profeta?",
+    "options": [
+      "Dulce como miel",
+      "Amargo como ajenjo",
+      "Ácido como vinagre",
+      "Salado como el mar"
+    ],
+    "answer": 0,
+    "reference": "Ezequiel 3:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-022",
+    "level": 11,
+    "category": "Daniel",
+    "prompt": "¿Qué rey vio una escritura en la pared mientras se usaban los vasos del templo en un banquete?",
+    "options": [
+      "Belsasar",
+      "Nabucodonosor",
+      "Darío",
+      "Ciro"
+    ],
+    "answer": 0,
+    "reference": "Daniel 5:1-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-023",
+    "level": 11,
+    "category": "Daniel",
+    "prompt": "¿Qué nombre babilónico recibió Daniel?",
+    "options": [
+      "Beltsasar",
+      "Sadrac",
+      "Mesac",
+      "Abed-nego"
+    ],
+    "answer": 0,
+    "reference": "Daniel 1:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-024",
+    "level": 11,
+    "category": "Oseas",
+    "prompt": "En Oseas 3, ¿qué encargo recibió el profeta respecto a una mujer amada por otro y adúltera?",
+    "options": [
+      "Amarla de nuevo pese a su infidelidad",
+      "Coronarla reina de Samaria",
+      "Hacerla sacerdotisa del templo",
+      "Enviar a sus hijos a Egipto"
+    ],
+    "answer": 0,
+    "reference": "Oseas 3:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-025",
+    "level": 11,
+    "category": "Amós",
+    "prompt": "¿Qué profeta declaró que no era profeta de oficio sino boyero y recolector de higos silvestres?",
+    "options": [
+      "Amós",
+      "Joel",
+      "Miqueas",
+      "Sofonías"
+    ],
+    "answer": 0,
+    "reference": "Amós 7:14-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-026",
+    "level": 11,
+    "category": "Miqueas",
+    "prompt": "Según Miqueas 6, ¿qué acompaña a hacer justicia y amar misericordia?",
+    "options": [
+      "Humillarse ante Dios",
+      "Acumular sacrificios",
+      "Buscar un trono",
+      "Construir murallas"
+    ],
+    "answer": 0,
+    "reference": "Miqueas 6:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-027",
+    "level": 11,
+    "category": "Habacuc",
+    "prompt": "En Habacuc 2, ¿qué debe hacer el profeta con la visión para facilitar su lectura?",
+    "options": [
+      "Escribirla claramente en tablas",
+      "Sellarla en una vasija",
+      "Enterrarla junto al río",
+      "Cantarla solo en el templo"
+    ],
+    "answer": 0,
+    "reference": "Habacuc 2:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-028",
+    "level": 11,
+    "category": "Sofonías",
+    "prompt": "¿Qué pide Sofonías buscar junto con Jehová y la justicia?",
+    "options": [
+      "La mansedumbre",
+      "La riqueza",
+      "El poder militar",
+      "La genealogía real"
+    ],
+    "answer": 0,
+    "reference": "Sofonías 2:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-029",
+    "level": 11,
+    "category": "Malaquías",
+    "prompt": "En Malaquías, ¿con qué imagen se describe el proceso de purificación de los hijos de Leví?",
+    "options": [
+      "Un refinador de plata",
+      "Un alfarero que rompe vasijas",
+      "Un sembrador que arranca trigo",
+      "Un pescador que repara redes"
+    ],
+    "answer": 0,
+    "reference": "Malaquías 3:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l11-030",
+    "level": 11,
+    "category": "3 Juan",
+    "prompt": "¿Qué persona de 3 Juan es censurada por querer tener el primer lugar?",
+    "options": [
+      "Diótrefes",
+      "Demetrio",
+      "Gayo",
+      "Demas"
+    ],
+    "answer": 0,
+    "reference": "3 Juan 1:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-001",
+    "level": 12,
+    "category": "Jueces",
+    "prompt": "En Jueces 17, ¿qué sueldo anual ofreció Micaía al levita para que fuera su sacerdote?",
+    "options": [
+      "Diez siclos de plata",
+      "Treinta siclos de plata",
+      "Cincuenta siclos de plata",
+      "Cien siclos de plata"
+    ],
+    "answer": 0,
+    "reference": "Jueces 17:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-002",
+    "level": 12,
+    "category": "Jueces",
+    "prompt": "¿Quién fue la mujer que mató a Sísara, distinta de Débora?",
+    "options": [
+      "Jael",
+      "Acsa",
+      "Jefté",
+      "Abigail"
+    ],
+    "answer": 0,
+    "reference": "Jueces 4:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-003",
+    "level": 12,
+    "category": "Jueces",
+    "prompt": "¿Qué juez tenía treinta hijos que cabalgaban sobre treinta asnos?",
+    "options": [
+      "Jair",
+      "Ibzán",
+      "Abdón",
+      "Elón"
+    ],
+    "answer": 0,
+    "reference": "Jueces 10:3-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-004",
+    "level": 12,
+    "category": "Jueces",
+    "prompt": "¿Qué juez era zurdo y llevó un tributo a Eglón?",
+    "options": [
+      "Aod",
+      "Otoniel",
+      "Samgar",
+      "Tola"
+    ],
+    "answer": 0,
+    "reference": "Jueces 3:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-005",
+    "level": 12,
+    "category": "Rut",
+    "prompt": "¿Qué objeto entregó el pariente de Rut para confirmar la cesión del derecho de redención?",
+    "options": [
+      "Su zapato",
+      "Su anillo",
+      "Su manto",
+      "Su cayado"
+    ],
+    "answer": 0,
+    "reference": "Rut 4:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-006",
+    "level": 12,
+    "category": "Rut",
+    "prompt": "Según el cierre del libro de Rut, ¿qué nombre dieron las vecinas al hijo de Rut?",
+    "options": [
+      "Obed",
+      "Isaí",
+      "Elimelec",
+      "Mahlón"
+    ],
+    "answer": 0,
+    "reference": "Rut 4:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-007",
+    "level": 12,
+    "category": "1 Samuel",
+    "prompt": "¿Quién nombró Icabod a su hijo al oír que el arca había sido capturada?",
+    "options": [
+      "La esposa de Finees",
+      "Ana",
+      "La esposa de Ofni",
+      "Mical"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 4:19-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-008",
+    "level": 12,
+    "category": "1 Samuel",
+    "prompt": "¿Qué sacerdote dio a David pan sagrado en Nob?",
+    "options": [
+      "Ahimelec",
+      "Abiatar",
+      "Sadoc",
+      "Eli"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 21:1-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-009",
+    "level": 12,
+    "category": "1 Samuel",
+    "prompt": "¿Qué hijo de Ahimelec escapó de la matanza de los sacerdotes y huyó a David?",
+    "options": [
+      "Abiatar",
+      "Abisai",
+      "Amasa",
+      "Ahimaas"
+    ],
+    "answer": 0,
+    "reference": "1 Samuel 22:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-010",
+    "level": 12,
+    "category": "2 Samuel",
+    "prompt": "¿Qué nieto de Saúl quedó lisiado de ambos pies a los cinco años?",
+    "options": [
+      "Mefi-boset, hijo de Jonatán",
+      "Is-boset, hijo de Saúl",
+      "Armoni, hijo de Saúl",
+      "Adriel, hijo de Barzilai"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 4:4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-011",
+    "level": 12,
+    "category": "2 Samuel",
+    "prompt": "¿Quién aconsejó a Absalón y luego se ahorcó al no seguirse su consejo?",
+    "options": [
+      "Ahitofel",
+      "Husai",
+      "Simei",
+      "Joab"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 17:23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-012",
+    "level": 12,
+    "category": "2 Samuel",
+    "prompt": "¿Qué amigo de David frustró el consejo de Ahitofel dentro de la corte de Absalón?",
+    "options": [
+      "Husai arquita",
+      "Itai geteo",
+      "Barzilai galaadita",
+      "Siba"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 17:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-013",
+    "level": 12,
+    "category": "2 Samuel",
+    "prompt": "¿Qué rey de Tiro envió madera y artesanos para construir la casa de David?",
+    "options": [
+      "Hiram",
+      "Etbaal",
+      "Ben-adad",
+      "Rezín"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 5:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-014",
+    "level": 12,
+    "category": "1 Reyes",
+    "prompt": "¿Qué rey de Israel trasladó su capital comprando el monte de Samaria?",
+    "options": [
+      "Omri",
+      "Acab",
+      "Jeroboam",
+      "Baasa"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 16:24",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-015",
+    "level": 12,
+    "category": "1 Reyes",
+    "prompt": "¿Qué rey fue confrontado por Elías a causa de la muerte de Nabot?",
+    "options": [
+      "Acab",
+      "Ocozías",
+      "Joram",
+      "Jehú"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 21:17-19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-016",
+    "level": 12,
+    "category": "2 Reyes",
+    "prompt": "¿Qué río propuso Naamán como alternativa a las aguas de Israel, junto con Farfar?",
+    "options": [
+      "Abana",
+      "Quebar",
+      "Arnón",
+      "Cisón"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 5:12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-017",
+    "level": 12,
+    "category": "2 Reyes",
+    "prompt": "¿Qué sirviente de Eliseo recibió la lepra de Naamán tras obtener regalos con engaño?",
+    "options": [
+      "Giezi",
+      "Hazael",
+      "Jazael",
+      "Semei"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 5:20-27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-018",
+    "level": 12,
+    "category": "2 Reyes",
+    "prompt": "En el relato de la sunamita, ¿dónde encontró Eliseo al niño muerto al entrar en su aposento?",
+    "options": [
+      "Sobre su propia cama",
+      "Junto al altar",
+      "En el tejado",
+      "En el patio de la casa"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 4:32",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-019",
+    "level": 12,
+    "category": "Jeremías",
+    "prompt": "¿Qué rey de Judá cortó en pedazos y quemó el rollo leído ante él?",
+    "options": [
+      "Joacim",
+      "Joaquín",
+      "Sedequías",
+      "Josías"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 36:22-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-020",
+    "level": 12,
+    "category": "Jeremías",
+    "prompt": "¿Quién volvió a escribir el rollo dictado por Jeremías después de su quema?",
+    "options": [
+      "Baruc",
+      "Ebed-melec",
+      "Gedalias",
+      "Seraias"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 36:32",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-021",
+    "level": 12,
+    "category": "Jeremías",
+    "prompt": "¿Qué etíope intervino para sacar a Jeremías de la cisterna?",
+    "options": [
+      "Ebed-melec",
+      "Neco",
+      "Tirhaca",
+      "Cusí"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 38:7-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-022",
+    "level": 12,
+    "category": "Jonás",
+    "prompt": "¿Cuál fue la orden de Dios a Jonás después de que el pez lo dejara en tierra?",
+    "options": [
+      "Ir a Nínive y proclamar su mensaje",
+      "Regresar a Tarsis",
+      "Quedarse en Jope",
+      "Ir a Betel a buscar a Amós"
+    ],
+    "answer": 0,
+    "reference": "Jonás 3:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-023",
+    "level": 12,
+    "category": "Jonás",
+    "prompt": "¿En qué ciudad halló Jonás el barco que viajaba hacia Tarsis?",
+    "options": [
+      "Jope",
+      "Tiro",
+      "Sidón",
+      "Cesarea"
+    ],
+    "answer": 0,
+    "reference": "Jonás 1:3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-024",
+    "level": 12,
+    "category": "Hageo",
+    "prompt": "¿Qué representa el saco roto de Hageo 1 en la descripción del pueblo?",
+    "options": [
+      "El jornal que no rinde",
+      "La muralla destruida",
+      "La derrota del ejército",
+      "La pérdida de los rollos"
+    ],
+    "answer": 0,
+    "reference": "Hageo 1:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-025",
+    "level": 12,
+    "category": "Filemón",
+    "prompt": "En el saludo de Filemón, ¿quién es llamado compañero de milicia?",
+    "options": [
+      "Arquipo",
+      "Epafras",
+      "Onésimo",
+      "Marcos"
+    ],
+    "answer": 0,
+    "reference": "Filemón 1:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-026",
+    "level": 12,
+    "category": "Filemón",
+    "prompt": "¿Quién se identifica junto a Pablo en el saludo inicial de Filemón?",
+    "options": [
+      "Timoteo",
+      "Silas",
+      "Tito",
+      "Lucas"
+    ],
+    "answer": 0,
+    "reference": "Filemón 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-027",
+    "level": 12,
+    "category": "2 Juan",
+    "prompt": "En 2 Juan, ¿qué mandamiento presenta el autor como recibido desde el principio?",
+    "options": [
+      "Amarnos unos a otros",
+      "Ayunar tres veces por semana",
+      "Viajar de dos en dos",
+      "Vender toda posesión"
+    ],
+    "answer": 0,
+    "reference": "2 Juan 1:5-6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-028",
+    "level": 12,
+    "category": "Judas",
+    "prompt": "¿Qué ejemplo usa Judas para advertir contra quienes siguen un camino de rebelión, junto a Caín y Balaam?",
+    "options": [
+      "La contradicción de Coré",
+      "La consulta de Saúl",
+      "La huida de Jonás",
+      "El sueño de Faraón"
+    ],
+    "answer": 0,
+    "reference": "Judas 1:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-029",
+    "level": 12,
+    "category": "Apocalipsis",
+    "prompt": "En Apocalipsis 2, ¿a qué iglesia se le dice que dejó su primer amor?",
+    "options": [
+      "Éfeso",
+      "Esmirna",
+      "Pérgamo",
+      "Tiatira"
+    ],
+    "answer": 0,
+    "reference": "Apocalipsis 2:1-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l12-030",
+    "level": 12,
+    "category": "Apocalipsis",
+    "prompt": "¿A qué iglesia de Apocalipsis se le reprocha ser tibia?",
+    "options": [
+      "Laodicea",
+      "Filadelfia",
+      "Sardis",
+      "Esmirna"
+    ],
+    "answer": 0,
+    "reference": "Apocalipsis 3:14-16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-001",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "En Génesis 14, ¿quién era rey de Salem y sacerdote del Dios Altísimo?",
+    "options": [
+      "Melquisedec",
+      "Abimelec",
+      "Quedorlaomer",
+      "Bera"
+    ],
+    "answer": 0,
+    "reference": "Génesis 14:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-002",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Quién salió al encuentro de Abraham después de derrotar a Quedorlaomer, además de Melquisedec?",
+    "options": [
+      "El rey de Sodoma",
+      "El rey de Egipto",
+      "El rey de Gerar",
+      "El rey de Damasco"
+    ],
+    "answer": 0,
+    "reference": "Génesis 14:17",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-003",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Cómo se llamaba el hermano de Abraham que fue padre de Lot?",
+    "options": [
+      "Harán",
+      "Nacor",
+      "Taré",
+      "Betuel"
+    ],
+    "answer": 0,
+    "reference": "Génesis 11:27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-004",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Qué hijo de Jacob tuvo por madre a Zilpa y recibió un nombre relacionado con la dicha?",
+    "options": [
+      "Aser",
+      "Neftalí",
+      "Dan",
+      "Isacar"
+    ],
+    "answer": 0,
+    "reference": "Génesis 30:12-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-005",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Cuál de estas parejas estaba formada por hijos de Bilha?",
+    "options": [
+      "Dan y Neftalí",
+      "Gad y Aser",
+      "Isacar y Zabulón",
+      "Judá y Leví"
+    ],
+    "answer": 0,
+    "reference": "Génesis 30:4-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-006",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Qué mujer llamó El-roi a Dios tras recibir un mensaje en el desierto?",
+    "options": [
+      "Agar",
+      "Rebeca",
+      "Lea",
+      "Raquel"
+    ],
+    "answer": 0,
+    "reference": "Génesis 16:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-007",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿En casa de quién vivió José cuando fue comprado en Egipto?",
+    "options": [
+      "Potifar",
+      "Potifera",
+      "Faraón Necao",
+      "El jefe de los coperos"
+    ],
+    "answer": 0,
+    "reference": "Génesis 39:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-008",
+    "level": 13,
+    "category": "Génesis",
+    "prompt": "¿Cómo se llamaba la esposa egipcia de José?",
+    "options": [
+      "Asenat",
+      "Sefora",
+      "Betsabé",
+      "Tamar"
+    ],
+    "answer": 0,
+    "reference": "Génesis 41:45",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-009",
+    "level": 13,
+    "category": "Josué",
+    "prompt": "¿Qué tribu recibió ciudades entre las otras tribus, pero no una heredad territorial como ellas?",
+    "options": [
+      "Leví",
+      "Simeón",
+      "Benjamín",
+      "Isacar"
+    ],
+    "answer": 0,
+    "reference": "Josué 21:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-010",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿De qué tribu era Caleb según la lista de los exploradores?",
+    "options": [
+      "Judá",
+      "Efraín",
+      "Manasés",
+      "Gad"
+    ],
+    "answer": 0,
+    "reference": "Números 13:6",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-011",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿Cuál era el nombre de Josué antes de que Moisés lo llamara Josué?",
+    "options": [
+      "Oseas",
+      "Eleazar",
+      "Hosea hijo de Beeri",
+      "Aarón"
+    ],
+    "answer": 0,
+    "reference": "Números 13:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-012",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿Qué dos hombres profetizaron en el campamento sin ir al tabernáculo, según Números 11?",
+    "options": [
+      "Eldad y Medad",
+      "Nadab y Abiú",
+      "Coré y Datán",
+      "Elisafán y Misael"
+    ],
+    "answer": 0,
+    "reference": "Números 11:26-27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-013",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿Qué rey negó a Israel el paso por su territorio cuando se lo pidió Moisés?",
+    "options": [
+      "El rey de Edom",
+      "El rey de Tiro",
+      "El rey de Ascalón",
+      "El rey de Hazor"
+    ],
+    "answer": 0,
+    "reference": "Números 20:14-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-014",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿En qué monte murió Aarón?",
+    "options": [
+      "Hor",
+      "Nebo",
+      "Horeb",
+      "Ebal"
+    ],
+    "answer": 0,
+    "reference": "Números 20:25-28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-015",
+    "level": 13,
+    "category": "Éxodo",
+    "prompt": "¿Qué nombre dio Moisés al altar tras la derrota de Amalec?",
+    "options": [
+      "Jehová-nisi",
+      "Jehová-jireh",
+      "El-betel",
+      "Ebenezer"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 17:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-016",
+    "level": 13,
+    "category": "Éxodo",
+    "prompt": "¿Quién, junto con Aarón, sostuvo las manos de Moisés durante la batalla contra Amalec?",
+    "options": [
+      "Hur",
+      "Josué",
+      "Caleb",
+      "Eleazar"
+    ],
+    "answer": 0,
+    "reference": "Éxodo 17:10-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-017",
+    "level": 13,
+    "category": "Números",
+    "prompt": "¿Quién sucedió a Moisés imponiéndosele las manos ante Eleazar y la congregación?",
+    "options": [
+      "Josué hijo de Nun",
+      "Caleb hijo de Jefone",
+      "Fineés hijo de Eleazar",
+      "Gersón hijo de Moisés"
+    ],
+    "answer": 0,
+    "reference": "Números 27:18-23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-018",
+    "level": 13,
+    "category": "Josué",
+    "prompt": "¿Qué pueblo engañó a Josué con provisiones envejecidas para pactar con Israel?",
+    "options": [
+      "Los gabaonitas",
+      "Los amalecitas",
+      "Los moabitas",
+      "Los jebuseos"
+    ],
+    "answer": 0,
+    "reference": "Josué 9:3-15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-019",
+    "level": 13,
+    "category": "Josué",
+    "prompt": "¿Qué rey de Jerusalén organizó una coalición contra Gabaón después de su alianza con Israel?",
+    "options": [
+      "Adonisedec",
+      "Melquisedec",
+      "Jabín",
+      "Hoham"
+    ],
+    "answer": 0,
+    "reference": "Josué 10:1-5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-020",
+    "level": 13,
+    "category": "Josué",
+    "prompt": "¿Cuál fue la señal pedida por Rahab para identificar su casa?",
+    "options": [
+      "Un cordón de grana en la ventana",
+      "Una lámpara en el techo",
+      "Una rama de olivo en la puerta",
+      "Un manto azul en el muro"
+    ],
+    "answer": 0,
+    "reference": "Josué 2:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-021",
+    "level": 13,
+    "category": "Joel",
+    "prompt": "¿De quién era hijo el profeta Joel según el inicio de su libro?",
+    "options": [
+      "Petuel",
+      "Beeri",
+      "Amoz",
+      "Berequías"
+    ],
+    "answer": 0,
+    "reference": "Joel 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-022",
+    "level": 13,
+    "category": "Miqueas",
+    "prompt": "¿De qué lugar era Miqueas según el encabezado de su libro?",
+    "options": [
+      "Moreset",
+      "Tecoa",
+      "Anatot",
+      "Elcos"
+    ],
+    "answer": 0,
+    "reference": "Miqueas 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-023",
+    "level": 13,
+    "category": "Nahúm",
+    "prompt": "¿Qué localidad identifica a Nahúm en el encabezado de su profecía?",
+    "options": [
+      "Elcos",
+      "Gat-hefer",
+      "Moreset",
+      "Betel"
+    ],
+    "answer": 0,
+    "reference": "Nahúm 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-024",
+    "level": 13,
+    "category": "Sofonías",
+    "prompt": "¿Qué rey de Judá reinaba cuando Sofonías recibió su mensaje, según el encabezado?",
+    "options": [
+      "Josías hijo de Amón",
+      "Ezequías hijo de Acaz",
+      "Joás hijo de Ocozías",
+      "Jotam hijo de Uzías"
+    ],
+    "answer": 0,
+    "reference": "Sofonías 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-025",
+    "level": 13,
+    "category": "Hageo",
+    "prompt": "¿En qué año de Darío sitúa Hageo la primera palabra fechada de su libro?",
+    "options": [
+      "El segundo",
+      "El primero",
+      "El sexto",
+      "El vigésimo"
+    ],
+    "answer": 0,
+    "reference": "Hageo 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-026",
+    "level": 13,
+    "category": "Filemón",
+    "prompt": "¿Qué privilegio desea Pablo que Filemón le prepare, esperando ser liberado?",
+    "options": [
+      "Alojamiento",
+      "Un barco",
+      "Un tribunal",
+      "Una escolta militar"
+    ],
+    "answer": 0,
+    "reference": "Filemón 1:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-027",
+    "level": 13,
+    "category": "Filemón",
+    "prompt": "¿Qué compañero de cautiverio envía saludos en Filemón?",
+    "options": [
+      "Epafras",
+      "Apolos",
+      "Tito",
+      "Clemente"
+    ],
+    "answer": 0,
+    "reference": "Filemón 1:23",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-028",
+    "level": 13,
+    "category": "Tito",
+    "prompt": "¿En qué isla dejó Pablo a Tito para establecer ancianos en cada ciudad?",
+    "options": [
+      "Creta",
+      "Chipre",
+      "Malta",
+      "Patmos"
+    ],
+    "answer": 0,
+    "reference": "Tito 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-029",
+    "level": 13,
+    "category": "2 Timoteo",
+    "prompt": "En 2 Timoteo, ¿qué colaborador había amado este mundo y se había ido a Tesalónica?",
+    "options": [
+      "Demas",
+      "Crescente",
+      "Tito",
+      "Tíquico"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 4:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l13-030",
+    "level": 13,
+    "category": "2 Timoteo",
+    "prompt": "¿Qué dos mujeres recuerda Pablo por la fe sincera que también habitaba en Timoteo?",
+    "options": [
+      "Loida y Eunice",
+      "Priscila y Febe",
+      "Evodia y Síntique",
+      "Trifena y Trifosa"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 1:5",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-001",
+    "level": 14,
+    "category": "Jeremías",
+    "prompt": "¿Cuánto pagó Jeremías por el campo de Hanameel?",
+    "options": [
+      "Diecisiete siclos de plata",
+      "Treinta siclos de plata",
+      "Cincuenta siclos de plata",
+      "Cuatrocientos siclos de plata"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 32:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-002",
+    "level": 14,
+    "category": "Abdías",
+    "prompt": "En Abdías, ¿qué ciudad se menciona junto a los cautivos de Jerusalén que poseerán las ciudades del Neguev?",
+    "options": [
+      "Sefarad",
+      "Susa",
+      "Nínive",
+      "Damasco"
+    ],
+    "answer": 0,
+    "reference": "Abdías 1:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-003",
+    "level": 14,
+    "category": "Abdías",
+    "prompt": "¿Qué localidad aparece en Abdías al anunciar el temor de los valientes de Edom?",
+    "options": [
+      "Temán",
+      "Hesbón",
+      "Ribla",
+      "Gabaón"
+    ],
+    "answer": 0,
+    "reference": "Abdías 1:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-004",
+    "level": 14,
+    "category": "Nahúm",
+    "prompt": "En Nahúm 3, ¿con qué ciudad rodeada de aguas se compara a Nínive?",
+    "options": [
+      "No-Amón",
+      "Zoán",
+      "Menfis",
+      "Susa"
+    ],
+    "answer": 0,
+    "reference": "Nahúm 3:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-005",
+    "level": 14,
+    "category": "Nahúm",
+    "prompt": "Según Nahúm 3, ¿qué dos pueblos eran la fortaleza de No-Amón?",
+    "options": [
+      "Etiopía y Egipto",
+      "Moab y Amón",
+      "Edom y Filistea",
+      "Asiria y Babilonia"
+    ],
+    "answer": 0,
+    "reference": "Nahúm 3:9",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-006",
+    "level": 14,
+    "category": "2 Samuel",
+    "prompt": "¿Qué cultivo llenaba el terreno que defendió Sama según 2 Samuel 23?",
+    "options": [
+      "Lentejas",
+      "Cebada",
+      "Trigo",
+      "Garbanzos"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 23:11-12",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-007",
+    "level": 14,
+    "category": "2 Samuel",
+    "prompt": "¿Quién mató un león dentro de un foso en un día de nieve?",
+    "options": [
+      "Benaía hijo de Joiada",
+      "Eleazar hijo de Dodo",
+      "Sama hijo de Age",
+      "Abisai hijo de Sarvia"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 23:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-008",
+    "level": 14,
+    "category": "2 Samuel",
+    "prompt": "¿Qué valiente arrebató la lanza a un egipcio y lo mató con ella, según 2 Samuel 23?",
+    "options": [
+      "Benaía",
+      "Asael",
+      "Igal",
+      "Helez"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 23:21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-009",
+    "level": 14,
+    "category": "2 Samuel",
+    "prompt": "¿Qué hombre fue escudero de Joab según la lista de los valientes?",
+    "options": [
+      "Naharai beerotita",
+      "Uza",
+      "Adino",
+      "Eliam"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 23:37",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-010",
+    "level": 14,
+    "category": "2 Samuel",
+    "prompt": "¿Quién era el padre de Amasa, según 2 Samuel 17?",
+    "options": [
+      "Itra israelita",
+      "Joiada",
+      "Jeter madianita",
+      "Ahitofel"
+    ],
+    "answer": 0,
+    "reference": "2 Samuel 17:25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-011",
+    "level": 14,
+    "category": "1 Reyes",
+    "prompt": "¿Qué rey de Israel reinó siete días en Tirsa?",
+    "options": [
+      "Zimri",
+      "Zacarías",
+      "Salum",
+      "Ela"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 16:15",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-012",
+    "level": 14,
+    "category": "1 Reyes",
+    "prompt": "¿Qué rey murió mientras bebía en casa de Arsa, su mayordomo?",
+    "options": [
+      "Ela",
+      "Baasa",
+      "Nadab",
+      "Tibni"
+    ],
+    "answer": 0,
+    "reference": "1 Reyes 16:8-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-013",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿Qué rey de Judá empezó a reinar a los ocho años, según 2 Reyes 22?",
+    "options": [
+      "Josías",
+      "Joás",
+      "Manasés",
+      "Azarías"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 22:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-014",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿Qué rey de Judá fue escondido seis años en la casa de Jehová?",
+    "options": [
+      "Joás",
+      "Josías",
+      "Amasías",
+      "Jotam"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 11:2-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-015",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿Qué mujer rescató a Joás de entre los hijos del rey destinados a morir?",
+    "options": [
+      "Josaba",
+      "Hulda",
+      "Atalía",
+      "Jedida"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 11:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-016",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿Cuál era el oficio de Salum, esposo de la profetisa Hulda, según 2 Reyes 22?",
+    "options": [
+      "Guarda de las vestiduras",
+      "Jefe de los cantores",
+      "Copero real",
+      "Capitán del ejército"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 22:14",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-017",
+    "level": 14,
+    "category": "2 Crónicas",
+    "prompt": "En 2 Crónicas 26, ¿qué rey fue herido de lepra al intentar quemar incienso?",
+    "options": [
+      "Uzías",
+      "Amasías",
+      "Jotam",
+      "Acaz"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 26:16-21",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-018",
+    "level": 14,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué rey de Judá fue llevado cautivo a Babilonia y después restaurado a Jerusalén, según 2 Crónicas 33?",
+    "options": [
+      "Manasés",
+      "Sedequías",
+      "Joacim",
+      "Joaquín"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 33:11-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-019",
+    "level": 14,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué sacerdote enseñó a Joás mientras vivió, según 2 Crónicas 24?",
+    "options": [
+      "Joiada",
+      "Azarías",
+      "Sadoc",
+      "Urías"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 24:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-020",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿Qué explicación da 2 Reyes 17 sobre los leones que atacaron a los nuevos pobladores de Samaria?",
+    "options": [
+      "No temían a Jehová",
+      "Habían robado el arca",
+      "Habían destruido el Jordán",
+      "Se habían rebelado contra Josías"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 17:25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-021",
+    "level": 14,
+    "category": "2 Reyes",
+    "prompt": "¿De qué ciudad era el sacerdote enviado para enseñar a los pobladores de Samaria, según su lugar de residencia?",
+    "options": [
+      "Betel",
+      "Dan",
+      "Jerusalén",
+      "Siquem"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 17:27-28",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-022",
+    "level": 14,
+    "category": "Esdras",
+    "prompt": "En Esdras, ¿qué rey mandó buscar el decreto original de Ciro?",
+    "options": [
+      "Darío",
+      "Asuero",
+      "Artajerjes",
+      "Cambises"
+    ],
+    "answer": 0,
+    "reference": "Esdras 6:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-023",
+    "level": 14,
+    "category": "Esdras",
+    "prompt": "¿Dónde se encontró el rollo con la memoria del decreto de Ciro?",
+    "options": [
+      "Acmeta",
+      "Susa",
+      "Nínive",
+      "Jerusalén"
+    ],
+    "answer": 0,
+    "reference": "Esdras 6:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-024",
+    "level": 14,
+    "category": "Nehemías",
+    "prompt": "¿Qué cargo ejercía Nehemías al oír noticias de Jerusalén?",
+    "options": [
+      "Copero del rey",
+      "Escriba del ejército",
+      "Gobernador de Samaria",
+      "Guardián del templo"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 1:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-025",
+    "level": 14,
+    "category": "Nehemías",
+    "prompt": "¿Qué gobernador se burló de la reconstrucción junto con Tobías y Gesem?",
+    "options": [
+      "Sanbalat horonita",
+      "Rehum canciller",
+      "Tatenai",
+      "Bislán"
+    ],
+    "answer": 0,
+    "reference": "Nehemías 2:19",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-026",
+    "level": 14,
+    "category": "2 Timoteo",
+    "prompt": "¿Qué colaborador dejó Pablo en Corinto, según 2 Timoteo 4?",
+    "options": [
+      "Erasto",
+      "Crescente",
+      "Tíquico",
+      "Carpo"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 4:20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-027",
+    "level": 14,
+    "category": "2 Timoteo",
+    "prompt": "¿En casa de quién había dejado Pablo su capote en Troas?",
+    "options": [
+      "Carpo",
+      "Cayo",
+      "Crispo",
+      "Sosténes"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 4:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-028",
+    "level": 14,
+    "category": "2 Timoteo",
+    "prompt": "¿A quién solicita Pablo específicamente que Timoteo lleve consigo por serle útil para el ministerio?",
+    "options": [
+      "Marcos",
+      "Bernabé",
+      "Apolos",
+      "Demas"
+    ],
+    "answer": 0,
+    "reference": "2 Timoteo 4:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-029",
+    "level": 14,
+    "category": "Efesios",
+    "prompt": "¿Qué colaborador llevó la carta de Efesios y comunicaría noticias de Pablo?",
+    "options": [
+      "Tíquico",
+      "Onésimo",
+      "Epafrodito",
+      "Zenas"
+    ],
+    "answer": 0,
+    "reference": "Efesios 6:21-22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l14-030",
+    "level": 14,
+    "category": "Tito",
+    "prompt": "¿Qué pareja de colaboradores pide Pablo que Tito encamine con diligencia?",
+    "options": [
+      "Zenas y Apolos",
+      "Bernabé y Marcos",
+      "Silas y Judas",
+      "Epafras y Lucas"
+    ],
+    "answer": 0,
+    "reference": "Tito 3:13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-001",
+    "level": 15,
+    "category": "Zacarías",
+    "prompt": "En Zacarías 6, ¿sobre la cabeza de quién debían colocarse las coronas de plata y oro?",
+    "options": [
+      "Josué hijo de Josadac",
+      "Zorobabel hijo de Salatiel",
+      "Josías hijo de Sofonías",
+      "Hageo el profeta"
+    ],
+    "answer": 0,
+    "reference": "Zacarías 6:11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-002",
+    "level": 15,
+    "category": "Zacarías",
+    "prompt": "¿En casa de quién debía entrar Zacarías tras tomar a Heldai, Tobías y Jedaías?",
+    "options": [
+      "Josías hijo de Sofonías",
+      "Josué hijo de Josadac",
+      "Zorobabel hijo de Salatiel",
+      "Iddo hijo de Berequías"
+    ],
+    "answer": 0,
+    "reference": "Zacarías 6:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-003",
+    "level": 15,
+    "category": "Zacarías",
+    "prompt": "¿De qué material eran los dos montes entre los que salían los carros de Zacarías 6?",
+    "options": [
+      "Bronce",
+      "Oro",
+      "Hierro",
+      "Plata"
+    ],
+    "answer": 0,
+    "reference": "Zacarías 6:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-004",
+    "level": 15,
+    "category": "Oseas",
+    "prompt": "¿Qué nombre recibió el niño que la esposa de Oseas dio a luz primero?",
+    "options": [
+      "Jezreel",
+      "Lo-ammi",
+      "Lo-ruhama",
+      "Maher-salal-hasbaz"
+    ],
+    "answer": 0,
+    "reference": "Oseas 1:3-4",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-005",
+    "level": 15,
+    "category": "Oseas",
+    "prompt": "¿Cuánto dio Oseas para adquirir a la mujer mencionada en el capítulo 3?",
+    "options": [
+      "Quince siclos de plata y un homer y medio de cebada",
+      "Treinta siclos de plata y un efa de trigo",
+      "Diecisiete siclos de plata y dos odres",
+      "Cincuenta siclos de plata y un homer de trigo"
+    ],
+    "answer": 0,
+    "reference": "Oseas 3:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-006",
+    "level": 15,
+    "category": "Amós",
+    "prompt": "Según Amós 1, ¿cuánto tiempo antes del terremoto vio Amós sus palabras sobre Israel?",
+    "options": [
+      "Dos años",
+      "Tres años",
+      "Siete años",
+      "Diez años"
+    ],
+    "answer": 0,
+    "reference": "Amós 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-007",
+    "level": 15,
+    "category": "Amós",
+    "prompt": "¿Qué sacerdote de Betel acusó a Amós ante Jeroboam?",
+    "options": [
+      "Amasías",
+      "Amoz",
+      "Azarías",
+      "Amós hijo de Iddo"
+    ],
+    "answer": 0,
+    "reference": "Amós 7:10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-008",
+    "level": 15,
+    "category": "Joel",
+    "prompt": "¿A qué valle se refiere Joel al hablar de reunir allí a todas las naciones para juicio?",
+    "options": [
+      "Josafat",
+      "Acor",
+      "Escol",
+      "Refaim"
+    ],
+    "answer": 0,
+    "reference": "Joel 3:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-009",
+    "level": 15,
+    "category": "Zacarías",
+    "prompt": "¿Qué dos familias sacerdotales se nombran en Zacarías 12 junto a David y Natán en el duelo?",
+    "options": [
+      "Leví y Simei",
+      "Sadoc y Abiatar",
+      "Aarón y Eleazar",
+      "Coré y Merari"
+    ],
+    "answer": 0,
+    "reference": "Zacarías 12:12-13",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-010",
+    "level": 15,
+    "category": "Isaías",
+    "prompt": "¿Qué profeta recibió la orden de poner a su hijo por nombre Maher-salal-hasbaz?",
+    "options": [
+      "Isaías",
+      "Oseas",
+      "Ezequiel",
+      "Jeremías"
+    ],
+    "answer": 0,
+    "reference": "Isaías 8:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-011",
+    "level": 15,
+    "category": "Isaías",
+    "prompt": "¿Qué dos testigos tomó Isaías para el escrito relacionado con Maher-salal-hasbaz?",
+    "options": [
+      "Urías y Zacarías hijo de Jeberequías",
+      "Baruc y Seraias",
+      "Hageo y Zacarías hijo de Berequías",
+      "Hilcías y Safán"
+    ],
+    "answer": 0,
+    "reference": "Isaías 8:2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-012",
+    "level": 15,
+    "category": "Isaías",
+    "prompt": "¿Qué funcionario fue sustituido por Eliaquim hijo de Hilcías en el anuncio de Isaías 22?",
+    "options": [
+      "Sebna",
+      "Rabsaces",
+      "Asaf",
+      "Joa"
+    ],
+    "answer": 0,
+    "reference": "Isaías 22:15-20",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-013",
+    "level": 15,
+    "category": "Jeremías",
+    "prompt": "¿Qué nombre recibe el padre de Jeremías en el encabezado de su libro?",
+    "options": [
+      "Hilcías",
+      "Nerías",
+      "Salum",
+      "Maasías"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 1:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-014",
+    "level": 15,
+    "category": "Jeremías",
+    "prompt": "¿Qué parentesco tenía Hanameel con Jeremías según el relato de la compra?",
+    "options": [
+      "Era hijo de su tío Salum",
+      "Era hijo de su hermano Baruc",
+      "Era nieto de su primo Nerías",
+      "Era su sobrino, hijo de Hilcías"
+    ],
+    "answer": 0,
+    "reference": "Jeremías 32:7-8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-015",
+    "level": 15,
+    "category": "2 Reyes",
+    "prompt": "¿Qué rey liberó a Joaquín de la cárcel en el año treinta y siete de su cautiverio?",
+    "options": [
+      "Evil-merodac",
+      "Belsasar",
+      "Nabucodonosor",
+      "Darío"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 25:27",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-016",
+    "level": 15,
+    "category": "2 Reyes",
+    "prompt": "¿Qué nombre tenía la madre de Joaquín según 2 Reyes 24?",
+    "options": [
+      "Nehusta",
+      "Hamutal",
+      "Zebuda",
+      "Jedida"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 24:8",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-017",
+    "level": 15,
+    "category": "2 Reyes",
+    "prompt": "¿Quién era el padre de Gedalías, designado sobre el pueblo que quedó en Judá?",
+    "options": [
+      "Ahicam",
+      "Safán",
+      "Ismael",
+      "Natanías"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 25:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-018",
+    "level": 15,
+    "category": "2 Reyes",
+    "prompt": "¿Quién asesinó a Gedalías, según 2 Reyes 25?",
+    "options": [
+      "Ismael hijo de Netanías",
+      "Johanán hijo de Carea",
+      "Baalis rey de Amón",
+      "Seraías hijo de Tanhumet"
+    ],
+    "answer": 0,
+    "reference": "2 Reyes 25:25",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-019",
+    "level": 15,
+    "category": "1 Crónicas",
+    "prompt": "En 1 Crónicas 4, ¿qué hombre pidió que se ensanchara su territorio y se lo librara del mal?",
+    "options": [
+      "Jabes",
+      "Jahaziel",
+      "Jaaziel",
+      "Jozabad"
+    ],
+    "answer": 0,
+    "reference": "1 Crónicas 4:9-10",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-020",
+    "level": 15,
+    "category": "1 Crónicas",
+    "prompt": "¿Qué descendientes de Leví fueron designados para el canto por David, según 1 Crónicas 6?",
+    "options": [
+      "Hemán, Asaf y Etán",
+      "Hageo, Iddo y Natán",
+      "Joiada, Sadoc y Abiatar",
+      "Semaías, Gad y Hur"
+    ],
+    "answer": 0,
+    "reference": "1 Crónicas 6:31-44",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-021",
+    "level": 15,
+    "category": "1 Crónicas",
+    "prompt": "¿Qué levita principal fue puesto para dirigir el canto por ser entendido en ello, según 1 Crónicas 15:22?",
+    "options": [
+      "Quenanías",
+      "Obed-edom",
+      "Berequías",
+      "Aziel"
+    ],
+    "answer": 0,
+    "reference": "1 Crónicas 15:22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-022",
+    "level": 15,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué profeta anunció a Asa que Jehová estaría con ellos mientras ellos estuvieran con él?",
+    "options": [
+      "Azarías hijo de Obed",
+      "Hanani",
+      "Jehú hijo de Hanani",
+      "Semaías"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 15:1-2",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-023",
+    "level": 15,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué vidente reprendió a Asa por apoyarse en el rey de Siria?",
+    "options": [
+      "Hanani",
+      "Azarías hijo de Obed",
+      "Hananías hijo de Azur",
+      "Micaías hijo de Imla"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 16:7",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-024",
+    "level": 15,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué profeta de Samaria frenó a Israel cuando llevaba cautivos a sus hermanos de Judá?",
+    "options": [
+      "Obed",
+      "Oseas",
+      "Amós",
+      "Ahías"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 28:9-11",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-025",
+    "level": 15,
+    "category": "2 Crónicas",
+    "prompt": "¿Qué hijo de Joiada murió apedreado por orden de Joás?",
+    "options": [
+      "Zacarías",
+      "Azarías",
+      "Urías",
+      "Semaías"
+    ],
+    "answer": 0,
+    "reference": "2 Crónicas 24:20-22",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-026",
+    "level": 15,
+    "category": "Hechos",
+    "prompt": "En Hechos 27, ¿qué centurión de la compañía Augusta custodiaba a Pablo?",
+    "options": [
+      "Julio",
+      "Cornelio",
+      "Claudio Lisias",
+      "Longino"
+    ],
+    "answer": 0,
+    "reference": "Hechos 27:1",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-027",
+    "level": 15,
+    "category": "Hechos",
+    "prompt": "¿Qué isla dejaron a la izquierda al navegar de Pátara hacia Siria en Hechos 21?",
+    "options": [
+      "Chipre",
+      "Creta",
+      "Rodas",
+      "Cos"
+    ],
+    "answer": 0,
+    "reference": "Hechos 21:1-3",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-028",
+    "level": 15,
+    "category": "Hechos",
+    "prompt": "¿Con qué discípulo antiguo de Chipre se hospedarían los viajeros que acompañaban a Pablo a Jerusalén?",
+    "options": [
+      "Mnasón",
+      "Agabo",
+      "Felipe",
+      "Aristarco"
+    ],
+    "answer": 0,
+    "reference": "Hechos 21:16",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-029",
+    "level": 15,
+    "category": "Hechos",
+    "prompt": "¿En qué puerto se rapó Pablo la cabeza porque tenía hecho voto?",
+    "options": [
+      "Cencrea",
+      "Pátara",
+      "Mileto",
+      "Tiro"
+    ],
+    "answer": 0,
+    "reference": "Hechos 18:18",
+    "active": true
+  },
+  {
+    "id": "es-exp-l15-030",
+    "level": 15,
+    "category": "Romanos",
+    "prompt": "¿A qué iglesia pertenecía Febe, recomendada por Pablo a los romanos?",
+    "options": [
+      "Cencrea",
+      "Corinto",
+      "Filipos",
+      "Tesalónica"
+    ],
+    "answer": 0,
+    "reference": "Romanos 16:1",
+    "active": true
   }
 ]

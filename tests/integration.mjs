@@ -51,9 +51,17 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
     }
     assert.equal(game.result.outcome, 'won'); assert.equal(game.amount, 1000000);
     assert.equal(game.result.lifelinesUsed, 3);
-    assert.ok((await request('/api/leaderboard')).data.some(row => row.id === game.id && row.amount === 1000000));
+    assert.ok((await request('/api/leaderboard')).data.some(row => row.id === stored.playerId && row.amount === 1000000 && row.knowledgeCrowns === 1 && row.gamesPlayed === 1));
     const replay = await request('/api/games/' + game.id, { action: 'answer', version: 0, option: 0 }, cookie);
     assert.equal(replay.data.game.amount, 1000000);
+    game = (await request('/api/games', {}, cookie)).data;
+    const second = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    for (let level = 1; level <= 15; level++) {
+      const response = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: second.rounds[level - 1].answer }, cookie);
+      assert.equal(response.status, 200);
+      game = response.data.game;
+    }
+    assert.equal(game.result.outcome, 'won');
     game = (await request('/api/games', {}, cookie)).data;
     await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
     const timeout = await request('/api/games/' + game.id, { action: 'timeout', version: game.version }, cookie);
@@ -61,6 +69,10 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
     game = (await request('/api/games', {}, cookie)).data;
     const retired = await request('/api/games/' + game.id, { action: 'walk', version: game.version }, cookie);
     assert.equal(retired.data.game.result.outcome, 'walked'); assert.equal(retired.data.game.amount, 0);
+    const historical = (await request('/api/leaderboard')).data.find(row => row.id === stored.playerId);
+    assert.equal(historical.amount, 2000000);
+    assert.equal(historical.knowledgeCrowns, 2);
+    assert.equal(historical.gamesPlayed, 4);
   } finally {
     if (players.length) { await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
     await db.$disconnect(); server.kill();

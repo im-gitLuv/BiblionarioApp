@@ -6,6 +6,8 @@ export interface GameResult {
     lifelinesUsed: number;
 }
 export interface ScoreRecord {
+    knowledgeCrowns: number;
+    gamesPlayed: number;
     id: string;
     name: string;
     amount: number;

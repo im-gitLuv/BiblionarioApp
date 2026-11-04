@@ -1,4 +1,4 @@
-# Biblionario · Corona de Gloria
+# ¿Quién quiere ser Biblionario?
 
 Juego bíblico en español con backend Next.js, Prisma y PostgreSQL. Preguntas, respuestas, comodines, tiempos, partidas y clasificación se validan en el servidor. El cliente no contiene el banco ni decide los puntajes.
 
@@ -17,9 +17,9 @@ No se migra el archivo SQLite del scaffold; no era la base activa del juego. Se 
 
 ## Contenido y perfiles
 
-Semilla: 45 preguntas en español, tres por cada escalón. Requiere revisión editorial antes de publicar. Crecer mediante npm run db:import -- ruta/al/banco.json. El JSON de ejemplo está en prisma/questions.es.json. La importación valida estructura y hace upsert transaccional por ID sin borrar registros ausentes.
+Banco: 495 preguntas en español, 33 por escalón, con referencias a los 66 libros. Crecer mediante npm run db:import -- prisma/questions.es.json. La importación valida estructura y hace upsert transaccional por ID sin borrar registros ausentes. La revisión web inicial contrasta pasajes seleccionados; no equivale a una auditoría bíblica independiente de las 495 preguntas. La dificultad es editorial y debe calibrarse con el piloto.
 
-Cada jugador tiene un perfil de invitado con nombre público y cookie privada HttpOnly. No hay aún inicio de sesión recuperable ni identidad sincronizada entre dispositivos. La clasificación muestra la mejor partida terminada por perfil; no acepta puntajes enviados por el navegador.
+Cada jugador tiene un perfil de invitado con nombre público y cookie privada HttpOnly. No hay aún inicio de sesión recuperable ni identidad sincronizada entre dispositivos. La clasificación suma los premios históricos de todas las partidas terminadas de cada perfil; cada victoria completa concede una Corona de conocimiento. Los premios parciales no conceden esa distinción. Los totales se calculan en el servidor desde las partidas existentes, sin migraciones ni reinicio de resultados.
 
 ## Verificar
 

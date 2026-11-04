@@ -141,7 +141,7 @@ export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
           transition={{ delay: 0.15, duration: 0.55 }}
           className="mb-3 text-[11px] font-semibold uppercase tracking-[0.4em] text-amber-300/80 sm:text-xs"
         >
-          Un recorrido por las Escrituras
+          Quién quiere ser…
         </motion.p>
 
         {/* Title */}
@@ -151,7 +151,7 @@ export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
           transition={{ delay: 0.25, duration: 0.65 }}
           className="font-display text-shimmer text-5xl font-bold leading-tight tracking-tight sm:text-7xl"
         >
-          Corona de Gloria
+          Biblionario
         </motion.h1>
 
         {/* Ornamental divider */}
@@ -196,7 +196,7 @@ export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
           >
             <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
             <span>
-              Mejor marca global: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas</strong>
+              Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
             </span>
           </motion.div>
         )}

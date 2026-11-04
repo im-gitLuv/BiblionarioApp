@@ -13,7 +13,7 @@ test('premios en los límites de refugios y retiro', () => {
 const bank = JSON.parse(await readFile(new URL('../prisma/questions.es.json', import.meta.url), 'utf8'));
 test('banco semilla válido con variedad en los quince escalones', () => {
   const rows = validateBank(bank);
-  for (let i = 1; i <= 15; i++) assert.ok(rows.filter(q => q.active && q.level === i).length >= 3);
+  for (let i = 1; i <= 15; i++) assert.ok(rows.filter(q => q.active && q.level === i).length >= 30, `Escalón ${i}: requiere al menos 30 preguntas activas`);
 });
 test('rechaza respuestas fuera de rango, duplicados y escalones inexistentes', () => {
   assert.throws(() => validateBank([{ ...bank[0], answer: 4 }]));

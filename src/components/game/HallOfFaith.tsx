@@ -91,6 +91,7 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
 
         </div>
 
+        <p className="mb-6 text-sm leading-relaxed text-amber-100/70">Clasificación por Coronas históricas: se suman los premios de todas tus partidas terminadas. Cada victoria de 15 preguntas concede una Corona de conocimiento. Los premios parciales suman al total, pero no conceden esa distinción.</p>
         {/* List */}
         {scores.length === 0 ? (
           <motion.div
@@ -135,10 +136,10 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
                   <p className="truncate text-sm text-amber-200">{s.name}</p>
                   <p className="text-base font-bold tabular-nums text-amber-100">
                     {formatCrowns(s.amount)}{" "}
-                    <span className="text-xs font-normal text-amber-300/70">Coronas</span>
+                    <span className="text-xs font-normal text-amber-300/70">Coronas históricas</span>
                   </p>
                   <p className="mt-0.5 text-xs text-[#c4a875]">
-                    Llegó a la pregunta {s.level} de 15 ·{" "}
+                    {s.gamesPlayed} partidas · Máximo escalón {s.level}/15 ·{" "}
                     {new Date(s.date).toLocaleDateString("es-VE", {
                       month: "short",
                       day: "numeric",
@@ -146,7 +147,7 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
                     })}
                   </p>
                 </div>
-                <OutcomeBadge outcome={s.outcome} />
+                <span className="flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/15 px-3 py-2 text-xs font-semibold text-amber-300" title="Una Corona de conocimiento por cada partida ganada de 15 preguntas"><Crown className="h-4 w-4" aria-hidden="true"/>{s.knowledgeCrowns} <span className="hidden sm:inline">de conocimiento</span></span>
               </motion.li>
             ))}
           </ol>
