@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Crown, Sparkles, Trophy, BookOpen, HelpCircle, ChevronRight } from "lucide-react";
+import { Crown, Sparkles, Trophy, BookOpen, HelpCircle, ChevronRight, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   SCRIPTURE_ROTATION,
@@ -16,6 +16,7 @@ interface MainMenuProps {
   onPlay: () => void;
   onHowTo: () => void;
   onHall: () => void;
+  onSettings: () => void;
 }
 
 /** Lozenge-shaped menu button, gold CTA or outlined secondary. */
@@ -74,7 +75,7 @@ function MenuButton({
   );
 }
 
-export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
+export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenuProps) {
   // The fixed first value keeps server/client rendering identical. Once mounted,
   // the effect replaces it with a shuffled deck and walks that deck without repeats.
   const [verse, setVerse] = useState(SCRIPTURE_ROTATION[0]);
@@ -206,6 +207,7 @@ export function MainMenu({ best, onPlay, onHowTo, onHall }: MainMenuProps) {
           <MenuButton label="Comenzar el camino" icon={Crown} variant="primary" onClick={onPlay} delay={0.55} />
           <MenuButton label="Cómo jugar" icon={HelpCircle} onClick={onHowTo} delay={0.68} />
           <MenuButton label="Salón de la Fe" icon={BookOpen} onClick={onHall} delay={0.81} />
+          <MenuButton label="Configuración" icon={Settings} onClick={onSettings} delay={0.9} />
         </div>
       </main>
 

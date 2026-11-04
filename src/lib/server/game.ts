@@ -11,6 +11,7 @@ export type Round = {
     options: string[];
     answer: number;
     reference: string;
+    timeLimit?: 0 | 30 | 45 | 60;
 };
 export class GameError extends Error {
     constructor(message: string, public status = 400) { super(message); }
@@ -27,12 +28,12 @@ export function publicGame(game: Game): PublicGame {
     const round = (game.rounds as Round[])[game.level - 1];
     return {
         id: game.id, level: game.level, amount: game.amount, version: game.version,
-        deadline: game.deadline.toISOString(), lifelines: game.lifelines, removed: game.removed,
+        deadline: (round.timeLimit ?? 45) === 0 ? null : game.deadline.toISOString(), timeLimit: round.timeLimit ?? 45, lifelines: game.lifelines, removed: game.removed,
         question: game.status === 'playing' ? { category: round.category, question: round.prompt, options: round.options } : null,
         result: game.status === 'playing' ? null : { outcome: game.status as Outcome, amount: game.amount, level: game.level, lifelinesUsed: game.lifelines.length },
     };
 }
-export async function startGame(playerId: string) {
+export async function startGame(playerId: string, timeLimit: 0 | 30 | 45 | 60 = 45) {
     // Fetch IDs only; bank growth does not send all question bodies to the runtime.
     const candidates = await db.question.findMany({ where: { active: true }, select: { id: true, level: true } });
     const ids = Array.from({ length: 15 }, (_, i) => {
@@ -45,7 +46,7 @@ export async function startGame(playerId: string) {
     const rounds = ids.map(id => {
         const q = questions.find(q => q.id === id)!;
         const order = shuffled([0, 1, 2, 3]);
-        return { id: q.id, category: q.category, prompt: q.prompt, reference: q.reference, options: order.map(i => q.options[i]), answer: order.indexOf(q.answer) };
+        return { id: q.id, category: q.category, prompt: q.prompt, reference: q.reference, options: order.map(i => q.options[i]), answer: order.indexOf(q.answer), timeLimit };
     });
     // Serialize starts for one player, including simultaneous tabs.
     return db.$transaction(async (tx) => {
@@ -56,7 +57,7 @@ export async function startGame(playerId: string) {
         const active = await tx.game.findFirst({ where: { playerId, status: 'playing' }, orderBy: { createdAt: 'desc' } });
         if (active)
             return publicGame(active);
-        const game = await tx.game.create({ data: { playerId, rounds, deadline: new Date(Date.now() + 45000) } });
+        const game = await tx.game.create({ data: { playerId, rounds, deadline: new Date(Date.now() + (timeLimit || 45) * 1000) } });
         return publicGame(game);
     });
 }
@@ -70,7 +71,8 @@ export async function act(playerId: string, id: string, version: number, action:
         if (game.version !== version)
             throw new GameError('La partida cambió. Recupera su estado para continuar.', 409);
         const round = (game.rounds as Round[])[game.level - 1];
-        const expired = Date.now() >= game.deadline.getTime();
+        const timeLimit = round.timeLimit ?? 45;
+        const expired = timeLimit !== 0 && Date.now() >= game.deadline.getTime();
         const data: Prisma.GameUpdateManyMutationInput = { version: { increment: 1 } };
         const reply: Omit<ActionReply, 'game'> = {};
         if (expired || action === 'answer' || action === 'timeout') {
@@ -90,7 +92,7 @@ export async function act(playerId: string, id: string, version: number, action:
                 data.amount = prizeForLevel(game.level);
                 data.removed = [];
                 // Includes a three-second window for displaying the previous answer.
-                data.deadline = new Date(Date.now() + 48000);
+                data.deadline = new Date(Date.now() + ((timeLimit || 45) + 3) * 1000);
             }
         }
         else if (action === 'walk') {
@@ -103,7 +105,7 @@ export async function act(playerId: string, id: string, version: number, action:
                 throw new GameError('Ya utilizaste este comodín.');
             data.lifelines = [...game.lifelines, action];
             // Bounded reading allowance; closing/opening the dialog cannot extend time.
-            data.deadline = new Date(game.deadline.getTime() + (action === 'fifty' ? 0 : 10000));
+            if (timeLimit !== 0) data.deadline = new Date(game.deadline.getTime() + (action === 'fifty' ? 0 : 10000));
             const wrong = [0, 1, 2, 3].filter(i => i !== round.answer && !game.removed.includes(i));
             if (action === 'fifty')
                 data.removed = shuffled(wrong).slice(0, 2);

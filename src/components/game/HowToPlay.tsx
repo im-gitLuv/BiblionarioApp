@@ -41,8 +41,8 @@ const GUIDE_CARDS: GuideCard[] = [
     title: "El reloj",
     icon: Hourglass,
     paragraphs: [
-      <>Tienes <strong>45 segundos</strong> para cada pregunta. Cuando el círculo dorado se agota, la ronda termina como una respuesta incorrecta.</>,
-      <>La congregación y la voz profética añaden 10 segundos para que escuches el consejo con calma.</>,
+      <>En Configuración puedes elegir <strong>30 segundos, 45 segundos, un minuto o sin límite</strong> por pregunta. Si el reloj se agota, la ronda termina como una respuesta incorrecta.</>,
+      <>Con reloj, la congregación y la voz profética añaden 10 segundos para escuchar el consejo.</>,
     ],
   },
   {

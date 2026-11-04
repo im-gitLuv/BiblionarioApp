@@ -20,7 +20,8 @@ export interface PublicGame {
     level: number;
     amount: number;
     version: number;
-    deadline: string;
+    deadline: string | null;
+    timeLimit: 30 | 45 | 60 | 0;
     lifelines: string[];
     removed: number[];
     question: {

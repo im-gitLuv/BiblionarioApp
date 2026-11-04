@@ -18,7 +18,7 @@ const LIFELINES = [
   { key: "prophet", label: "Voz profética", short: "Profeta", icon: PhoneCall },
 ] as const;
 
-export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult) => void; onBack: () => void }) {
+export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result: GameResult) => void; onBack: () => void; timeLimit: 0 | 30 | 45 | 60 }) {
   const [game, setGame] = useState<PublicGame | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -49,7 +49,7 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
   const load = async () => {
     setError("");
     try {
-      accept(await api<PublicGame>("/api/games", {}));
+      accept(await api<PublicGame>("/api/games", { timeLimit }));
     } catch (loadError) {
       setError((loadError as Error).message);
     }
@@ -86,15 +86,16 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
   };
 
   useEffect(() => {
-    if (!game || game.result) return;
-    const tick = () => setSeconds(Math.max(0, Math.ceil((new Date(game.deadline).getTime() - Date.now()) / 1000)));
+    if (!game || game.result || !game.deadline) return;
+    const deadline = game.deadline;
+    const tick = () => setSeconds(Math.max(0, Math.ceil((new Date(deadline).getTime() - Date.now()) / 1000)));
     tick();
     const timer = setInterval(tick, 250);
     return () => clearInterval(timer);
   }, [game]);
 
   useEffect(() => {
-    if (seconds === 0 && game && !game.result && !busy && !error) {
+    if (seconds === 0 && game && game.deadline && !game.result && !busy && !error) {
       const timer = setTimeout(() => void action("timeout"), 0);
       return () => clearTimeout(timer);
     }
@@ -134,7 +135,7 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
     return <main className="relative m-auto flex flex-col gap-5 p-8 text-center"><Crown className="mx-auto text-amber-400"/><p role="status">Preparando tu camino…</p>{error ? <p role="alert">{error}</p> : null}<button className={panelButton} onClick={() => void load()}>Reintentar</button><button className={panelButton} onClick={onBack}>Volver al menú</button></main>;
   }
 
-  const timerProgress = Math.max(0, Math.min(100, (seconds / 45) * 100));
+  const timerProgress = Math.max(0, Math.min(100, (seconds / (game.timeLimit || 45)) * 100));
   const hostMessage = getHostMessage(game, selected, reply, walk);
 
   return (
@@ -147,8 +148,8 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
             <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>
           </div>
           <div className="flex items-center gap-3">
-            <div role="timer" aria-label={seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${timerProgress}%, rgba(240,180,41,.14) 0)` }}>
-              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{seconds}</span>
+            <div role="timer" aria-label={game.timeLimit === 0 ? "Sin límite de tiempo" : seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${game.timeLimit === 0 ? 100 : timerProgress}%, rgba(240,180,41,.14) 0)` }}>
+              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{game.timeLimit === 0 ? "∞" : seconds}</span>
             </div>
             <button type="button" disabled={busy} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
           </div>
@@ -226,7 +227,7 @@ export function GameScreen({ onFinish, onBack }: { onFinish: (result: GameResult
           {reply?.hint ? (
             <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} aria-label="Consejo del comodín" className="rounded-2xl border border-amber-400/35 bg-[#211307]/92 p-6 shadow-[0_14px_45px_rgba(0,0,0,0.22)]">
               <h2 className="mb-2 font-display text-xl text-amber-200">{reply.hint.votes ? "La congregación ha hablado" : "Voz profética"}</h2>
-              <p className="mb-4 text-sm text-amber-100/55">Consejo simulado del juego; puede equivocarse. Tienes 10 segundos adicionales para leerlo.</p>
+              <p className="mb-4 text-sm text-amber-100/55">Consejo simulado del juego; puede equivocarse.{game.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</p>
               {reply.hint.votes?.map((vote, index) => <div key={index} className="mb-2 flex items-center gap-3 text-sm"><span className="w-5 text-amber-300">{LETTERS[index]}</span><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right">{vote}%</span></div>)}
               {reply.hint.suggestion !== undefined ? <p className="text-amber-100">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
               <button className={panelButton + " mt-5"} onClick={() => setReply(null)}>Volver a la pregunta</button>
