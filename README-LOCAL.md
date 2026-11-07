@@ -8,7 +8,7 @@ Requiere Node.js 22.18+ y PostgreSQL. Desde esta carpeta:
 
 1. Instalar con npm ci.
 2. Copiar .env.example a .env y configurar DATABASE_URL (conexión agrupada) y DIRECT_URL (conexión directa). No publicar este archivo.
-3. Opcional: docker compose up -d. El .env local se alineó con las credenciales de desarrollo de docker-compose; PostgreSQL no está instalado ni iniciado en este equipo.
+3. Configurar una base de desarrollo aislada. La rama Neon development-ui-review está separada de producción y configurada en el .env local; también se puede usar docker compose up -d.
 4. Ejecutar npm run db:deploy.
 5. Ejecutar npm run db:seed.
 6. Ejecutar npm run dev y abrir http://localhost:3000.
@@ -28,12 +28,13 @@ Cada jugador tiene un perfil de invitado con nombre público y cookie privada Ht
 - npm run lint: revisión estática.
 - npm run build: cliente Prisma y compilación de producción con Webpack (evita un fallo de procesos de Turbopack observado en Windows/Node 26).
 - npm run test:integration: requiere build previo, PostgreSQL dedicado de pruebas con migraciones y semilla, y BIBLIONARIO_INTEGRATION=1. Arranca el servidor en puerto 3100. Nunca apuntar a producción. Comprueba propietarios, versiones simultáneas, comodines, victoria, vencimiento y retiro.
+- npx playwright test: recorrido real en Chromium de escritorio y viewport móvil con PostgreSQL dedicado, build previo y BIBLIONARIO_INTEGRATION=1; verifica nombre, tres comodines, pausa persistente, reloj nuevo y resultado. Instalar antes Chromium con npx playwright install --with-deps chromium.
 
 .github/workflows/checks.yml prepara PostgreSQL temporal y ejecuta estas verificaciones cuando esta carpeta es la raíz del repositorio GitHub.
 
 ## Publicar desde cero
 
-La preferencia confirmada es crear repositorio y base nuevos. Destino previsto: GitHub + Vercel + PostgreSQL (Neon propuesto). Repositorio: https://github.com/im-gitLuv/BiblionarioApp. Proyecto Vercel creado: https://vercel.com/im-gitluvs-projects/biblionario. GitHub y Vercel conectados; falta conectar Neon y crear PostgreSQL. Todavía no hay despliegue funcional.
+Repositorio: https://github.com/im-gitLuv/BiblionarioApp. Proyecto activo de Vercel: biblionario-app. Producción: https://biblionario-app.vercel.app. PostgreSQL de producción en Neon, proyecto Biblionario. La rama development-ui-review se usa para desarrollo local.
 
 Publicar esta carpeta como raíz del repositorio; así las notas de Obsidian quedan fuera. En Vercel seleccionar Next.js, build npm run build y configurar las dos variables privadas de conexión. Aplicar db:deploy y db:seed explícitamente antes de abrir el juego. No sembrar ni cambiar esquema automáticamente en cada build. Usar bases separadas para previews y producción.
 
@@ -43,7 +44,7 @@ Abrir la bóveda Biblionario App y comenzar por [[Biblionario - Inicio]] en Proy
 
 ## Estado de verificación
 
-Pruebas locales (3), TypeScript, lint y compilación de producción aprobados. Menú inspeccionado en navegador. La prueba integral también pasó en GitHub Actions contra PostgreSQL temporal, con migración y semilla reales: https://github.com/im-gitLuv/BiblionarioApp/actions/runs/41830985426. La base permanente de producción sigue pendiente de conexión.
+Pruebas locales (3), TypeScript, lint y compilación de producción aprobados. Menú inspeccionado en navegador. La prueba integral también pasó en GitHub Actions contra PostgreSQL temporal, con migración y semilla reales: https://github.com/im-gitLuv/BiblionarioApp/actions/runs/41830985426. La base permanente de producción está conectada y el juego publicado.
 
 Se eliminaron dependencias del scaffold sin uso, se actualizaron Prisma 6.19.3 y Sharp, y se fija deepmerge-ts 8 mediante override para corregir el aviso de recursión de la herramienta de configuración de Prisma. Se verifica generación de cliente y build tras este ajuste.
 

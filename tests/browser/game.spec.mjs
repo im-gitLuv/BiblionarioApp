@@ -47,6 +47,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     await expect(page.getByRole('timer')).toHaveAttribute('aria-label', 'Reloj detenido para leer el resultado');
     await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
     await page.reload();
+    await expect(page.locator('#player')).toHaveValue('Revisión ' + testInfo.project.name);
     await page.getByRole('button', { name: 'Comenzar el camino' }).click();
     await expect(page.getByRole('button', { name: 'Siguiente pregunta' })).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath('pause.png'), fullPage: true });
