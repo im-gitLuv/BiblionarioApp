@@ -28,6 +28,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       await tab.click();
       await expect(page.getByRole('dialog', { name: 'Escalera de Coronas' })).toBeVisible();
       await expect(page.getByRole('button', { name: 'Cerrar pestaña de Escalera' })).toBeVisible();
+      await expect.poll(async () => Math.round((await page.getByRole('dialog', { name: 'Escalera de Coronas' }).boundingBox()).x)).toBe(Math.max(48, page.viewportSize().width - 360));
       await page.screenshot({ path: testInfo.outputPath('ladder-tab.png') });
       await page.getByRole('button', { name: 'Cerrar pestaña de Escalera' }).click();
       await expect(page.getByRole('dialog')).toHaveCount(0);
