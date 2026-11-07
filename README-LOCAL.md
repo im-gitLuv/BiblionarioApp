@@ -46,3 +46,7 @@ Abrir la bóveda Biblionario App y comenzar por [[Biblionario - Inicio]] en Proy
 Pruebas locales (3), TypeScript, lint y compilación de producción aprobados. Menú inspeccionado en navegador. La prueba integral también pasó en GitHub Actions contra PostgreSQL temporal, con migración y semilla reales: https://github.com/im-gitLuv/BiblionarioApp/actions/runs/41830985426. La base permanente de producción sigue pendiente de conexión.
 
 Se eliminaron dependencias del scaffold sin uso, se actualizaron Prisma 6.19.3 y Sharp, y se fija deepmerge-ts 8 mediante override para corregir el aviso de recursión de la herramienta de configuración de Prisma. Se verifica generación de cliente y build tras este ajuste.
+
+
+## Interacción de preguntas y comodines
+Al comenzar sin nombre válido, el campo recibe foco, desplazamiento automático y brillo. Los aciertos se guardan en pausa de lectura; «Siguiente pregunta» inicia el reloj completo del siguiente escalón mediante la acción next. El estado se conserva al recuperar la partida. Tras fallar o completar el recorrido se lee el resultado antes de «Ver resultado». Los tres comodines se confirman con el anfitrión y muestran su efecto en un diálogo con fondo desenfocado, reloj y «Volver a la pregunta». No requiere migraciones de esquema.

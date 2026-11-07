@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Crown, DoorOpen, ListOrdered, MessageCircleQuestion, PhoneCall, ScrollText, X } from "lucide-react";
 import { MoneyLadder } from "./MoneyLadder";
@@ -17,6 +18,12 @@ const LIFELINES = [
   { key: "audience", label: "Congregación", short: "Asamblea", icon: MessageCircleQuestion },
   { key: "prophet", label: "Voz profética", short: "Profeta", icon: PhoneCall },
 ] as const;
+type Lifeline = typeof LIFELINES[number]['key'];
+const LIFELINE_INVITATIONS = {
+  fifty: "La Sabiduría de Salomón apartará dos respuestas incorrectas para dejarte dos caminos. ¿Quieres usar este comodín?",
+  audience: "Podemos pedir a la congregación que vote por la respuesta que considera correcta. Su consejo puede equivocarse. ¿Quieres usar este comodín?",
+  prophet: "La voz profética te dará una sugerencia para esta pregunta, aunque puede equivocarse. ¿Quieres usar este comodín?",
+};
 
 export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result: GameResult) => void; onBack: () => void; timeLimit: 0 | 30 | 45 | 60 }) {
   const [game, setGame] = useState<PublicGame | null>(null);
@@ -26,7 +33,10 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   const [reply, setReply] = useState<ActionReply | null>(null);
   const [walk, setWalk] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
+  const [chosenLifeline, setChosenLifeline] = useState<Lifeline | null>(null);
+  const [lifelineModal, setLifelineModal] = useState<Lifeline | null>(null);
   const [ladderOpen, setLadderOpen] = useState(false);
+  const hostPanel = useRef<HTMLElement>(null);
   const lock = useRef(false);
   const started = useRef(false);
   const mounted = useRef(true);
@@ -40,9 +50,14 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     return () => { document.body.style.overflow = previousOverflow; };
   }, [ladderOpen]);
 
+  useEffect(() => {
+    if (chosenLifeline) hostPanel.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "center" });
+  }, [chosenLifeline]);
+
   const accept = (nextGame: PublicGame) => {
     setGame(nextGame);
     setSelected(null);
+    setReply(nextGame.review ? { game: nextGame, reveal: nextGame.review } : null);
     if (nextGame.result) onFinish(nextGame.result);
   };
 
@@ -72,10 +87,16 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     try {
       const response = await api<ActionReply>("/api/games/" + game.id, { version: game.version, action: actionName, option });
       setReply(response);
-      if (response.reveal) await new Promise(resolve => setTimeout(resolve, 2300));
       if (mounted.current) {
-        accept(response.game);
-        if (response.reveal) setReply(null);
+        setChosenLifeline(null);
+        if (response.reveal) {
+          setLifelineModal(null);
+          if (!response.game.result) setGame(response.game);
+        } else {
+          accept(response.game);
+          setReply(response);
+          if (LIFELINES.some(item => item.key === actionName)) setLifelineModal(actionName as Lifeline);
+        }
       }
     } catch (actionError) {
       setError((actionError as Error).message);
@@ -86,20 +107,20 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   };
 
   useEffect(() => {
-    if (!game || game.result || !game.deadline) return;
+    if (!game || game.result || reply?.reveal || !game.deadline) return;
     const deadline = game.deadline;
     const tick = () => setSeconds(Math.max(0, Math.ceil((new Date(deadline).getTime() - Date.now()) / 1000)));
     tick();
     const timer = setInterval(tick, 250);
     return () => clearInterval(timer);
-  }, [game]);
+  }, [game, reply?.reveal]);
 
   useEffect(() => {
-    if (seconds === 0 && game && game.deadline && !game.result && !busy && !error) {
+    if (seconds === 0 && game && game.deadline && !game.result && !busy && !error && !reply?.reveal && Date.now() >= new Date(game.deadline).getTime()) {
       const timer = setTimeout(() => void action("timeout"), 0);
       return () => clearTimeout(timer);
     }
-  }, [seconds, game, busy, error]);
+  }, [seconds, game, busy, error, reply?.reveal]);
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -107,7 +128,8 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
         setLadderOpen(false);
         return;
       }
-      if (busy || reply?.hint || walk || !game) return;
+      if (event.target instanceof HTMLElement && event.target.closest("button, input, [role=dialog]")) return;
+      if (busy || reply?.reveal || lifelineModal || chosenLifeline || ladderOpen || walk || !game) return;
       const index = "abcd".indexOf(event.key.toLowerCase());
       if (index >= 0 && !game.removed.includes(index)) setSelected(index);
       if (event.key === "Enter" && selected !== null) void action("answer", selected);
@@ -125,7 +147,8 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     setError("");
     try {
       accept(await api<PublicGame>("/api/games/" + game.id));
-      setReply(null);
+      setChosenLifeline(null);
+      setLifelineModal(null);
     } catch (recoverError) {
       setError((recoverError as Error).message);
     }
@@ -136,7 +159,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   }
 
   const timerProgress = Math.max(0, Math.min(100, (seconds / (game.timeLimit || 45)) * 100));
-  const hostMessage = getHostMessage(game, selected, reply, walk);
+  const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : getHostMessage(game, selected, reply, walk);
 
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -148,10 +171,10 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
             <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>
           </div>
           <div className="flex items-center gap-3">
-            <div role="timer" aria-label={game.timeLimit === 0 ? "Sin límite de tiempo" : seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${game.timeLimit === 0 ? 100 : timerProgress}%, rgba(240,180,41,.14) 0)` }}>
-              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{game.timeLimit === 0 ? "∞" : seconds}</span>
+            <div role="timer" aria-label={reply?.reveal ? "Reloj detenido para leer el resultado" : game.timeLimit === 0 ? "Sin límite de tiempo" : seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${game.timeLimit === 0 ? 100 : timerProgress}%, rgba(240,180,41,.14) 0)` }}>
+              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{reply?.reveal ? "Ⅱ" : game.timeLimit === 0 ? "∞" : seconds}</span>
             </div>
-            <button type="button" disabled={busy} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
+            <button type="button" disabled={busy || !!reply?.reveal} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
           </div>
         </div>
       </header>
@@ -164,8 +187,8 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
             {LIFELINES.map(({ key, label, short, icon: Icon }) => {
               const used = game.lifelines.includes(key);
               return (
-                <button key={key} type="button" aria-label={label} disabled={busy || !!reply?.hint || used} onClick={() => void action(key)} className="group flex w-16 flex-col items-center gap-2 text-center disabled:cursor-not-allowed sm:w-[76px]">
-                  <span className={cn("flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14", used && "border-amber-700/25 text-amber-200/25")}>
+                <button key={key} type="button" aria-label={label} aria-pressed={chosenLifeline === key} disabled={busy || !!reply?.reveal || !!lifelineModal || used} onClick={() => { setChosenLifeline(key); setSelected(null); setWalk(false); }} className="group flex w-16 flex-col items-center gap-2 text-center disabled:cursor-not-allowed sm:w-[76px]">
+                  <span className={cn("flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14", chosenLifeline === key && "glow-pulse border-yellow-200 shadow-[0_0_32px_rgba(252,211,77,0.65)]", used && "border-amber-700/25 text-amber-200/25")}>
                     {key === "fifty" ? <span className="text-xs font-black">50:50</span> : <Icon className="h-6 w-6" aria-hidden="true"/>}
                   </span>
                   <span className={cn("text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/75", used && "line-through opacity-35")}>{short}{used ? " ✓" : ""}</span>
@@ -197,7 +220,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                 <motion.button
                   key={index}
                   type="button"
-                  disabled={busy || !!reply?.hint || walk || removed}
+                  disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenLifeline || walk || removed}
                   onClick={() => setSelected(index)}
                   whileHover={removed ? undefined : { scale: 1.012 }}
                   whileTap={removed ? undefined : { scale: 0.988 }}
@@ -215,7 +238,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           </div>
 
           <AnimatePresence mode="wait">
-            {selected !== null && !reply?.reveal && !reply?.hint && !walk ? (
+            {selected !== null && !reply?.reveal && !lifelineModal && !chosenLifeline && !walk ? (
               <motion.div key="confirm" initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }} className="flex justify-center">
                 <button type="button" disabled={busy} onClick={() => void action("answer", selected)} className="clip-lozenge-slim bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600 p-[2px] shadow-[0_0_28px_rgba(240,180,41,0.18)] transition hover:brightness-110 disabled:opacity-50">
                   <span className="clip-lozenge-slim flex items-center gap-2 bg-gradient-to-b from-[#f5c454] to-[#df9517] px-9 py-3 text-sm font-bold text-[#241708]">¿Respuesta definitiva? <span className="rounded-full bg-[#241708]/12 px-2 py-0.5">{LETTERS[selected]}</span></span>
@@ -224,14 +247,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
             ) : null}
           </AnimatePresence>
 
-          {reply?.hint ? (
-            <motion.section initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} aria-label="Consejo del comodín" className="rounded-2xl border border-amber-400/35 bg-[#211307]/92 p-6 shadow-[0_14px_45px_rgba(0,0,0,0.22)]">
-              <h2 className="mb-2 font-display text-xl text-amber-200">{reply.hint.votes ? "La congregación ha hablado" : "Voz profética"}</h2>
-              <p className="mb-4 text-sm text-amber-100/55">Consejo simulado del juego; puede equivocarse.{game.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</p>
-              {reply.hint.votes?.map((vote, index) => <div key={index} className="mb-2 flex items-center gap-3 text-sm"><span className="w-5 text-amber-300">{LETTERS[index]}</span><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right">{vote}%</span></div>)}
-              {reply.hint.suggestion !== undefined ? <p className="text-amber-100">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
-              <button className={panelButton + " mt-5"} onClick={() => setReply(null)}>Volver a la pregunta</button>
-            </motion.section>
+          {reply?.reveal ? (
+            <section aria-label="Resultado de la pregunta" aria-live="polite" className="rounded-2xl border border-amber-400/35 bg-[#211307]/95 p-5 text-center">
+              <h2 className="font-display text-xl text-amber-200">{reply.reveal.correct ? "¡Respuesta correcta!" : "La respuesta correcta era:"}</h2>
+              <p className="mt-2 text-amber-100">{LETTERS[reply.reveal.answer]}: {game.question?.options[reply.reveal.answer]}</p>
+              <p className="mt-2 text-sm text-amber-200/75">Referencia: {reply.reveal.reference}</p>
+              <p className="mt-3 text-sm text-amber-100/60">Lee con calma y reflexiona sobre lo aprendido.</p>
+            </section>
           ) : null}
 
           {walk ? (
@@ -241,18 +263,47 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
             </motion.section>
           ) : null}
 
-          <div className="sm:hidden"><button type="button" disabled={busy} className={panelButton + " w-full"} onClick={() => setWalk(true)}><DoorOpen className="mr-2 inline h-4 w-4"/>Retirarme</button></div>
+          <div className="sm:hidden"><button type="button" disabled={busy || !!reply?.reveal} className={panelButton + " w-full"} onClick={() => setWalk(true)}><DoorOpen className="mr-2 inline h-4 w-4"/>Retirarme</button></div>
 
-          <section aria-label="Mensaje del anfitrión" aria-live="polite" className="host-panel overflow-hidden rounded-2xl border border-amber-500/25 bg-[#150d06]/88 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,220,140,0.04)]">
+          <section ref={hostPanel} aria-label="Mensaje del anfitrión" aria-live="polite" className="host-panel overflow-hidden rounded-2xl border border-amber-500/25 bg-[#150d06]/88 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,220,140,0.04)]">
             <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.3em] text-amber-400/65">El anfitrión</p>
             <AnimatePresence mode="wait">
               <motion.p key={hostMessage} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.28 }} className="font-display text-sm italic leading-6 text-[#eadbc4] sm:text-[15px]">“{hostMessage}”</motion.p>
             </AnimatePresence>
           </section>
+          {chosenLifeline ? (
+            <div className="flex flex-wrap justify-center gap-3">
+              <button type="button" disabled={busy} className={panelButton + " border-amber-300 bg-amber-500/20"} onClick={() => void action(chosenLifeline)}>Usar comodín</button>
+              <button type="button" disabled={busy} className={panelButton} onClick={() => setChosenLifeline(null)}>Cancelar</button>
+            </div>
+          ) : null}
+          {reply?.reveal ? (
+            <button type="button" disabled={busy} className={panelButton + " mx-auto border-amber-300 bg-amber-500/20 font-bold"} onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
+              {reply.game.result ? "Ver resultado" : "Siguiente pregunta"}
+            </button>
+          ) : null}
         </main>
 
         <aside className="hidden w-72 shrink-0 lg:block"><MoneyLadder currentLevel={game.level}/></aside>
       </div>
+
+
+      <Dialog.Root open={!!lifelineModal} onOpenChange={open => { if (!open) { setLifelineModal(null); setReply(null); } }}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-amber-400/50 bg-[#211307] p-5 text-amber-100 shadow-[0_0_60px_rgba(240,180,41,0.18)] sm:p-7">
+            <div className="mb-5 flex items-start justify-between gap-3">
+              <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "fifty" ? "Sabiduría de Salomón" : lifelineModal === "audience" ? "La congregación ha hablado" : "Voz profética"}</Dialog.Title>
+              <div role="timer" aria-label={game.timeLimit ? seconds + " segundos restantes" : "Sin límite de tiempo"} className="shrink-0 rounded-xl border border-amber-400/50 bg-amber-400/10 px-3 py-2 text-center font-bold tabular-nums text-amber-200">{game.timeLimit ? seconds + " s" : "∞"}</div>
+            </div>
+            <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">{lifelineModal === "fifty" ? "Se han eliminado dos respuestas incorrectas. Estos son los dos caminos disponibles:" : "Consejo simulado del juego; puede equivocarse."}{game.timeLimit && lifelineModal !== "fifty" ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>
+            {lifelineModal === "fifty" ? game.question?.options.map((option, index) => !game.removed.includes(index) ? <p key={index} className="mb-3 rounded-xl border border-amber-500/30 p-3"><strong className="text-amber-300">{LETTERS[index]}:</strong> {option}</p> : null) : null}
+            {reply?.hint?.votes?.map((vote, index) => <div key={index} className="mb-4 space-y-1"><p className="text-sm">{LETTERS[index]}: {game.question?.options[index]}</p><div className="flex items-center gap-3"><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right text-sm">{vote}%</span></div></div>)}
+            {reply?.hint?.suggestion !== undefined ? <p className="rounded-xl border border-amber-500/30 p-4">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
+            <Dialog.Close asChild><button type="button" className={panelButton + " mt-5 w-full"}>Volver a la pregunta</button></Dialog.Close>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
 
       <AnimatePresence>
         {ladderOpen ? (

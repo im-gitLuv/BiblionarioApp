@@ -282,3 +282,16 @@
     animation: none;
   }
 }
+
+.name-attention {
+  border-color: #fcd34d;
+  box-shadow: 0 0 0 3px rgb(252 211 77 / 35%), 0 0 32px rgb(240 180 41 / 55%);
+  animation: nameAttention 0.8s ease-in-out 3;
+  scroll-margin-top: 3rem;
+}
+@keyframes nameAttention {
+  50% { box-shadow: 0 0 0 6px rgb(252 211 77 / 20%), 0 0 48px rgb(240 180 41 / 75%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .name-attention { animation: none; }
+}

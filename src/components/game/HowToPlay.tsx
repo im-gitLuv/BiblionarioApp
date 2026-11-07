@@ -25,8 +25,8 @@ const GUIDE_CARDS: GuideCard[] = [
     title: "El camino",
     icon: ScrollText,
     paragraphs: [
-      <>Quince preguntas recorren las Escrituras, desde Génesis hasta Apocalipsis. Cada respuesta correcta te acerca a la <strong>Corona de Gloria de 1.000.000 de Coronas</strong>.</>,
-      <>La dificultad aumenta con cada escalón. Primero eliges una opción y después confirmas tu <strong>respuesta definitiva</strong>.</>,
+      <>Quince preguntas recorren las Escrituras, desde Génesis hasta Apocalipsis. Cada respuesta correcta te acerca a la <strong>Corona del conocimiento y al premio de 1.000.000 de Coronas</strong>.</>,
+      <>La dificultad aumenta con cada escalón. Primero eliges una opción y después confirmas tu <strong>respuesta definitiva</strong>. Después podrás leer el resultado y la referencia con calma antes de pulsar <strong>Siguiente pregunta</strong>.</>,
     ],
   },
   {
@@ -97,7 +97,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
           </span>
           <h2 className="text-base font-bold text-amber-200">Tres comodines</h2>
         </div>
-        <p className="mb-5 text-[15px] leading-6 text-[#eadbc4]/90">Cada uno puede utilizarse <strong className="text-amber-100">una vez por recorrido</strong>.</p>
+        <p className="mb-5 text-[15px] leading-6 text-[#eadbc4]/90">Cada uno puede utilizarse <strong className="text-amber-100">una vez por recorrido</strong>. Selecciónalo, escucha al anfitrión y pulsa «Usar comodín». El resultado aparece en una ventana con el reloj visible; pulsa «Volver a la pregunta» para continuar.</p>
         <div className="grid gap-4 md:grid-cols-3">
           {LIFELINES.map(({ title, icon: Icon, text }, index) => (
             <motion.article key={title} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.56 + index * 0.08, duration: 0.42 }} className="rounded-xl border border-amber-600/30 bg-[#170d05]/55 p-5 transition-colors hover:border-amber-400/40">

@@ -29,6 +29,7 @@ export interface PublicGame {
         question: string;
         options: string[];
     } | null;
+    review?: ActionReply['reveal'];
     result: GameResult | null;
 }
 export interface ActionReply {

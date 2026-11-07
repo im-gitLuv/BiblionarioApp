@@ -45,9 +45,25 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
       assert.equal(result.status, 200); game = result.data.game;
       if (action === 'audience') assert.equal(result.data.hint.votes.reduce((a, b) => a + b, 0), 100);
     }
+    assert.equal((await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).status, 400);
     for (let level = 1; level <= 15; level++) {
       const result = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: stored.rounds[level - 1].answer }, cookie);
       assert.equal(result.status, 200); assert.equal(result.data.reveal.correct, true); game = result.data.game;
+      if (level < 15) {
+        assert.equal(game.level, level);
+        assert.equal(game.deadline, null);
+        assert.equal(game.review.correct, true);
+        const recovered = (await request('/api/games/' + game.id, undefined, cookie)).data;
+        assert.deepEqual(recovered.review, game.review);
+        assert.equal((await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: 0 }, cookie)).status, 400);
+        await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
+        const advanced = await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie);
+        assert.equal(advanced.status, 200);
+        game = advanced.data.game;
+        assert.equal(game.level, level + 1);
+        assert.equal(game.review, undefined);
+        assert.ok(new Date(game.deadline).getTime() > Date.now() + 40000);
+      }
     }
     assert.equal(game.result.outcome, 'won'); assert.equal(game.amount, 1000000);
     assert.equal(game.result.lifelinesUsed, 3);
@@ -60,6 +76,7 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
       const response = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: second.rounds[level - 1].answer }, cookie);
       assert.equal(response.status, 200);
       game = response.data.game;
+      if (level < 15) game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
     }
     assert.equal(game.result.outcome, 'won');
     game = (await request('/api/games', {}, cookie)).data;

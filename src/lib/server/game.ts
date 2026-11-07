@@ -11,6 +11,7 @@ export type Round = {
     options: string[];
     answer: number;
     reference: string;
+    awaitingNext?: boolean;
     timeLimit?: 0 | 30 | 45 | 60;
 };
 export class GameError extends Error {
@@ -28,7 +29,8 @@ export function publicGame(game: Game): PublicGame {
     const round = (game.rounds as Round[])[game.level - 1];
     return {
         id: game.id, level: game.level, amount: game.amount, version: game.version,
-        deadline: (round.timeLimit ?? 45) === 0 ? null : game.deadline.toISOString(), timeLimit: round.timeLimit ?? 45, lifelines: game.lifelines, removed: game.removed,
+        review: round.awaitingNext ? { answer: round.answer, reference: round.reference, correct: true } : undefined,
+        deadline: round.awaitingNext || (round.timeLimit ?? 45) === 0 ? null : game.deadline.toISOString(), timeLimit: round.timeLimit ?? 45, lifelines: game.lifelines, removed: game.removed,
         question: game.status === 'playing' ? { category: round.category, question: round.prompt, options: round.options } : null,
         result: game.status === 'playing' ? null : { outcome: game.status as Outcome, amount: game.amount, level: game.level, lifelinesUsed: game.lifelines.length },
     };
@@ -75,7 +77,16 @@ export async function act(playerId: string, id: string, version: number, action:
         const expired = timeLimit !== 0 && Date.now() >= game.deadline.getTime();
         const data: Prisma.GameUpdateManyMutationInput = { version: { increment: 1 } };
         const reply: Omit<ActionReply, 'game'> = {};
-        if (expired || action === 'answer' || action === 'timeout') {
+        if (round.awaitingNext) {
+            if (action !== 'next') throw new GameError('Lee el resultado y pulsa Siguiente pregunta.');
+            data.level = game.level + 1;
+            data.removed = [];
+            data.deadline = new Date(Date.now() + (timeLimit || 45) * 1000);
+        }
+        else if (action === 'next') {
+            throw new GameError('Primero responde la pregunta.');
+        }
+        else if (expired || action === 'answer' || action === 'timeout') {
             if (action === 'timeout' && !expired)
                 throw new GameError('Todavía queda tiempo.');
             if (!expired && (option === undefined || game.removed.includes(option)))
@@ -88,11 +99,10 @@ export async function act(playerId: string, id: string, version: number, action:
                 data.finishedAt = new Date();
             }
             else {
-                data.level = game.level + 1;
                 data.amount = prizeForLevel(game.level);
-                data.removed = [];
-                // Includes a three-second window for displaying the previous answer.
-                data.deadline = new Date(Date.now() + ((timeLimit || 45) + 3) * 1000);
+                // Persist the reading pause without starting or exposing the next question.
+                data.rounds = (game.rounds as Round[]).map((item, index) =>
+                    index === game.level - 1 ? { ...item, awaitingNext: true } : item);
             }
         }
         else if (action === 'walk') {
