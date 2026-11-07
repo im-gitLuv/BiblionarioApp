@@ -20,6 +20,18 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     await page.getByRole('button', { name: 'Comenzar el camino' }).click();
     const game = await (await started).json();
     expect(game.level).toBe(1);
+    if (testInfo.project.name === 'mobile') {
+      const tab = page.getByRole('button', { name: 'Abrir Escalera de Coronas' });
+      await expect(tab).toBeVisible();
+      const bounds = await tab.boundingBox();
+      expect(Math.abs(bounds.x + bounds.width - page.viewportSize().width)).toBeLessThan(2);
+      await tab.click();
+      await expect(page.getByRole('dialog', { name: 'Escalera de Coronas' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Cerrar pestaña de Escalera' })).toBeVisible();
+      await page.screenshot({ path: testInfo.outputPath('ladder-tab.png') });
+      await page.getByRole('button', { name: 'Cerrar pestaña de Escalera' }).click();
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+    }
     for (const [label, key] of [['Sabiduría', 'fifty'], ['Congregación', 'audience'], ['Voz profética', 'prophet']]) {
       const button = page.getByRole('button', { name: label, exact: true });
       await button.click();
@@ -28,10 +40,20 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       await expect(page.getByRole('dialog')).toHaveCount(0);
       await page.getByRole('button', { name: 'Usar comodín' }).click();
       const dialog = page.getByRole('dialog');
+      if (key === 'fifty') {
+        await expect(button).toBeDisabled();
+        await expect(dialog).toHaveCount(0);
+        const updated = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+        expect(updated.removed).toHaveLength(2);
+        for (const index of updated.removed) await expect(page.getByRole('button', { name: new RegExp('^' + 'ABCD'[index] + ' ') })).toBeDisabled();
+        await page.screenshot({ path: testInfo.outputPath('fifty.png'), fullPage: true });
+        continue;
+      }
       await expect(dialog).toBeVisible();
       await expect(dialog.getByRole('timer')).toBeVisible();
       expect(await dialog.evaluate(el => el.getBoundingClientRect().width)).toBeLessThanOrEqual(page.viewportSize().width);
-      if (key === 'fifty') await expect(dialog).toContainText('dos caminos');
+      await expect(dialog.getByRole('timer')).toHaveClass(/rounded-full/);
+      await expect(dialog.getByRole('timer')).toHaveText(/^\d+$/);
       if (key === 'audience') await expect(dialog).toContainText('%');
       if (key === 'prophet') await expect(dialog).toContainText('Mi consejo es');
       await page.screenshot({ path: testInfo.outputPath(key + '.png'), fullPage: true });

@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Crown, DoorOpen, ListOrdered, MessageCircleQuestion, PhoneCall, ScrollText, X } from "lucide-react";
 import { MoneyLadder } from "./MoneyLadder";
+import { GameTimer } from "./GameTimer";
 import { api } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { LETTERS, formatCrowns, prizeForLevel, walkAwayAmount } from "@/lib/rules";
@@ -34,9 +35,10 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   const [walk, setWalk] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const [chosenLifeline, setChosenLifeline] = useState<Lifeline | null>(null);
-  const [lifelineModal, setLifelineModal] = useState<Lifeline | null>(null);
+  const [lifelineModal, setLifelineModal] = useState<Exclude<Lifeline, "fifty"> | null>(null);
   const [ladderOpen, setLadderOpen] = useState(false);
   const hostPanel = useRef<HTMLElement>(null);
+  const questionPanel = useRef<HTMLDivElement>(null);
   const lock = useRef(false);
   const started = useRef(false);
   const mounted = useRef(true);
@@ -95,7 +97,8 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
         } else {
           accept(response.game);
           setReply(response);
-          if (LIFELINES.some(item => item.key === actionName)) setLifelineModal(actionName as Lifeline);
+          if (actionName === "audience" || actionName === "prophet") setLifelineModal(actionName);
+          if (actionName === "fifty") questionPanel.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "center" });
         }
       }
     } catch (actionError) {
@@ -158,7 +161,6 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     return <main className="relative m-auto flex flex-col gap-5 p-8 text-center"><Crown className="mx-auto text-amber-400"/><p role="status">Preparando tu camino…</p>{error ? <p role="alert">{error}</p> : null}<button className={panelButton} onClick={() => void load()}>Reintentar</button><button className={panelButton} onClick={onBack}>Volver al menú</button></main>;
   }
 
-  const timerProgress = Math.max(0, Math.min(100, (seconds / (game.timeLimit || 45)) * 100));
   const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : getHostMessage(game, selected, reply, walk);
 
   return (
@@ -171,13 +173,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
             <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>
           </div>
           <div className="flex items-center gap-3">
-            <div role="timer" aria-label={reply?.reveal ? "Reloj detenido para leer el resultado" : game.timeLimit === 0 ? "Sin límite de tiempo" : seconds + " segundos restantes"} className="flex h-12 w-12 items-center justify-center rounded-full p-[4px] shadow-[0_0_18px_rgba(240,180,41,0.12)]" style={{ background: `conic-gradient(#f0b429 ${game.timeLimit === 0 ? 100 : timerProgress}%, rgba(240,180,41,.14) 0)` }}>
-              <span className="flex h-full w-full items-center justify-center rounded-full bg-[#171009] text-sm font-bold tabular-nums text-amber-100">{reply?.reveal ? "Ⅱ" : game.timeLimit === 0 ? "∞" : seconds}</span>
-            </div>
+            <GameTimer seconds={seconds} timeLimit={game.timeLimit} paused={!!reply?.reveal}/>
             <button type="button" disabled={busy || !!reply?.reveal} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
           </div>
         </div>
       </header>
+
+      {!ladderOpen ? <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={false} aria-controls="mobile-ladder" onClick={() => setLadderOpen(true)} className="fixed right-0 top-32 z-40 flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200 lg:hidden"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button> : null}
 
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-4 py-6 sm:px-7 lg:flex-row lg:items-stretch lg:py-8">
         <main className="flex min-w-0 flex-1 flex-col justify-center gap-5">
@@ -195,15 +197,10 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                 </button>
               );
             })}
-            <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={ladderOpen} onClick={() => setLadderOpen(true)} className="group flex w-16 flex-col items-center gap-2 text-center sm:w-[76px] lg:hidden">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-400 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-200 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.25)] sm:h-14 sm:w-14">
-                <ListOrdered className="h-6 w-6" aria-hidden="true"/>
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/90">Escalera</span>
-            </button>
+
           </motion.div>
 
-          <motion.div key={game.version + "-question"} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: "easeOut" }} className="space-y-5">
+          <motion.div ref={questionPanel} key={game.version + "-question"} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: "easeOut" }} className="space-y-5">
             <p className="mx-auto w-fit rounded-full border border-amber-500/30 bg-amber-500/5 px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.26em] text-amber-300">{game.question?.category}</p>
             <div className="clip-lozenge bg-gradient-to-r from-amber-700 via-amber-400 to-amber-700 p-[2px] shadow-[0_12px_38px_rgba(0,0,0,0.22)]">
               <h1 className="clip-lozenge bg-gradient-to-b from-[#2a190b] to-[#211307] px-9 py-8 text-center font-display text-xl font-semibold leading-snug text-amber-50 sm:px-14 sm:py-10 sm:text-2xl">{game.question?.question}</h1>
@@ -293,11 +290,10 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-amber-400/50 bg-[#211307] p-5 text-amber-100 shadow-[0_0_60px_rgba(240,180,41,0.18)] sm:p-7">
             <div className="mb-5 flex items-start justify-between gap-3">
-              <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "fifty" ? "Sabiduría de Salomón" : lifelineModal === "audience" ? "La congregación ha hablado" : "Voz profética"}</Dialog.Title>
-              <div role="timer" aria-label={game.timeLimit ? seconds + " segundos restantes" : "Sin límite de tiempo"} className="shrink-0 rounded-xl border border-amber-400/50 bg-amber-400/10 px-3 py-2 text-center font-bold tabular-nums text-amber-200">{game.timeLimit ? seconds + " s" : "∞"}</div>
+              <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "audience" ? "La congregación ha hablado" : "Voz profética"}</Dialog.Title>
+              <GameTimer seconds={seconds} timeLimit={game.timeLimit}/>
             </div>
-            <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">{lifelineModal === "fifty" ? "Se han eliminado dos respuestas incorrectas. Estos son los dos caminos disponibles:" : "Consejo simulado del juego; puede equivocarse."}{game.timeLimit && lifelineModal !== "fifty" ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>
-            {lifelineModal === "fifty" ? game.question?.options.map((option, index) => !game.removed.includes(index) ? <p key={index} className="mb-3 rounded-xl border border-amber-500/30 p-3"><strong className="text-amber-300">{LETTERS[index]}:</strong> {option}</p> : null) : null}
+            <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">Consejo simulado del juego; puede equivocarse.{game.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>
             {reply?.hint?.votes?.map((vote, index) => <div key={index} className="mb-4 space-y-1"><p className="text-sm">{LETTERS[index]}: {game.question?.options[index]}</p><div className="flex items-center gap-3"><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right text-sm">{vote}%</span></div></div>)}
             {reply?.hint?.suggestion !== undefined ? <p className="rounded-xl border border-amber-500/30 p-4">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
             <Dialog.Close asChild><button type="button" className={panelButton + " mt-5 w-full"}>Volver a la pregunta</button></Dialog.Close>
@@ -310,6 +306,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           <motion.div className="fixed inset-0 z-50 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <button type="button" aria-label="Cerrar Escalera de Coronas" className="absolute inset-0 h-full w-full bg-black/70 backdrop-blur-[2px]" onClick={() => setLadderOpen(false)}/>
             <motion.aside
+              id="mobile-ladder"
               role="dialog"
               aria-modal="true"
               aria-labelledby="mobile-ladder-title"
@@ -317,14 +314,17 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 32 }}
-              className="absolute inset-y-0 right-0 w-[min(88vw,360px)] overflow-y-auto border-l border-amber-500/35 bg-[#1a1007] px-4 py-4 shadow-[-22px_0_60px_rgba(0,0,0,0.55)]"
+              className="absolute inset-y-0 right-0 w-[min(calc(100vw-3rem),360px)] border-l border-amber-500/35 bg-[#1a1007] shadow-[-22px_0_60px_rgba(0,0,0,0.55)]"
             >
+              <button type="button" aria-label="Cerrar pestaña de Escalera" aria-expanded={true} aria-controls="mobile-ladder" onClick={() => setLadderOpen(false)} className="absolute -left-12 top-32 flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button>
+              <div className="h-full overflow-y-auto px-4 py-4">
               <div className="mb-1 flex items-center justify-between gap-4">
                 <h2 id="mobile-ladder-title" className="flex items-center gap-2 font-display text-xl font-semibold text-amber-100"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Escalera de Coronas</h2>
                 <button type="button" aria-label="Cerrar" onClick={() => setLadderOpen(false)} className="flex h-9 w-9 items-center justify-center rounded-lg border border-amber-400/45 text-amber-200 transition hover:bg-amber-400/10"><X className="h-5 w-5" aria-hidden="true"/></button>
               </div>
               <p className="mb-4 text-sm text-amber-200/75">Refugios seguros en las preguntas 5 y 10</p>
               <MoneyLadder currentLevel={game.level} scrollable={false} showHeader={false} className="border-0 bg-transparent p-0 shadow-none backdrop-blur-none"/>
+              </div>
             </motion.aside>
           </motion.div>
         ) : null}
