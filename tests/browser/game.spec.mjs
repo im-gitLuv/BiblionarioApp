@@ -41,6 +41,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       await page.getByRole('button', { name: 'Usar comodín' }).click();
       const dialog = page.getByRole('dialog');
       if (key === 'fifty') {
+        await expect(page.getByRole('button', { name: 'Usar comodín' })).toHaveCount(0);
         await expect(button).toBeDisabled();
         await expect(dialog).toHaveCount(0);
         const updated = await db.game.findUniqueOrThrow({ where: { id: game.id } });
