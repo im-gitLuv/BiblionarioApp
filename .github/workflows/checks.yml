@@ -2,7 +2,7 @@ name: Checks
 on: [push, pull_request]
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:17-alpine
@@ -11,7 +11,7 @@ jobs:
           POSTGRES_PASSWORD: test-password
           POSTGRES_DB: biblionario_test
         ports: ["5432:5432"]
-        options: --health-cmd "pg_isready -U biblionario" --health-interval 5s --health-timeout 5s --health-retries 10
+        options: --health-cmd "pg_isready -U biblionario -d biblionario_test" --health-interval 5s --health-timeout 5s --health-retries 10
     env:
       DATABASE_URL: postgresql://biblionario:test-password@localhost:5432/biblionario_test
       DIRECT_URL: postgresql://biblionario:test-password@localhost:5432/biblionario_test
