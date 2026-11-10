@@ -29,7 +29,7 @@ export function MoneyLadder({
   return (
     <div
       className={cn(
-        "rounded-xl border border-amber-500/20 bg-[#1d1207]/85 p-3 shadow-[0_0_40px_rgba(240,180,41,0.07)] backdrop-blur-sm",
+        "rounded-xl border border-amber-500/20 bg-panel/85 p-3 shadow-[0_0_40px_rgba(240,180,41,0.07)] backdrop-blur-sm",
         className
       )}
       role="list"

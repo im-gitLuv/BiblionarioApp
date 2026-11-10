@@ -10,6 +10,7 @@ model Player {
  id String @id @default(cuid())
  tokenHash String @unique
  name String
+ tag String @unique
  createdAt DateTime @default(now())
  games Game[]
 }

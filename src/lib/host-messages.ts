@@ -1,5 +1,5 @@
 import type { ActionReply, PublicGame } from "./contracts";
-import { LETTERS } from "./rules";
+import { LETTERS, formatCrowns, walkAwayAmount } from "./rules";
 
 // Banco editorial del anfitrión. Puedes ampliar las palabras clave o cambiar
 // las frases sin tocar la lógica de la partida.
@@ -33,7 +33,10 @@ export function getHostMessage(
   reply: ActionReply | null,
   walk: boolean,
 ) {
-  if (walk) return HOST_PROGRESS_MESSAGES.walk;
+  if (walk) {
+    const amount = formatCrowns(walkAwayAmount(game.level));
+    return `¿Retirarte con ${amount} Coronas? El prudente conoce cuándo descansar; el valiente decide cuándo continuar.`;
+  }
   if (reply?.reveal) {
     return reply.reveal.correct
       ? `¡Correcto! La Escritura confirma el camino: ${reply.reveal.reference}.`
@@ -42,7 +45,9 @@ export function getHostMessage(
   if (reply?.hint) return reply.hint.votes ? HOST_PROGRESS_MESSAGES.audience : HOST_PROGRESS_MESSAGES.prophet;
   if (selected !== null && game.question) {
     const option = game.question.options[selected];
-    return `Eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)} ¿Es tu respuesta definitiva?`;
+    // La pregunta ya está en pantalla y la confirmación en su botón:
+    // el anfitrión acompaña sin repetir lo que el jugador ya está leyendo.
+    return `Eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)}`;
   }
   if (game.level <= 5) return HOST_PROGRESS_MESSAGES.opening;
   if (game.level <= 10) return HOST_PROGRESS_MESSAGES.middle;

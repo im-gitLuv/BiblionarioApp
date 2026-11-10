@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -8,25 +7,14 @@ import {
   DoorOpen,
   Skull,
   Sparkles,
-  Trash2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { RoundIconButton, StageHeading, fadeUp } from "@/components/game/ui";
 import {
   formatCrowns,
   type Outcome,
   type ScoreRecord,
 } from "@/lib/game-data";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
 interface HallOfFaithProps {
   scores: ScoreRecord[];
@@ -64,40 +52,27 @@ function rankStyle(rank: number): string {
 }
 
 export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
+  // Nombres repetidos en la clasificación: su etiqueta de perfil los
+  // distingue ("Luis · 3F7A" frente a "Luis · 9B1C").
+  const repeated = new Map<string, number>();
+  for (const s of scores)
+    repeated.set(s.name, (repeated.get(s.name) ?? 0) + 1);
+  const isRepeated = (s: ScoreRecord) => (repeated.get(s.name) ?? 0) > 1;
+
   return (
     <div className="flex min-h-screen flex-col">
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8 sm:px-6 sm:py-12">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={onBack}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-amber-500/40 text-amber-300 transition-all hover:border-amber-300 hover:bg-amber-500/15"
-              aria-label="Volver al menú principal"
-            >
-              <ArrowLeft className="h-5 w-5" aria-hidden="true" />
-            </button>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-amber-300/70">
-                Quienes recorrieron el camino
-              </p>
-              <h1 className="font-display text-3xl font-bold text-[#f7e2b0] sm:text-4xl">
-                Salón de la Fe
-              </h1>
-            </div>
-          </div>
-
-
+        <div className="mb-8 flex items-center gap-4">
+          <RoundIconButton icon={ArrowLeft} label="Volver al menú principal" onClick={onBack} />
+          <StageHeading overline="Quienes recorrieron el camino" title="Salón de la Fe" shimmer={false} />
         </div>
 
-        <p className="mb-6 text-sm leading-relaxed text-amber-100/70">Clasificación por Coronas históricas: se suman los premios de todas tus partidas terminadas. Cada victoria de 15 preguntas concede una Corona de conocimiento. Los premios parciales suman al total, pero no conceden esa distinción.</p>
+        <p className="mb-6 text-sm leading-relaxed text-amber-100/70">Clasificación por Coronas históricas: se suman los premios de todas tus partidas terminadas. Cada victoria de 15 preguntas concede una Corona de conocimiento. Los premios parciales suman al total, pero no conceden esa distinción. Si dos nombres coinciden, su etiqueta de perfil los distingue.</p>
         {/* List */}
         {scores.length === 0 ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            {...fadeUp(0, 12)}
             className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-amber-500/25 bg-[#1d1207]/50 px-6 py-16 text-center"
           >
             <Sparkles className="h-10 w-10 text-amber-400/60" aria-hidden="true" />
@@ -113,9 +88,7 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
             {scores.map((s, i) => (
               <motion.li
                 key={s.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: Math.min(i, 5) * 0.06, duration: 0.45, ease: "easeOut" }}
+                {...fadeUp(Math.min(i * 0.05, 0.4), 10)}
                 className={cn(
                   "flex items-center gap-4 rounded-xl border bg-[#1d1207]/80 p-4",
                   i === 0
@@ -133,13 +106,23 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm text-amber-200">{s.name}</p>
+                  <p className="truncate text-sm text-amber-200">
+                    {s.name}
+                    {isRepeated(s) && (
+                      <span
+                        className="ml-1.5 inline-block rounded border border-amber-500/25 bg-amber-500/10 px-1 py-px align-baseline font-mono text-[10px] font-semibold tracking-wider text-amber-300/70"
+                        title={`Perfil ${s.tag}`}
+                      >
+                        {s.tag}
+                      </span>
+                    )}
+                  </p>
                   <p className="text-base font-bold tabular-nums text-amber-100">
                     {formatCrowns(s.amount)}{" "}
                     <span className="text-xs font-normal text-amber-300/70">Coronas históricas</span>
                   </p>
                   <p className="mt-0.5 text-xs text-[#c4a875]">
-                    {s.gamesPlayed} partidas · Máximo escalón {s.level}/15 ·{" "}
+                    {s.gamesPlayed} {s.gamesPlayed === 1 ? "partida" : "partidas"} · Máximo escalón {s.level}/15 ·{" "}
                     {new Date(s.date).toLocaleDateString("es-VE", {
                       month: "short",
                       day: "numeric",

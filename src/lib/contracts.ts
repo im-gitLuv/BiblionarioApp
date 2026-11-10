@@ -10,10 +10,18 @@ export interface ScoreRecord {
     gamesPlayed: number;
     id: string;
     name: string;
+    tag: string;
     amount: number;
     level: number;
     outcome: Outcome;
     date: string;
+}
+export interface PlayerProfile {
+    name: string;
+    tag: string;
+    totalCrowns: number;
+    knowledgeCrowns: number;
+    gamesPlayed: number;
 }
 export interface PublicGame {
     id: string;

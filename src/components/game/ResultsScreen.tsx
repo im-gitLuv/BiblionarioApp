@@ -12,6 +12,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { GoldenConfetti } from "@/components/game/GoldenConfetti";
+import { LozengeButton, fadeUp } from "@/components/game/ui";
 import { formatCrowns, type GameResult } from "@/lib/game-data";
 
 interface ResultsScreenProps {
@@ -70,11 +71,9 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
       {won && <GoldenConfetti />}
 
       <main className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
-        {/* Emblem */}
+        {/* Emblema */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.65, ease: "easeOut" }}
+          {...fadeUp(0, 10)}
           className="relative mb-7"
         >
           <div
@@ -100,11 +99,9 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           </div>
         </motion.div>
 
-        {/* Headline */}
+        {/* Titular */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.6 }}
+          {...fadeUp(0.12)}
           className={`font-display text-4xl font-bold leading-tight sm:text-6xl ${
             won ? "text-shimmer" : "text-[#f7e2b0]"
           }`}
@@ -112,11 +109,9 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           {headline}
         </motion.h1>
 
-        {/* Winnings */}
+        {/* Premio */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.55 }}
+          {...fadeUp(0.24)}
           className="mt-6 flex flex-col items-center gap-1.5 rounded-2xl border border-amber-500/25 bg-[#1d1207]/80 px-10 py-6"
         >
           <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-amber-300/70">
@@ -131,24 +126,20 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           </p>
         </motion.div>
 
-        {/* Subline */}
+        {/* Historial */}
         <div aria-live="polite" className="mt-5 text-sm text-amber-200">
-          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} Coronas de conocimiento · {history.gamesPlayed} partidas</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Fe." : "Consultando tu historial…"}</p>}
+          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} {history.knowledgeCrowns === 1 ? "Corona" : "Coronas"} de conocimiento · {history.gamesPlayed} {history.gamesPlayed === 1 ? "partida" : "partidas"}</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Fe." : "Consultando tu historial…"}</p>}
         </div>
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.45, duration: 0.55 }}
+          {...fadeUp(0.36)}
           className="mt-6 max-w-md text-[15px] leading-relaxed text-[#e9dcc4]/85"
         >
           {subline}
         </motion.p>
 
-        {/* Verse */}
+        {/* Versículo */}
         <motion.blockquote
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          {...fadeUp(0.48)}
           className="mt-8 max-w-lg border-l-2 border-amber-500/40 pl-4 text-left"
         >
           <p className="font-display text-sm italic leading-relaxed text-[#e9dcc4]/75 sm:text-[15px]">
@@ -159,49 +150,20 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           </cite>
         </motion.blockquote>
 
-        {/* Actions */}
+        {/* Acciones */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.75, duration: 0.55 }}
+          {...fadeUp(0.58)}
           className="mt-10 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
         >
-          <motion.button
-            type="button"
-            onClick={onPlayAgain}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="clip-lozenge-slim w-full bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600 p-[2px] sm:w-auto"
-          >
-            <span className="clip-lozenge-slim flex items-center justify-center gap-2 bg-gradient-to-b from-[#f6c453] to-[#e8a020] px-9 py-3.5 text-[15px] font-semibold text-[#241708]">
-              <RotateCcw className="h-[18px] w-[18px]" aria-hidden="true" />
-              Volver a jugar
-            </span>
-          </motion.button>
-
-          <motion.button
-            type="button"
-            onClick={onHall}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="clip-lozenge-slim w-full bg-gradient-to-r from-amber-700/70 via-amber-500/70 to-amber-700/70 p-[2px] sm:w-auto"
-          >
-            <span className="clip-lozenge-slim flex items-center justify-center gap-2 bg-gradient-to-b from-[#2b1c0d] to-[#211609] px-9 py-3.5 text-[15px] font-semibold text-[#f3e8d8]">
-              <BookOpen className="h-[18px] w-[18px] text-amber-300" aria-hidden="true" />
-              Salón de la Fe
-            </span>
-          </motion.button>
-
-          <motion.button
-            type="button"
-            onClick={onMenu}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-amber-500/30 px-7 py-3 text-sm font-medium text-amber-200/90 transition-colors hover:border-amber-400/60 hover:bg-amber-500/10 sm:w-auto"
-          >
-            <Home className="h-4 w-4" aria-hidden="true" />
+          <LozengeButton variant="primary" size="md" icon={RotateCcw} onClick={onPlayAgain} className="w-full sm:w-auto">
+            Volver a jugar
+          </LozengeButton>
+          <LozengeButton variant="secondary" size="md" icon={BookOpen} onClick={onHall} className="w-full sm:w-auto">
+            Salón de la Fe
+          </LozengeButton>
+          <LozengeButton variant="ghost" size="sm" icon={Home} onClick={onMenu} className="w-full sm:w-auto">
             Menú principal
-          </motion.button>
+          </LozengeButton>
         </motion.div>
       </main>
 

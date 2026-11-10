@@ -4,6 +4,13 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { PrismaClient } from '@prisma/client';
 const base = 'http://localhost:3100';
+// Espera a que el servidor de pruebas libere el puerto antes del siguiente test.
+const stopServer = (server) => new Promise(resolve => {
+  server.kill();
+  if (server.exitCode !== null) return resolve();
+  server.once('exit', resolve);
+  setTimeout(resolve, 2000);
+});
 test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y vencimiento', async () => {
   if (process.env.BIBLIONARIO_INTEGRATION !== '1') throw new Error('Configura BIBLIONARIO_INTEGRATION=1 y una base de pruebas dedicada.');
   const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-p', '3100'], { stdio: 'ignore', env: process.env });
@@ -92,6 +99,65 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
     assert.equal(historical.gamesPlayed, 4);
   } finally {
     if (players.length) { await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
-    await db.$disconnect(); server.kill();
+    await db.$disconnect(); await stopServer(server);
+  }
+});
+
+test('API: perfiles — etiqueta única, nombres repetidos y cambio de jugador', async () => {
+  if (process.env.BIBLIONARIO_INTEGRATION !== '1') throw new Error('Configura BIBLIONARIO_INTEGRATION=1 y una base de pruebas dedicada.');
+  const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-p', '3100'], { stdio: 'ignore', env: process.env });
+  const db = new PrismaClient();
+  const tags = [];
+  try {
+    let ready = false;
+    for (let i = 0; i < 100; i++) {
+      try { if ((await fetch(base + '/api')).ok) { ready = true; break; } } catch {}
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    assert.ok(ready, 'La aplicación debe iniciar');
+    async function request(path, body, cookie = '', origin = base) {
+      const response = await fetch(base + path, { method: body === undefined ? 'GET' : 'POST', headers: { Origin: origin, Cookie: cookie, 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) });
+      return { status: response.status, data: await response.json(), cookie: response.headers.get('set-cookie')?.split(';')[0] };
+    }
+    // Dos navegadores distintos con el mismo nombre: perfiles aparte,
+    // etiquetas distintas y ambas visibles en la clasificación.
+    const luisA = await request('/api/player', { name: 'Luis' });
+    assert.equal(luisA.status, 200);
+    assert.match(luisA.data.tag, /^[0-9A-F]{4}$/);
+    const luisB = await request('/api/player', { name: 'Luis' });
+    assert.equal(luisB.status, 200);
+    assert.notEqual(luisB.cookie, luisA.cookie);
+    assert.notEqual(luisB.data.tag, luisA.data.tag);
+    tags.push(luisA.data.tag, luisB.data.tag);
+    // GET devuelve la etiqueta del perfil actual.
+    assert.equal((await request('/api/player', undefined, luisA.cookie)).data.tag, luisA.data.tag);
+    // Ambos terminan una partida para aparecer en la clasificación.
+    for (const luis of [luisA, luisB]) {
+      const game = (await request('/api/games', {}, luis.cookie)).data;
+      const retired = await request('/api/games/' + game.id, { action: 'walk', version: game.version }, luis.cookie);
+      assert.equal(retired.status, 200);
+    }
+    const board = (await request('/api/leaderboard')).data;
+    // Ambos perfiles aparecen en la clasificación, cada uno con su etiqueta:
+    // así se distinguen los nombres repetidos aunque existan otros previos.
+    const mine = board.filter(row => row.tag === luisA.data.tag || row.tag === luisB.data.tag);
+    assert.equal(mine.length, 2);
+    assert.ok(mine.every(row => row.name === 'Luis'));
+    // Renombrar sin newProfile conserva el perfil (misma etiqueta).
+    const renamed = await request('/api/player', { name: 'Luis Miguel' }, luisA.cookie);
+    assert.equal(renamed.status, 200);
+    assert.equal(renamed.data.tag, luisA.data.tag);
+    // newProfile en el mismo navegador crea un perfil aparte y no toca el anterior.
+    const fresh = await request('/api/player', { name: 'Ana', newProfile: true }, luisA.cookie);
+    assert.equal(fresh.status, 200);
+    assert.notEqual(fresh.data.tag, luisA.data.tag);
+    tags.push(fresh.data.tag);
+    assert.equal((await db.player.findUniqueOrThrow({ where: { tag: fresh.data.tag } })).name, 'Ana');
+    assert.equal((await db.player.findUniqueOrThrow({ where: { tag: luisA.data.tag } })).name, 'Luis Miguel');
+    // El parámetro desconocido sigue rechazándose.
+    assert.equal((await request('/api/player', { name: 'X', intruso: true })).status, 400);
+  } finally {
+    if (tags.length) { const ids = await db.player.findMany({ where: { tag: { in: tags } }, select: { id: true } }); await db.game.deleteMany({ where: { playerId: { in: ids.map(p => p.id) } } }); await db.player.deleteMany({ where: { id: { in: ids.map(p => p.id) } } }); }
+    await db.$disconnect(); await stopServer(server);
   }
 });

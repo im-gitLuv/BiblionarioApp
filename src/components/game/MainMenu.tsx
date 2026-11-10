@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Crown, Sparkles, Trophy, BookOpen, HelpCircle, ChevronRight, Settings } from "lucide-react";
+import { BookOpen, ChevronRight, Crown, HelpCircle, Settings, Sparkles, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LozengeButton, fadeUp } from "@/components/game/ui";
 import {
   SCRIPTURE_ROTATION,
   formatCrowns,
@@ -13,73 +14,62 @@ import {
 
 interface MainMenuProps {
   best: ScoreRecord | null;
+  /** Perfil guardado en este navegador (null si aún no hay ninguno). */
+  profile: { name: string; tag: string } | null;
+  /** Modo "crear otro perfil": el nombre escrito fundará un perfil aparte. */
+  newProfile: boolean;
+  onStartNewProfile: () => void;
+  onCancelNewProfile: () => void;
+  name: string;
+  onNameChange: (name: string) => void;
+  /** Contador de intentos de inicio sin nombre; > 0 enciende el aviso. */
+  nameAttention: number;
+  busy: boolean;
   onPlay: () => void;
   onHowTo: () => void;
   onHall: () => void;
   onSettings: () => void;
 }
 
-/** Lozenge-shaped menu button, gold CTA or outlined secondary. */
-function MenuButton({
-  label,
-  icon: Icon,
-  variant = "secondary",
-  onClick,
-  delay = 0,
-}: {
-  label: string;
-  icon: React.ElementType;
-  variant?: "primary" | "secondary";
-  onClick: () => void;
-  delay?: number;
-}) {
-  return (
-    <motion.button
-      type="button"
-      onClick={onClick}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay, duration: 0.55, ease: "easeOut" }}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      className={cn(
-        "group w-full sm:w-96",
-        variant === "primary" ? "glow-pulse" : ""
-      )}
-    >
-      <div
-        className={cn(
-          "clip-lozenge-slim p-[2px] transition-all duration-300",
-          variant === "primary"
-            ? "bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600"
-            : "bg-gradient-to-r from-amber-700/70 via-amber-500/70 to-amber-700/70 group-hover:from-amber-500 group-hover:via-yellow-300 group-hover:to-amber-500"
-        )}
-      >
-        <div
-          className={cn(
-            "clip-lozenge-slim flex items-center justify-center gap-2.5 px-10 py-3.5",
-            variant === "primary"
-              ? "bg-gradient-to-b from-[#f6c453] to-[#e8a020] text-[#241708]"
-              : "bg-gradient-to-b from-[#2b1c0d] to-[#211609] text-[#f3e8d8] group-hover:from-[#3a2612]"
-          )}
-        >
-          <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-          <span className="text-[15px] font-semibold tracking-wide">{label}</span>
-          <ChevronRight
-            className="h-4 w-4 shrink-0 opacity-60 transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
-    </motion.button>
-  );
-}
+export function MainMenu({
+  best,
+  profile,
+  newProfile,
+  onStartNewProfile,
+  onCancelNewProfile,
+  name,
+  onNameChange,
+  nameAttention,
+  busy,
+  onPlay,
+  onHowTo,
+  onHall,
+  onSettings,
+}: MainMenuProps) {
+  const incomplete = nameAttention > 0 && name.trim().length < 2;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const shellRef = useRef<HTMLDivElement>(null);
 
-export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenuProps) {
-  // The fixed first value keeps server/client rendering identical. Once mounted,
-  // the effect replaces it with a shuffled deck and walks that deck without repeats.
+  // El campo vivo en su propio espacio: el aviso reutiliza la línea del texto
+  // de ayuda, así que encenderlo nunca desplaza a los demás elementos.
+  useEffect(() => {
+    if (nameAttention > 0 && name.trim().length < 2) {
+      shellRef.current?.getAnimations().forEach((animation) => {
+        animation.cancel();
+        animation.play();
+      });
+      inputRef.current?.focus({ preventScroll: true });
+      inputRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        block: "center",
+      });
+    }
+     
+  }, [nameAttention]);
+
+  // La rotación de versículos conserva el comportamiento original: un mazo
+  // mezclado que no repite hasta agotarse, con transición de opacidad.
   const [verse, setVerse] = useState(SCRIPTURE_ROTATION[0]);
-
   useEffect(() => {
     let deck = shuffleScriptures();
     let cursor = 0;
@@ -93,7 +83,7 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
         deck = shuffleScriptures();
         cursor = 0;
 
-        // A new cycle should never begin with the verse that ended the last one.
+        // Un ciclo nuevo nunca comienza con el versículo que cerró el anterior.
         if (deck.length > 1 && deck[0].ref === previousRef) {
           [deck[0], deck[1]] = [deck[1], deck[0]];
         }
@@ -109,74 +99,45 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
 
   return (
     <div className="flex flex-1 flex-col">
-      <main className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
-        {/* Emblem */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="float-soft relative mb-6"
-        >
+      <main className="flex flex-1 flex-col items-center justify-center px-4 py-8 text-center sm:py-10">
+        {/* Emblema */}
+        <motion.div {...fadeUp(0, 14)} className="float-soft relative mb-4 sm:mb-5">
           <div className="absolute inset-0 -z-10 scale-[1.8] rounded-full bg-amber-400/15 blur-2xl" aria-hidden="true" />
-          <div className="flex h-24 w-24 items-center justify-center rounded-full border border-amber-400/40 bg-gradient-to-b from-[#2e2010] to-[#1d1207] shadow-[0_0_45px_rgba(240,180,41,0.25)] sm:h-28 sm:w-28">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full border border-amber-400/40 bg-gradient-to-b from-[#2e2010] to-[#1d1207] shadow-[0_0_45px_rgba(240,180,41,0.25)] sm:h-24 sm:w-24">
             <Crown
-              className="h-12 w-12 text-amber-300 drop-shadow-[0_0_14px_rgba(240,180,41,0.7)] sm:h-14 sm:w-14"
+              className="h-10 w-10 text-amber-300 drop-shadow-[0_0_14px_rgba(240,180,41,0.7)] sm:h-12 sm:w-12"
               aria-hidden="true"
               strokeWidth={1.6}
             />
           </div>
-          <Sparkles
-            className="absolute -right-2 -top-1 h-5 w-5 text-amber-200/80"
-            aria-hidden="true"
-          />
-          <Sparkles
-            className="absolute -left-3 bottom-1 h-4 w-4 text-amber-200/60"
-            aria-hidden="true"
-          />
+          <Sparkles className="absolute -right-2 -top-1 h-5 w-5 text-amber-200/80" aria-hidden="true" />
+          <Sparkles className="absolute -left-3 bottom-1 h-4 w-4 text-amber-200/60" aria-hidden="true" />
         </motion.div>
 
-        {/* Overline */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.15, duration: 0.55 }}
-          className="mb-3 text-[11px] font-semibold uppercase tracking-[0.4em] text-amber-300/80 sm:text-xs"
-        >
+        {/* Sobrelínea y título */}
+        <motion.p {...fadeUp(0.12)} className="mb-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-amber-300/80 sm:text-xs">
           Quién quiere ser…
         </motion.p>
-
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.25, duration: 0.65 }}
-          className="font-display text-shimmer text-5xl font-bold leading-tight tracking-tight sm:text-7xl"
-        >
+        <motion.h1 {...fadeUp(0.2)} className="font-display text-shimmer text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
           Biblionario
         </motion.h1>
 
-        {/* Ornamental divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.45, duration: 0.7 }}
-          className="mt-5 flex items-center gap-3"
-          aria-hidden="true"
-        >
+        {/* Divisor ornamentado */}
+        <motion.div {...fadeUp(0.32)} className="mt-4 flex items-center gap-3" aria-hidden="true">
           <span className="h-px w-16 bg-gradient-to-r from-transparent to-amber-400/70 sm:w-24" />
           <span className="h-1.5 w-1.5 rotate-45 bg-amber-400/90" />
           <span className="h-px w-16 bg-gradient-to-l from-transparent to-amber-400/70 sm:w-24" />
         </motion.div>
 
-        {/* Rotating verse */}
-        <div className="mt-6 flex h-36 max-w-md items-center justify-center sm:h-28">
+        {/* Versículo en rotación: espacio reservado, solo cambia la opacidad */}
+        <div className="mt-4 flex min-h-[72px] max-w-md items-center justify-center sm:mt-5">
           <AnimatePresence mode="wait">
             <motion.p
               key={verse.ref}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
               className="font-display text-[15px] italic leading-relaxed text-[#e9dcc4]/80 sm:text-base"
             >
               “{verse.text}”
@@ -187,30 +148,97 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
           </AnimatePresence>
         </div>
 
-        {/* Best score */}
-        <div className="mt-6 flex h-12 items-center justify-center">
-          {best && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.55, duration: 0.5 }}
-              className="flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200"
-            >
-              <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
-              <span>
-                Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
-              </span>
-            </motion.div>
-          )}
-        </div>
+        {/* Nombre del jugador — misma pieza lozenge que los botones */}
+        <motion.div {...fadeUp(0.42)} className="mt-4 w-full max-w-sm">
+          <label htmlFor="player" className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-300/70">
+            {newProfile ? "Nombre del nuevo jugador" : "Tu nombre en el Salón de la Fe"}
+          </label>
+          <div ref={shellRef} className={cn("w-full", incomplete && "name-attention")}>
+            <div className="clip-lozenge-slim bg-gradient-to-r from-amber-700/60 via-amber-500/60 to-amber-700/60 p-[2px] transition-all duration-300 focus-within:from-amber-400 focus-within:via-yellow-300 focus-within:to-amber-400">
+              <input
+                ref={inputRef}
+                id="player"
+                value={name}
+                onChange={(event) => onNameChange(event.target.value)}
+                minLength={2}
+                maxLength={30}
+                placeholder={newProfile ? "Escribe el nombre del nuevo perfil" : "Escribe tu nombre"}
+                aria-invalid={incomplete}
+                aria-describedby="player-help"
+                className="clip-lozenge-slim w-full bg-gradient-to-b from-[#2b1c0d] to-[#211609] px-10 py-2.5 text-center text-[15px] text-[#f3e8d8] outline-none placeholder:text-[#c4a875]/55"
+              />
+            </div>
+          </div>
+          {/* Ranura de texto fija: el aviso sustituye a la ayuda, nunca la apila */}
+          <p
+            id="player-help"
+            role={incomplete && !newProfile ? "alert" : undefined}
+            className={cn(
+              "mt-1.5 min-h-4 text-[11px] leading-4",
+              incomplete && !newProfile ? "font-semibold text-amber-200" : "text-[#c4a875]/55"
+            )}
+          >
+            {newProfile
+              ? "Perfil nuevo: sus Coronas se contarán por separado de las de " + (profile ? profile.name : "tus perfiles anteriores") + "."
+              : incomplete
+                ? "Primero escribe tu nombre (al menos 2 caracteres) para comenzar."
+                : busy
+                  ? "Preparando tu perfil…"
+                  : profile
+                    ? `Jugando como ${profile.name} · ${profile.tag} en este navegador.`
+                    : "Perfil de invitado guardado en este navegador. Nombre público."}
+          </p>
+          {/* Acciones de perfil: texto discreto dentro del mismo bloque */}
+          {profile && !busy ? (
+            <div className="min-h-5">
+              {newProfile ? (
+                <button
+                  type="button"
+                  onClick={onCancelNewProfile}
+                  className="text-[11px] font-medium text-amber-300/80 underline decoration-amber-400/40 underline-offset-4 transition-colors hover:text-amber-200"
+                >
+                  Volver a mi perfil ({profile.name} · {profile.tag})
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={onStartNewProfile}
+                  className="text-[11px] font-medium text-amber-300/80 underline decoration-amber-400/40 underline-offset-4 transition-colors hover:text-amber-200"
+                >
+                  ¿No eres tú? Crear otro perfil
+                </button>
+              )}
+            </div>
+          ) : null}
+        </motion.div>
 
-        {/* Actions */}
-        <div className="mt-10 flex w-full flex-col items-center gap-3.5 sm:gap-4">
-          <MenuButton label="Comenzar el camino" icon={Crown} variant="primary" onClick={onPlay} delay={0.55} />
-          <MenuButton label="Cómo jugar" icon={HelpCircle} onClick={onHowTo} delay={0.68} />
-          <MenuButton label="Salón de la Fe" icon={BookOpen} onClick={onHall} delay={0.81} />
-          <MenuButton label="Configuración" icon={Settings} onClick={onSettings} delay={0.9} />
-        </div>
+        {/* Acciones */}
+        <motion.div {...fadeUp(0.5)} className="mt-4 flex w-full max-w-md flex-col items-center gap-3">
+          <LozengeButton variant="primary" size="md" icon={Crown} trailing={ChevronRight} onClick={onPlay} disabled={busy} className="max-w-sm">
+            {newProfile ? "Crear perfil y jugar" : "Comenzar el camino"}
+          </LozengeButton>
+          <div className="grid w-full grid-cols-2 gap-3 max-sm:justify-items-stretch sm:grid-cols-3">
+            <LozengeButton variant="secondary" size="sm" icon={HelpCircle} onClick={onHowTo} className="w-full">
+              Cómo jugar
+            </LozengeButton>
+            <LozengeButton variant="secondary" size="sm" icon={BookOpen} onClick={onHall} className="w-full">
+              Salón de la Fe
+            </LozengeButton>
+            <LozengeButton variant="secondary" size="sm" icon={Settings} onClick={onSettings} className="w-full max-sm:col-span-2">
+              Configuración
+            </LozengeButton>
+          </div>
+        </motion.div>
+
+        {/* Líder histórico */}
+        {best ? (
+          <motion.div {...fadeUp(0.58)} className="mt-5 flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200">
+            <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
+            <span>
+              Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
+            </span>
+          </motion.div>
+        ) : null}
       </main>
 
       <footer className="mt-auto border-t border-amber-500/10 px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-center">

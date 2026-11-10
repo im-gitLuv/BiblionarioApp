@@ -9,13 +9,16 @@ export async function GET() {
             db.game.aggregate({ where: { playerId: p.id, status: { in: ['won', 'walked', 'lost'] } }, _sum: { amount: true }, _count: true }),
             db.game.count({ where: { playerId: p.id, status: 'won' } }),
         ]);
-        return { name: p.name, totalCrowns: totals._sum.amount ?? 0, knowledgeCrowns, gamesPlayed: totals._count };
+        return { name: p.name, tag: p.tag, totalCrowns: totals._sum.amount ?? 0, knowledgeCrowns, gamesPlayed: totals._count };
     });
 }
 export async function POST(request: Request) {
     return handle(async () => {
         sameOrigin(request);
-        const { name } = z.object({ name: z.string().trim().min(2).max(30).regex(/^[\p{L}\p{N} ._-]+$/u) }).strict().parse(await request.json());
+        // newProfile: crea un perfil aparte en lugar de renombrar el actual,
+        // para que dos personas (o dos nombres iguales) en el mismo navegador
+        // lleven sus Coronas por separado.
+        const { name, newProfile } = z.object({ name: z.string().trim().min(2).max(30).regex(/^[\p{L}\p{N} ._-]+$/u), newProfile: z.boolean().optional() }).strict().parse(await request.json());
         let p;
         try {
             p = await player();
@@ -24,7 +27,7 @@ export async function POST(request: Request) {
             if (!(error instanceof Error && 'status' in error && error.status === 401))
                 throw error;
         }
-        const saved = p ? await db.player.update({ where: { id: p.id }, data: { name } }) : await createPlayer(name);
-        return { name: saved.name };
+        const saved = p && !newProfile ? await db.player.update({ where: { id: p.id }, data: { name } }) : await createPlayer(name);
+        return { name: saved.name, tag: saved.tag };
     });
 }

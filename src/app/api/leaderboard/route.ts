@@ -7,6 +7,7 @@ export async function GET() {
         const rows = await db.$queryRaw<Array<{
             id: string;
             name: string;
+            tag: string;
             amount: number;
             level: number;
             outcome: string;
@@ -14,7 +15,7 @@ export async function GET() {
             knowledgeCrowns: number;
             gamesPlayed: number;
         }>> `
-      SELECT p.id, p.name, SUM(g.amount)::double precision AS amount,
+      SELECT p.id, p.name, p.tag, SUM(g.amount)::double precision AS amount,
         MAX(g.level)::integer AS level,
         CASE WHEN BOOL_OR(g.status = 'won') THEN 'won' ELSE 'walked' END AS outcome,
         MAX(g."finishedAt") AS date,
