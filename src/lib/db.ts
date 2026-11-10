@@ -1,13 +1,16 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaNeon } from '@prisma/adapter-neon'
-import { neonConfig } from '@neondatabase/serverless'
-import WebSocket from 'ws'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-neonConfig.webSocketConstructor = WebSocket
+// Adapter pg (TCP): estable en Node runtime (Vercel incluido). Evita el driver
+// serverless de Neon, cuyo WebSocket se corrompe al ser empaquetado por webpack
+// ("b.mask is not a function" → Connection terminated unexpectedly).
+const databaseUrl = process.env.DATABASE_URL ?? ''
+const isPostgres =
+  databaseUrl.startsWith('postgres://') || databaseUrl.startsWith('postgresql://')
 
-const databaseUrl = process.env.DATABASE_URL
-const adapter = databaseUrl && new URL(databaseUrl).hostname.endsWith('.neon.tech')
-  ? new PrismaNeon({ connectionString: databaseUrl })
+// Sin adapter: Prisma usa el engine nativo del schema (p. ej. SQLite en tests/CI).
+const adapter = isPostgres
+  ? new PrismaPg({ connectionString: databaseUrl, max: 5 })
   : null
 
 const globalForPrisma = globalThis as unknown as {
