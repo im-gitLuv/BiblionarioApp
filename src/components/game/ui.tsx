@@ -74,7 +74,7 @@ export function LozengeButton({
             slim,
             size === "md"
               ? "px-9 py-3 text-[15px]"
-              : "whitespace-nowrap px-5 py-2 text-[13px] font-medium",
+              : "whitespace-nowrap px-3 py-2 text-[13px] font-medium sm:px-5",
             variant === "primary" && "bg-gradient-to-b from-[#f6c453] to-[#e8a020] font-bold text-ink",
             variant === "secondary" &&
               "bg-gradient-to-b from-[#2b1c0d] to-[#211609] font-semibold text-[#f3e8d8] group-hover:from-[#3a2612]",

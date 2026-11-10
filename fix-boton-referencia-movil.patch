@@ -1,0 +1,33 @@
+diff --git a/src/components/game/GameScreen.tsx b/src/components/game/GameScreen.tsx
+index e33307f..bf3a665 100644
+--- a/src/components/game/GameScreen.tsx
++++ b/src/components/game/GameScreen.tsx
+@@ -320,8 +320,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
+                       </p>
+                       <p className="truncate text-xs text-amber-200/70">Referencia: {reply.reveal.reference}</p>
+                     </div>
+-                    <LozengeButton variant="primary" size="sm" disabled={busy} className="flex-none" onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
+-                      {reply.game.result ? "Ver resultado" : "Siguiente pregunta"}
++                    <LozengeButton variant="primary" size="sm" disabled={busy} aria-label={reply.game.result ? undefined : "Siguiente pregunta"} className="w-auto flex-none" onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
++                      {reply.game.result ? "Ver resultado" : (
++                        <>
++                          <span className="sm:hidden">Siguiente</span>
++                          <span className="hidden sm:inline">Siguiente pregunta</span>
++                        </>
++                      )}
+                     </LozengeButton>
+                   </motion.div>
+                 ) : walk ? (
+diff --git a/src/components/game/ui.tsx b/src/components/game/ui.tsx
+index 8f84d23..edf05c1 100644
+--- a/src/components/game/ui.tsx
++++ b/src/components/game/ui.tsx
+@@ -74,7 +74,7 @@ export function LozengeButton({
+             slim,
+             size === "md"
+               ? "px-9 py-3 text-[15px]"
+-              : "whitespace-nowrap px-5 py-2 text-[13px] font-medium",
++              : "whitespace-nowrap px-3 py-2 text-[13px] font-medium sm:px-5",
+             variant === "primary" && "bg-gradient-to-b from-[#f6c453] to-[#e8a020] font-bold text-ink",
+             variant === "secondary" &&
+               "bg-gradient-to-b from-[#2b1c0d] to-[#211609] font-semibold text-[#f3e8d8] group-hover:from-[#3a2612]",

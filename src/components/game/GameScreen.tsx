@@ -320,8 +320,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                       </p>
                       <p className="truncate text-xs text-amber-200/70">Referencia: {reply.reveal.reference}</p>
                     </div>
-                    <LozengeButton variant="primary" size="sm" disabled={busy} className="flex-none" onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
-                      {reply.game.result ? "Ver resultado" : "Siguiente pregunta"}
+                    <LozengeButton variant="primary" size="sm" disabled={busy} aria-label={reply.game.result ? undefined : "Siguiente pregunta"} className="w-auto flex-none" onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
+                      {reply.game.result ? "Ver resultado" : (
+                        <>
+                          <span className="sm:hidden">Siguiente</span>
+                          <span className="hidden sm:inline">Siguiente pregunta</span>
+                        </>
+                      )}
                     </LozengeButton>
                   </motion.div>
                 ) : walk ? (
