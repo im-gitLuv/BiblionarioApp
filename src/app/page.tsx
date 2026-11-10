@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { AmbientBackground } from "@/components/game/AmbientBackground";
 import { MainMenu } from "@/components/game/MainMenu";
 import { HowToPlay } from "@/components/game/HowToPlay";
@@ -62,12 +62,12 @@ export default function Home() {
                     : result
                         ? <ResultsScreen result={result} onMenu={menu} onHall={hall} onPlayAgain={() => setScreen("game")}/>
                         : null;
-    return <div className="flex min-h-screen flex-col overflow-x-hidden bg-background font-sans text-foreground"><AmbientBackground />
- {error && <div role="alert" className="relative z-10 p-4 text-center text-red-300">{error} <button className="underline" onClick={() => void refresh()}>Reintentar</button></div>}
+    return <MotionConfig reducedMotion="user"><div className="flex min-h-dvh flex-col overflow-x-hidden bg-background font-sans text-foreground"><AmbientBackground />
+ {error && screen === "hall" && <div role="alert" className="relative z-20 p-4 text-center text-red-300">{error} <button className="underline" onClick={() => void refresh()}>Reintentar</button></div>}
  <AnimatePresence mode="wait" initial={false}>
-  <motion.div key={screen} className="relative z-10 flex min-h-0 flex-1 flex-col" initial={{ opacity: 0, y: 8, filter: "blur(3px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -5, filter: "blur(3px)" }} transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}>
+  <motion.div key={screen} className="relative z-10 flex min-h-0 flex-1 flex-col" initial={screen === "howto" ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18, ease: "easeOut" }}>
    {screenContent}
   </motion.div>
  </AnimatePresence>
- </div>;
+ </div></MotionConfig>;
 }

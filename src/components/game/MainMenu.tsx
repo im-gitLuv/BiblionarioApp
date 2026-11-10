@@ -37,8 +37,8 @@ function MenuButton({
     <motion.button
       type="button"
       onClick={onClick}
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ delay, duration: 0.55, ease: "easeOut" }}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
@@ -112,8 +112,8 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
       <main className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
         {/* Emblem */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="float-soft relative mb-6"
         >
@@ -137,8 +137,8 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
 
         {/* Overline */}
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.15, duration: 0.55 }}
           className="mb-3 text-[11px] font-semibold uppercase tracking-[0.4em] text-amber-300/80 sm:text-xs"
         >
@@ -147,8 +147,8 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
 
         {/* Title */}
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.65 }}
           className="font-display text-shimmer text-5xl font-bold leading-tight tracking-tight sm:text-7xl"
         >
@@ -157,8 +157,8 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
 
         {/* Ornamental divider */}
         <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.45, duration: 0.7 }}
           className="mt-5 flex items-center gap-3"
           aria-hidden="true"
@@ -169,13 +169,13 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
         </motion.div>
 
         {/* Rotating verse */}
-        <div className="mt-6 flex min-h-24 max-w-md items-center justify-center">
+        <div className="mt-6 flex h-36 max-w-md items-center justify-center sm:h-28">
           <AnimatePresence mode="wait">
             <motion.p
               key={verse.ref}
-              initial={{ opacity: 0, y: 9, filter: "blur(5px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -7, filter: "blur(4px)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="font-display text-[15px] italic leading-relaxed text-[#e9dcc4]/80 sm:text-base"
             >
@@ -188,19 +188,21 @@ export function MainMenu({ best, onPlay, onHowTo, onHall, onSettings }: MainMenu
         </div>
 
         {/* Best score */}
-        {best && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.5 }}
-            className="mt-6 flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200"
-          >
-            <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
-            <span>
-              Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
-            </span>
-          </motion.div>
-        )}
+        <div className="mt-6 flex h-12 items-center justify-center">
+          {best && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.55, duration: 0.5 }}
+              className="flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200"
+            >
+              <Trophy className="h-4 w-4 text-amber-400" aria-hidden="true" />
+              <span>
+                Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
+              </span>
+            </motion.div>
+          )}
+        </div>
 
         {/* Actions */}
         <div className="mt-10 flex w-full flex-col items-center gap-3.5 sm:gap-4">

@@ -95,8 +95,8 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
         {/* List */}
         {scores.length === 0 ? (
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-amber-500/25 bg-[#1d1207]/50 px-6 py-16 text-center"
           >
@@ -113,9 +113,9 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
             {scores.map((s, i) => (
               <motion.li
                 key={s.id}
-                initial={{ opacity: 0, x: -18 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06, duration: 0.45, ease: "easeOut" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: Math.min(i, 5) * 0.06, duration: 0.45, ease: "easeOut" }}
                 className={cn(
                   "flex items-center gap-4 rounded-xl border bg-[#1d1207]/80 p-4",
                   i === 0

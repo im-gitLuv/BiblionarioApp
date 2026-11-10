@@ -42,7 +42,7 @@ export function getHostMessage(
   if (reply?.hint) return reply.hint.votes ? HOST_PROGRESS_MESSAGES.audience : HOST_PROGRESS_MESSAGES.prophet;
   if (selected !== null && game.question) {
     const option = game.question.options[selected];
-    return `Ante «${game.question.question}», eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)} ¿Es tu respuesta definitiva?`;
+    return `Eliges ${LETTERS[selected]}: «${option}». ${categoryCounsel(game.question.category)} ¿Es tu respuesta definitiva?`;
   }
   if (game.level <= 5) return HOST_PROGRESS_MESSAGES.opening;
   if (game.level <= 10) return HOST_PROGRESS_MESSAGES.middle;

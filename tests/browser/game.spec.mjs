@@ -20,6 +20,22 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     await page.getByRole('button', { name: 'Comenzar el camino' }).click();
     const game = await (await started).json();
     expect(game.level).toBe(1);
+    const options = page.getByRole("group", { name: "Opciones de respuesta" }).getByRole("button");
+    await expect(options.first()).toContainText(game.question.options[0]);
+    const boardLayout = () => page.locator(".game-board").evaluate(board =>
+      [...board.children, ...board.querySelectorAll(".game-answers button")].map(el =>
+        [el.offsetLeft, el.offsetTop, el.offsetWidth, el.offsetHeight]));
+    const initialLayout = await boardLayout();
+    if (testInfo.project.name === "mobile") {
+      const [a, b, c, d] = initialLayout.slice(-4);
+      expect(a[1]).toBe(b[1]);
+      expect(c[1]).toBe(d[1]);
+      expect(a[0]).toBe(c[0]);
+      expect(b[0]).toBe(d[0]);
+      expect(a[0]).toBeLessThan(b[0]);
+      expect(a[1]).toBeLessThan(c[1]);
+      expect(await page.evaluate(() => document.documentElement.scrollHeight)).toBeLessThanOrEqual(page.viewportSize().height);
+    }
     if (testInfo.project.name === 'mobile') {
       const tab = page.getByRole('button', { name: 'Abrir Escalera de Coronas' });
       await expect(tab).toBeVisible();
@@ -37,6 +53,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       const button = page.getByRole('button', { name: label, exact: true });
       await button.click();
       await expect(button).toHaveAttribute('aria-pressed', 'true');
+      expect(await boardLayout()).toEqual(initialLayout);
       await expect(page.getByRole('region', { name: 'Mensaje del anfitrión' })).toContainText('¿Quieres usar este comodín?');
       await expect(page.getByRole('dialog')).toHaveCount(0);
       await page.getByRole('button', { name: 'Usar comodín' }).click();
@@ -66,8 +83,10 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     const stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
     const correct = stored.rounds[0].answer;
     await page.getByRole('button', { name: new RegExp('^' + 'ABCD'[correct] + ' ') }).click();
+    expect(await boardLayout()).toEqual(initialLayout);
     await page.getByRole('button', { name: /Respuesta definitiva/ }).click();
     await expect(page.getByRole('button', { name: 'Siguiente pregunta' })).toBeVisible();
+    expect(await boardLayout()).toEqual(initialLayout);
     await expect(page.getByRole('timer')).toHaveAttribute('aria-label', 'Reloj detenido para leer el resultado');
     await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
     await page.reload();

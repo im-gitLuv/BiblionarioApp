@@ -72,8 +72,8 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
       <main className="flex flex-1 flex-col items-center justify-center px-4 py-12 text-center">
         {/* Emblem */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
           className="relative mb-7"
         >
@@ -102,8 +102,8 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.15, duration: 0.6 }}
           className={`font-display text-4xl font-bold leading-tight sm:text-6xl ${
             won ? "text-shimmer" : "text-[#f7e2b0]"
@@ -114,8 +114,8 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
 
         {/* Winnings */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.55 }}
           className="mt-6 flex flex-col items-center gap-1.5 rounded-2xl border border-amber-500/25 bg-[#1d1207]/80 px-10 py-6"
         >
@@ -161,8 +161,8 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
 
         {/* Actions */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.75, duration: 0.55 }}
           className="mt-10 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
         >

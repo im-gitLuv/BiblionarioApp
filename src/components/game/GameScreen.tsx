@@ -37,8 +37,6 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   const [chosenLifeline, setChosenLifeline] = useState<Lifeline | null>(null);
   const [lifelineModal, setLifelineModal] = useState<Exclude<Lifeline, "fifty"> | null>(null);
   const [ladderOpen, setLadderOpen] = useState(false);
-  const hostPanel = useRef<HTMLElement>(null);
-  const questionPanel = useRef<HTMLDivElement>(null);
   const lock = useRef(false);
   const started = useRef(false);
   const mounted = useRef(true);
@@ -51,10 +49,6 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = previousOverflow; };
   }, [ladderOpen]);
-
-  useEffect(() => {
-    if (chosenLifeline) hostPanel.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "center" });
-  }, [chosenLifeline]);
 
   const accept = (nextGame: PublicGame) => {
     setGame(nextGame);
@@ -98,7 +92,6 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           accept(response.game);
           setReply(response);
           if (actionName === "audience" || actionName === "prophet") setLifelineModal(actionName);
-          if (actionName === "fifty") questionPanel.current?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "center" });
         }
       }
     } catch (actionError) {
@@ -132,7 +125,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
         return;
       }
       if (event.target instanceof HTMLElement && event.target.closest("button, input, [role=dialog]")) return;
-      if (busy || reply?.reveal || lifelineModal || chosenLifeline || ladderOpen || walk || !game) return;
+      if (busy || error || reply?.reveal || lifelineModal || chosenLifeline || ladderOpen || walk || !game) return;
       const index = "abcd".indexOf(event.key.toLowerCase());
       if (index >= 0 && !game.removed.includes(index)) setSelected(index);
       if (event.key === "Enter" && selected !== null) void action("answer", selected);
@@ -157,59 +150,58 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     }
   };
 
-  if (!game) {
-    return <main className="relative m-auto flex flex-col gap-5 p-8 text-center"><Crown className="mx-auto text-amber-400"/><p role="status">Preparando tu camino…</p>{error ? <p role="alert">{error}</p> : null}<button className={panelButton} onClick={() => void load()}>Reintentar</button><button className={panelButton} onClick={onBack}>Volver al menú</button></main>;
-  }
-
-  const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : getHostMessage(game, selected, reply, walk);
+  const reveal = reply?.reveal;
+  const question = game?.question;
+  const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : game ? getHostMessage(game, selected, reply, walk) : "";
+  const canConfirm = selected !== null && !reveal && !lifelineModal && !chosenLifeline && !walk;
 
   return (
-    <div className="relative flex min-h-screen flex-col">
-      <header className="border-b border-amber-500/15 bg-[#150d06]/78 px-4 py-3 backdrop-blur-md sm:px-7">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-          <span className="flex items-center gap-2 font-display text-lg font-semibold text-amber-200 sm:text-xl"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Biblionario</span>
-          <div className="hidden text-center sm:block">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-400/80">Pregunta {game.level} de 15</p>
-            <p className="font-display text-sm text-amber-100">{formatCrowns(prizeForLevel(game.level))} <span className="font-sans text-[10px] uppercase text-amber-300/65">Coronas en juego</span></p>
+    <div className="game-screen relative flex min-h-dvh flex-col">
+      <header className="border-b border-amber-500/15 bg-[#150d06]/78 px-3 py-1.5 backdrop-blur-md sm:px-7 sm:py-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-3">
+          <span className="flex items-center gap-2 font-display text-sm font-semibold text-amber-200 sm:text-xl"><Crown className="hidden h-5 w-5 text-amber-400 sm:block" aria-hidden="true"/>Biblionario</span>
+          <div className="text-center">
+            <p className="text-[10px] font-bold uppercase tracking-wide text-amber-400/80 sm:tracking-[0.3em]">Pregunta {game?.level ?? "–"} de 15</p>
+            <p className="font-display text-sm text-amber-100">{game ? formatCrowns(prizeForLevel(game.level)) : "–"} <span className="font-sans text-[9px] uppercase text-amber-300/65">Coronas<span className="hidden sm:inline"> en juego</span></span></p>
           </div>
-          <div className="flex items-center gap-3">
-            <GameTimer seconds={seconds} timeLimit={game.timeLimit} paused={!!reply?.reveal}/>
-            <button type="button" disabled={busy || !!reply?.reveal} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/>Retirarme</button>
+          <div className="flex items-center gap-1.5 sm:gap-3">
+            <GameTimer seconds={game ? seconds : timeLimit} timeLimit={game?.timeLimit ?? timeLimit} paused={!!reveal}/>
+            <button type="button" aria-label="Retirarme" disabled={!game || busy || !!reveal} className="flex h-11 items-center rounded-lg border border-amber-500/30 px-2.5 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 disabled:opacity-40 sm:h-auto sm:gap-2 sm:px-3 sm:py-2" onClick={() => setWalk(true)}><DoorOpen className="h-4 w-4" aria-hidden="true"/><span className="hidden sm:inline">Retirarme</span></button>
           </div>
         </div>
       </header>
 
-      {!ladderOpen ? <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={false} aria-controls="mobile-ladder" onClick={() => setLadderOpen(true)} className="fixed right-0 top-32 z-40 flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200 lg:hidden"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button> : null}
+      {!ladderOpen ? <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={false} aria-controls="mobile-ladder" disabled={!game} onClick={() => setLadderOpen(true)} className="fixed right-0 game-ladder-tab z-40 flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200 lg:hidden"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button> : null}
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-4 py-6 sm:px-7 lg:flex-row lg:items-stretch lg:py-8">
-        <main className="flex min-w-0 flex-1 flex-col justify-center gap-5">
-          {error ? <div role="alert" className="rounded-xl border border-red-400/30 bg-red-950/30 p-4 text-red-200">{error} <button className="underline" onClick={() => void recover()}>Recuperar partida</button></div> : null}
-
-          <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.5 }} className="flex justify-center gap-1 sm:gap-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 px-2.5 py-2 sm:px-7 sm:py-5 lg:flex-row lg:items-stretch lg:py-6">
+        <main className="game-board grid min-w-0 flex-1">
+          <div className="game-lifelines flex items-center justify-center gap-1 sm:gap-8">
             {LIFELINES.map(({ key, label, short, icon: Icon }) => {
-              const used = game.lifelines.includes(key);
+              const used = game?.lifelines.includes(key);
               return (
-                <button key={key} type="button" aria-label={label} aria-pressed={chosenLifeline === key} disabled={busy || !!reply?.reveal || !!lifelineModal || used} onClick={() => { setChosenLifeline(key); setSelected(null); setWalk(false); }} className="group flex w-16 flex-col items-center gap-2 text-center disabled:cursor-not-allowed sm:w-[76px]">
-                  <span className={cn("flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14", chosenLifeline === key && "glow-pulse border-yellow-200 shadow-[0_0_32px_rgba(252,211,77,0.65)]", used && "border-amber-700/25 text-amber-200/25")}>
+                <button key={key} type="button" aria-label={label} aria-pressed={chosenLifeline === key} disabled={!game || busy || !!reveal || !!lifelineModal || !!error || used} onClick={() => { setChosenLifeline(key); setSelected(null); setWalk(false); }} className="group flex w-16 flex-col items-center gap-1 sm:gap-2 text-center disabled:cursor-not-allowed sm:w-[76px]">
+                  <span className={cn("flex h-11 w-11 items-center justify-center rounded-full border-2 border-amber-500/60 bg-[#1c1107] text-amber-300 transition-all duration-300 group-hover:-translate-y-1 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14", chosenLifeline === key && "glow-pulse border-yellow-200 shadow-[0_0_32px_rgba(252,211,77,0.65)]", used && "border-amber-700/25 text-amber-200/25")}>
                     {key === "fifty" ? <span className="text-xs font-black">50:50</span> : <Icon className="h-6 w-6" aria-hidden="true"/>}
                   </span>
                   <span className={cn("text-[9px] font-bold uppercase tracking-[0.12em] text-amber-300/75", used && "line-through opacity-35")}>{short}{used ? " ✓" : ""}</span>
                 </button>
               );
             })}
+          </div>
 
-          </motion.div>
-
-          <motion.div ref={questionPanel} key={game.version + "-question"} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, ease: "easeOut" }} className="space-y-5">
-            <p className="mx-auto w-fit rounded-full border border-amber-500/30 bg-amber-500/5 px-5 py-1.5 text-[10px] font-bold uppercase tracking-[0.26em] text-amber-300">{game.question?.category}</p>
-            <div className="clip-lozenge bg-gradient-to-r from-amber-700 via-amber-400 to-amber-700 p-[2px] shadow-[0_12px_38px_rgba(0,0,0,0.22)]">
-              <h1 className="clip-lozenge bg-gradient-to-b from-[#2a190b] to-[#211307] px-9 py-8 text-center font-display text-xl font-semibold leading-snug text-amber-50 sm:px-14 sm:py-10 sm:text-2xl">{game.question?.question}</h1>
+          <div className="game-question grid min-w-0">
+            <p className="mx-auto flex h-6 w-fit max-w-full items-center rounded-full border border-amber-500/30 bg-amber-500/5 px-4 text-[10px] font-bold uppercase tracking-[0.26em] text-amber-300"><span className="truncate" title={question?.category}>{question?.category ?? "Pregunta"}</span></p>
+            <div className="clip-lozenge min-h-0 bg-gradient-to-r from-amber-700 via-amber-400 to-amber-700 p-[2px]">
+              <h1 className="clip-lozenge grid h-full min-h-0 place-items-center bg-gradient-to-b from-[#2a190b] to-[#211307] px-5 text-center font-display text-base font-semibold leading-snug text-amber-50 sm:px-12 sm:text-2xl">
+                <span key={game?.level ?? "loading"} role={question ? undefined : "status"} className="game-prompt-text fade-in-place min-h-0 min-w-0 max-h-full max-w-full overflow-y-auto wrap-anywhere">{question?.question ?? "Preparando tu camino."}</span>
+              </h1>
             </div>
-          </motion.div>
+          </div>
 
-          <div className="grid gap-3 md:grid-cols-2">
-            {game.question?.options.map((text, index) => {
-              const removed = game.removed.includes(index);
+          <div role="group" aria-label="Opciones de respuesta" className="game-answers grid min-w-0 grid-cols-2">
+            {LETTERS.map((letter, index) => {
+              const option = question?.options[index];
+              const removed = game?.removed.includes(index);
               const isSelected = selected === index;
               const isCorrectReveal = reply?.reveal?.answer === index;
               const isWrongReveal = !!reply?.reveal && isSelected && !reply.reveal.correct;
@@ -217,85 +209,84 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                 <motion.button
                   key={index}
                   type="button"
-                  disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenLifeline || walk || removed}
+                  disabled={!option || busy || !!reveal || !!lifelineModal || !!chosenLifeline || walk || !!error || removed}
                   onClick={() => setSelected(index)}
                   whileHover={removed ? undefined : { scale: 1.012 }}
                   whileTap={removed ? undefined : { scale: 0.988 }}
                   aria-pressed={isSelected}
-                  className={cn("clip-lozenge-md min-h-16 bg-gradient-to-r p-[2px] text-left transition-all duration-300", isSelected ? "from-amber-400 via-yellow-200 to-amber-400 glow-pulse" : "from-amber-700/75 via-amber-500/75 to-amber-700/75 hover:from-amber-500 hover:via-yellow-300 hover:to-amber-500", removed && "cursor-not-allowed opacity-25", isCorrectReveal && "from-emerald-500 via-emerald-200 to-emerald-500", isWrongReveal && "from-red-600 via-red-300 to-red-600")}
+                  className={cn("clip-lozenge-md min-w-0 bg-gradient-to-r p-[2px] text-left transition-colors duration-300", isSelected ? "from-amber-400 via-yellow-200 to-amber-400 glow-pulse" : "from-amber-700/75 via-amber-500/75 to-amber-700/75 hover:from-amber-500 hover:via-yellow-300 hover:to-amber-500", removed && "cursor-not-allowed opacity-25", isCorrectReveal && "from-emerald-500 via-emerald-200 to-emerald-500", isWrongReveal && "from-red-600 via-red-300 to-red-600")}
                 >
-                  <span className={cn("lozenge-inner clip-lozenge-md flex min-h-16 items-center gap-4 bg-[#28180a] px-7 py-3 text-amber-50", isSelected && !reply?.reveal && "state-selected", isCorrectReveal && "state-correct", isWrongReveal && "state-wrong")}>
-                    <span className="flex h-8 w-8 shrink-0 rotate-45 items-center justify-center rounded-md border border-amber-500/50 bg-[#231506] text-xs font-bold text-amber-300"><span className="-rotate-45">{LETTERS[index]}</span></span>
-                    <span className="text-sm font-medium sm:text-[15px]">{removed ? "—" : text}</span>
-                    {isSelected && !reply?.reveal ? <Check className="ml-auto h-4 w-4 text-amber-300" aria-hidden="true"/> : null}
+                  <span className={cn("lozenge-inner clip-lozenge-md relative flex h-full items-center gap-2 bg-[#28180a] px-3.5 text-amber-50 sm:gap-4 sm:px-7", isSelected && !reply?.reveal && "state-selected", isCorrectReveal && "state-correct", isWrongReveal && "state-wrong")}>
+                    <span className="flex h-5 w-5 shrink-0 rotate-45 sm:h-8 sm:w-8 items-center justify-center rounded-md border border-amber-500/50 bg-[#231506] text-xs font-bold text-amber-300"><span className="-rotate-45">{letter}</span></span>
+                    <span key={game?.level ?? "loading"} className="game-option-text fade-in-place min-w-0 max-h-full overflow-y-auto wrap-anywhere text-xs font-medium leading-tight sm:text-[15px]">{removed ? "–" : option ?? "…"}</span>
+                    {isSelected && !reveal ? <Check className="absolute right-2 top-1 h-3 w-3 text-amber-300 sm:right-5 sm:top-2" aria-hidden="true"/> : null}
                   </span>
                 </motion.button>
               );
             })}
           </div>
 
-          <AnimatePresence mode="wait">
-            {selected !== null && !reply?.reveal && !lifelineModal && !chosenLifeline && !walk ? (
-              <motion.div key="confirm" initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: 0.3 }} className="flex justify-center">
-                <button type="button" disabled={busy} onClick={() => void action("answer", selected)} className="clip-lozenge-slim bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600 p-[2px] shadow-[0_0_28px_rgba(240,180,41,0.18)] transition hover:brightness-110 disabled:opacity-50">
-                  <span className="clip-lozenge-slim flex items-center gap-2 bg-gradient-to-b from-[#f5c454] to-[#df9517] px-9 py-3 text-sm font-bold text-[#241708]">¿Respuesta definitiva? <span className="rounded-full bg-[#241708]/12 px-2 py-0.5">{LETTERS[selected]}</span></span>
-                </button>
-              </motion.div>
+          <div className="game-context host-panel rounded-2xl border border-amber-500/25 bg-[#150d06]/88 px-3 py-2 sm:px-5 sm:py-3">
+            {error ? (
+              <p role="alert" className="fade-in-place text-sm text-red-200">{error}</p>
+            ) : reveal ? (
+              <section aria-label="Resultado de la pregunta" aria-live="polite" className="fade-in-place text-center">
+                <h2 className="font-display text-base text-amber-200 sm:text-xl">{reveal.correct ? "¡Respuesta correcta!" : "La respuesta correcta era:"}</h2>
+                <p className="mt-1 text-xs text-amber-100 sm:text-sm">{LETTERS[reveal.answer]}: {question?.options[reveal.answer]}</p>
+                <p className="mt-1 text-xs text-amber-200/75 sm:text-sm">Referencia: {reveal.reference}</p>
+              </section>
+            ) : (
+              <section aria-label="Mensaje del anfitrión" aria-live="polite">
+                <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.3em] text-amber-400/65">El anfitrión</p>
+                {hostMessage && <p key={hostMessage} className="fade-in-place font-display text-sm italic leading-[1.25] text-[#eadbc4] sm:text-[15px] sm:leading-5">"{hostMessage}"</p>}
+                {walk && game && <p className="fade-in-place mt-1 text-sm font-bold text-amber-100">¿Retirarte con {formatCrowns(walkAwayAmount(game.level))} Coronas?</p>}
+              </section>
+            )}
+          </div>
+
+          <div className="game-actions flex min-w-0 items-center justify-center gap-2">
+            {error || !game ? (
+              <>
+                {error && <button type="button" className={panelButton} onClick={() => void recover()}>{game ? "Recuperar partida" : "Reintentar"}</button>}
+                <button type="button" className={panelButton} onClick={onBack}>Volver al menú</button>
+              </>
+            ) : reveal && reply ? (
+              <button key="next" type="button" disabled={busy} className={panelButton + " fade-in-place border-amber-300 bg-amber-500/20 font-bold"} onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
+                {reply.game.result ? "Ver resultado" : "Siguiente pregunta"}
+              </button>
+            ) : walk ? (
+              <div className="fade-in-place flex justify-center gap-2">
+                <button type="button" disabled={busy} className={panelButton} onClick={() => void action("walk")}>Sí, retirarme</button>
+                <button type="button" className={panelButton} onClick={() => setWalk(false)}>Seguir jugando</button>
+              </div>
+            ) : chosenLifeline ? (
+              <div className="fade-in-place flex justify-center gap-2">
+                <button type="button" disabled={busy} className={panelButton + " border-amber-300 bg-amber-500/20"} onClick={() => void action(chosenLifeline)}>Usar comodín</button>
+                <button type="button" disabled={busy} className={panelButton} onClick={() => setChosenLifeline(null)}>Cancelar</button>
+              </div>
+            ) : canConfirm ? (
+              <button key="confirm" type="button" disabled={busy} onClick={() => void action("answer", selected)} className="fade-in-place clip-lozenge-slim bg-gradient-to-r from-amber-600 via-yellow-300 to-amber-600 p-[2px] transition hover:brightness-110 disabled:opacity-50">
+                <span className="clip-lozenge-slim flex items-center gap-2 bg-gradient-to-b from-[#f5c454] to-[#df9517] px-7 py-2.5 text-sm font-bold text-[#241708]">¿Respuesta definitiva? <span className="rounded-full bg-[#241708]/12 px-2 py-0.5">{LETTERS[selected]}</span></span>
+              </button>
             ) : null}
-          </AnimatePresence>
-
-          {reply?.reveal ? (
-            <section aria-label="Resultado de la pregunta" aria-live="polite" className="rounded-2xl border border-amber-400/35 bg-[#211307]/95 p-5 text-center">
-              <h2 className="font-display text-xl text-amber-200">{reply.reveal.correct ? "¡Respuesta correcta!" : "La respuesta correcta era:"}</h2>
-              <p className="mt-2 text-amber-100">{LETTERS[reply.reveal.answer]}: {game.question?.options[reply.reveal.answer]}</p>
-              <p className="mt-2 text-sm text-amber-200/75">Referencia: {reply.reveal.reference}</p>
-              <p className="mt-3 text-sm text-amber-100/60">Lee con calma y reflexiona sobre lo aprendido.</p>
-            </section>
-          ) : null}
-
-          {walk ? (
-            <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-amber-500/40 bg-[#211307]/92 p-6 text-center">
-              <p className="font-display text-xl text-amber-100">¿Retirarte con {formatCrowns(walkAwayAmount(game.level))} Coronas?</p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3"><button disabled={busy} className={panelButton} onClick={() => void action("walk")}>Sí, retirarme</button><button className={panelButton} onClick={() => setWalk(false)}>Seguir jugando</button></div>
-            </motion.section>
-          ) : null}
-
-          <div className="sm:hidden"><button type="button" disabled={busy || !!reply?.reveal} className={panelButton + " w-full"} onClick={() => setWalk(true)}><DoorOpen className="mr-2 inline h-4 w-4"/>Retirarme</button></div>
-
-          <section ref={hostPanel} aria-label="Mensaje del anfitrión" aria-live="polite" className="host-panel overflow-hidden rounded-2xl border border-amber-500/25 bg-[#150d06]/88 px-5 py-4 shadow-[inset_0_1px_0_rgba(255,220,140,0.04)]">
-            <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.3em] text-amber-400/65">El anfitrión</p>
-            <AnimatePresence mode="wait">
-              <motion.p key={hostMessage} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.28 }} className="font-display text-sm italic leading-6 text-[#eadbc4] sm:text-[15px]">“{hostMessage}”</motion.p>
-            </AnimatePresence>
-          </section>
-          {chosenLifeline ? (
-            <div className="flex flex-wrap justify-center gap-3">
-              <button type="button" disabled={busy} className={panelButton + " border-amber-300 bg-amber-500/20"} onClick={() => void action(chosenLifeline)}>Usar comodín</button>
-              <button type="button" disabled={busy} className={panelButton} onClick={() => setChosenLifeline(null)}>Cancelar</button>
-            </div>
-          ) : null}
-          {reply?.reveal ? (
-            <button type="button" disabled={busy} className={panelButton + " mx-auto border-amber-300 bg-amber-500/20 font-bold"} onClick={() => { if (reply.game.result) onFinish(reply.game.result); else void action("next"); }}>
-              {reply.game.result ? "Ver resultado" : "Siguiente pregunta"}
-            </button>
-          ) : null}
+          </div>
         </main>
 
-        <aside className="hidden w-72 shrink-0 lg:block"><MoneyLadder currentLevel={game.level}/></aside>
+        <aside className="hidden w-72 shrink-0 lg:block"><MoneyLadder currentLevel={game?.level ?? 0}/></aside>
       </div>
 
 
       <Dialog.Root open={!!lifelineModal} onOpenChange={open => { if (!open) { setLifelineModal(null); setReply(null); } }}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-amber-400/50 bg-[#211307] p-5 text-amber-100 shadow-[0_0_60px_rgba(240,180,41,0.18)] sm:p-7">
+          <Dialog.Overlay className="fade-in-place fixed inset-0 z-50 bg-black/70 backdrop-blur-md" />
+          <Dialog.Content className="fade-in-place fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-amber-400/50 bg-[#211307] p-5 text-amber-100 shadow-[0_0_60px_rgba(240,180,41,0.18)] sm:p-7">
             <div className="mb-5 flex items-start justify-between gap-3">
               <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "audience" ? "La congregación ha hablado" : "Voz profética"}</Dialog.Title>
-              <GameTimer seconds={seconds} timeLimit={game.timeLimit}/>
+              <GameTimer seconds={seconds} timeLimit={game?.timeLimit ?? timeLimit}/>
             </div>
-            <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">Consejo simulado del juego; puede equivocarse.{game.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>
-            {reply?.hint?.votes?.map((vote, index) => <div key={index} className="mb-4 space-y-1"><p className="text-sm">{LETTERS[index]}: {game.question?.options[index]}</p><div className="flex items-center gap-3"><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right text-sm">{vote}%</span></div></div>)}
-            {reply?.hint?.suggestion !== undefined ? <p className="rounded-xl border border-amber-500/30 p-4">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {game.question?.options[reply.hint.suggestion]}</strong>.</p> : null}
+            <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">Consejo simulado del juego; puede equivocarse.{game?.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>
+            {reply?.hint?.votes?.map((vote, index) => <div key={index} className="mb-4 space-y-1"><p className="text-sm">{LETTERS[index]}: {question?.options[index]}</p><div className="flex items-center gap-3"><span className="h-2 flex-1 overflow-hidden rounded-full bg-amber-950"><span className="block h-full rounded-full bg-amber-400" style={{ width: vote + "%" }}/></span><span className="w-10 text-right text-sm">{vote}%</span></div></div>)}
+            {reply?.hint?.suggestion !== undefined ? <p className="rounded-xl border border-amber-500/30 p-4">Mi consejo es <strong className="text-amber-300">{LETTERS[reply.hint.suggestion]}: {question?.options[reply.hint.suggestion]}</strong>.</p> : null}
             <Dialog.Close asChild><button type="button" className={panelButton + " mt-5 w-full"}>Volver a la pregunta</button></Dialog.Close>
           </Dialog.Content>
         </Dialog.Portal>
@@ -316,14 +307,14 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               transition={{ type: "spring", stiffness: 300, damping: 32 }}
               className="absolute inset-y-0 right-0 w-[min(calc(100vw-3rem),360px)] border-l border-amber-500/35 bg-[#1a1007] shadow-[-22px_0_60px_rgba(0,0,0,0.55)]"
             >
-              <button type="button" aria-label="Cerrar pestaña de Escalera" aria-expanded={true} aria-controls="mobile-ladder" onClick={() => setLadderOpen(false)} className="absolute -left-12 top-32 flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button>
+              <button type="button" aria-label="Cerrar pestaña de Escalera" aria-expanded={true} aria-controls="mobile-ladder" onClick={() => setLadderOpen(false)} className="absolute -left-12 game-ladder-tab flex h-16 w-12 flex-col items-center justify-center gap-1 rounded-l-xl border border-r-0 border-amber-400/65 bg-[#1a1007] text-amber-300 shadow-[-4px_0_18px_rgba(0,0,0,0.35)] transition hover:bg-[#30200c] focus-visible:outline-2 focus-visible:outline-amber-200"><ListOrdered className="h-6 w-6" aria-hidden="true"/><span className="text-[8px] font-bold uppercase tracking-wide">Escalera</span></button>
               <div className="h-full overflow-y-auto px-4 py-4">
               <div className="mb-1 flex items-center justify-between gap-4">
                 <h2 id="mobile-ladder-title" className="flex items-center gap-2 font-display text-xl font-semibold text-amber-100"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>Escalera de Coronas</h2>
                 <button type="button" aria-label="Cerrar" onClick={() => setLadderOpen(false)} className="flex h-9 w-9 items-center justify-center rounded-lg border border-amber-400/45 text-amber-200 transition hover:bg-amber-400/10"><X className="h-5 w-5" aria-hidden="true"/></button>
               </div>
               <p className="mb-4 text-sm text-amber-200/75">Refugios seguros en las preguntas 5 y 10</p>
-              <MoneyLadder currentLevel={game.level} scrollable={false} showHeader={false} className="border-0 bg-transparent p-0 shadow-none backdrop-blur-none"/>
+              <MoneyLadder currentLevel={game?.level ?? 0} scrollable={false} showHeader={false} className="border-0 bg-transparent p-0 shadow-none backdrop-blur-none"/>
               </div>
             </motion.aside>
           </motion.div>
