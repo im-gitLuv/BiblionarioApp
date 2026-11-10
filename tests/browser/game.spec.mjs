@@ -10,7 +10,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     await page.goto('/');
     await page.getByRole('button', { name: 'Comenzar el camino' }).click();
     await expect(page.locator('#player')).toBeFocused();
-    await expect(page.locator('#player')).toHaveClass(/name-attention/);
+    await expect(page.locator('div:has(> div > #player)')).toHaveClass(/name-attention/);
     await expect(page.locator('#player')).toBeInViewport();
     await page.locator('#player').fill('Revisión ' + testInfo.project.name);
     await page.getByRole('button', { name: 'Cómo jugar' }).click();
@@ -43,13 +43,13 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       expect(Math.abs(bounds.x + bounds.width - page.viewportSize().width)).toBeLessThan(2);
       await tab.click();
       await expect(page.getByRole('dialog', { name: 'Escalera de Coronas' })).toBeVisible();
-      await expect(page.getByRole('button', { name: 'Cerrar pestaña de Escalera' })).toBeVisible();
+      await expect(page.getByRole('button', { name: 'Cerrar', exact: true })).toBeVisible();
       await expect.poll(async () => Math.round((await page.getByRole('dialog', { name: 'Escalera de Coronas' }).boundingBox()).x)).toBe(Math.max(48, page.viewportSize().width - 360));
       await page.screenshot({ path: testInfo.outputPath('ladder-tab.png') });
-      await page.getByRole('button', { name: 'Cerrar pestaña de Escalera' }).click();
+      await page.getByRole('button', { name: 'Cerrar', exact: true }).click();
       await expect(page.getByRole('dialog')).toHaveCount(0);
     }
-    for (const [label, key] of [['Sabiduría', 'fifty'], ['Congregación', 'audience'], ['Voz profética', 'prophet']]) {
+    for (const [label, key] of [['Sabiduría de Salomón', 'fifty'], ['Preguntar a la congregación', 'audience'], ['Voz profética', 'prophet']]) {
       const button = page.getByRole('button', { name: label, exact: true });
       await button.click();
       await expect(button).toHaveAttribute('aria-pressed', 'true');
@@ -83,9 +83,11 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
     const stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
     const correct = stored.rounds[0].answer;
     await page.getByRole('button', { name: new RegExp('^' + 'ABCD'[correct] + ' ') }).click();
+    await page.waitForTimeout(650); // deja asentar la transición antes de medir
     expect(await boardLayout()).toEqual(initialLayout);
     await page.getByRole('button', { name: /Respuesta definitiva/ }).click();
     await expect(page.getByRole('button', { name: 'Siguiente pregunta' })).toBeVisible();
+    await page.waitForTimeout(650); // deja asentar la transición antes de medir
     expect(await boardLayout()).toEqual(initialLayout);
     await expect(page.getByRole('timer')).toHaveAttribute('aria-label', 'Reloj detenido para leer el resultado');
     await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });

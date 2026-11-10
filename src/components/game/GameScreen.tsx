@@ -214,7 +214,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <GameTimer seconds={seconds} timeLimit={game.timeLimit} paused={!!reply?.reveal} />
-            <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={ladderOpen} aria-controls="mobile-ladder" onClick={() => setLadderOpen(true)} className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-500/35 text-amber-300 transition hover:border-amber-300 hover:bg-amber-500/10 lg:hidden">
+            <button type="button" aria-label="Abrir Escalera de Coronas" aria-expanded={ladderOpen} aria-controls="mobile-ladder" onClick={() => setLadderOpen(true)} className="-mr-3 flex h-10 w-10 items-center justify-center rounded-full border border-amber-500/35 text-amber-300 transition hover:border-amber-300 hover:bg-amber-500/10 sm:mr-0 lg:hidden">
               <ListOrdered className="h-5 w-5" aria-hidden="true" />
             </button>
             <button type="button" disabled={busy || !!reply?.reveal} className="hidden items-center gap-2 rounded-lg border border-amber-500/30 px-3 py-2 text-xs text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-500/10 sm:flex" onClick={() => setWalk(true)}>
@@ -226,7 +226,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
 
       {/* ── Cuerpo: escenario + escalera de escritorio ── */}
       <div className="mx-auto flex w-full max-w-7xl min-h-0 flex-1 gap-6 px-3 py-3 sm:px-7 sm:py-5 lg:gap-8">
-        <main className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <main className="game-board flex min-h-0 min-w-0 flex-1 flex-col">
           {/* Zona de juego: cada bloque vive en su propio espacio */}
           <section className="warm-scroll flex min-h-0 flex-1 flex-col justify-center gap-3 overflow-y-auto sm:gap-4" aria-label="Pregunta">
             <motion.div {...swap} className="flex flex-none justify-center gap-2 sm:gap-8" aria-label="Comodines">
@@ -257,7 +257,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               </div>
             </motion.div>
 
-            <div className="grid flex-none grid-cols-2 gap-2.5 sm:gap-3">
+            <div role="group" aria-label="Opciones de respuesta" className="game-answers grid flex-none grid-cols-2 gap-2.5 sm:gap-3">
               {game.question?.options.map((text, index) => {
                 const removed = game.removed.includes(index);
                 const isSelected = selected === index;
@@ -293,7 +293,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               <motion.p
                 key={error ? "error" : hostMessage}
                 {...swap}
-                className={cn("font-display text-[13px] italic leading-5 text-[#eadbc4] line-clamp-3 sm:text-[15px] sm:leading-6 sm:line-clamp-2", error && "not-italic text-red-300")}
+                className={cn("font-display text-[13px] italic leading-5 text-[#eadbc4] line-clamp-3 min-h-[3.75rem] sm:text-[15px] sm:leading-6 sm:line-clamp-2 sm:min-h-12", error && "not-italic text-red-300")}
               >
                 {error ? (
                   <>

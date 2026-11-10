@@ -8,7 +8,7 @@ neonConfig.webSocketConstructor = WebSocket
 const databaseUrl = process.env.DATABASE_URL
 const adapter = databaseUrl && new URL(databaseUrl).hostname.endsWith('.neon.tech')
   ? new PrismaNeon({ connectionString: databaseUrl })
-  : undefined
+  : null
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
