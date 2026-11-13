@@ -14,13 +14,17 @@ export async function GET() {
             date: Date;
             knowledgeCrowns: number;
             gamesPlayed: number;
+            equippedMarco: string | null;
+            equippedTitulo: string | null;
         }>> `
       SELECT p.id, p.name, p.tag, SUM(g.amount)::double precision AS amount,
         MAX(g.level)::integer AS level,
         CASE WHEN BOOL_OR(g.status = 'won') THEN 'won' ELSE 'walked' END AS outcome,
         MAX(g."finishedAt") AS date,
         COUNT(*) FILTER (WHERE g.status = 'won')::integer AS "knowledgeCrowns",
-        COUNT(*)::integer AS "gamesPlayed"
+        COUNT(*)::integer AS "gamesPlayed",
+        p."equippedMarco",
+        p."equippedTitulo"
       FROM "Game" g JOIN "Player" p ON p.id = g."playerId"
       WHERE g.status IN ('won', 'walked', 'lost')
       GROUP BY p.id, p.name

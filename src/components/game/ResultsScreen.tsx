@@ -8,20 +8,26 @@ import {
   Coins,
   Crown,
   DoorOpen,
+  Fish,
   Flame,
   HeartHandshake,
   Home,
   RotateCcw,
 } from "lucide-react";
 import { GoldenConfetti } from "@/components/game/GoldenConfetti";
+import { AvatarFrame } from "./AvatarFrame";
 import { LozengeButton, fadeUp } from "@/components/game/ui";
 import { formatCrowns, type GameResult } from "@/lib/game-data";
+import { redencionPrice, storeItem } from "@/lib/store";
+import type { ActionReply, PlayerProfile, PublicGame } from "@/lib/contracts";
 
 interface ResultsScreenProps {
   result: GameResult;
   onPlayAgain: () => void;
   onHall: () => void;
   onMenu: () => void;
+  /** La Redención de Jonás reabre la partida: el juego continúa en el nivel. */
+  onRedeemed: (game: PublicGame) => void;
 }
 
 const VERSES: Record<GameResult["outcome"], { text: string; ref: string }> = {
@@ -39,18 +45,39 @@ const VERSES: Record<GameResult["outcome"], { text: string; ref: string }> = {
   },
 };
 
-export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsScreenProps) {
-  const [history, setHistory] = useState<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number; siclos: number; streak: number; bestStreak: number } | null>(null);
+export function ResultsScreen({ result, onPlayAgain, onHall, onMenu, onRedeemed }: ResultsScreenProps) {
+  const [history, setHistory] = useState<PlayerProfile | null>(null);
   const [historyError, setHistoryError] = useState(false);
+  // La Redención exige confirmación explícita: nadie la ofrenda con un toque.
+  const [redeemStep, setRedeemStep] = useState<"idle" | "confirm" | "busy">("idle");
+  const [redeemError, setRedeemError] = useState("");
   useEffect(() => {
     let mounted = true;
-    void api<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number; siclos: number; streak: number; bestStreak: number }>("/api/player")
+    void api<PlayerProfile>("/api/player")
       .then(value => { if (mounted) setHistory(value); })
       .catch(() => { if (mounted) setHistoryError(true); });
     return () => { mounted = false; };
   }, []);
   const won = result.outcome === "won";
   const walked = result.outcome === "walked";
+
+  const redeemPrice = result.canRedeem ? redencionPrice(result.level) : null;
+  const missing = history ? Math.max(0, (redeemPrice ?? 0) - history.siclos) : 0;
+  const redeem = async () => {
+    if (redeemStep !== "confirm") {
+      setRedeemStep("confirm");
+      return;
+    }
+    setRedeemStep("busy");
+    setRedeemError("");
+    try {
+      const reply = await api<ActionReply>("/api/games/" + result.gameId, { version: result.version, action: "redencion" });
+      onRedeemed(reply.game);
+    } catch (redeemRequestError) {
+      setRedeemError((redeemRequestError as Error).message);
+      setRedeemStep("idle");
+    }
+  };
 
   const headline = won
     ? "¡Eres Biblionario!"
@@ -136,7 +163,7 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
 
         {/* Historial */}
         <div aria-live="polite" className="mt-5 text-sm text-amber-200">
-          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} {history.knowledgeCrowns === 1 ? "Corona" : "Coronas"} de conocimiento · {history.gamesPlayed} {history.gamesPlayed === 1 ? "partida" : "partidas"}</p><p className="mt-2 flex items-center justify-center gap-2"><Coins className="h-4 w-4 text-amber-400" aria-hidden="true"/>{formatCrowns(history.siclos)} Siclos{history.streak > 0 ? <> · <Flame className="h-4 w-4 text-amber-400" aria-hidden="true"/> Racha de {history.streak} {history.streak === 1 ? "día" : "días"} · Récord {history.bestStreak}</> : null}</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Sabiduría." : "Consultando tu historial…"}</p>}
+          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} {history.knowledgeCrowns === 1 ? "Corona" : "Coronas"} de conocimiento · {history.gamesPlayed} {history.gamesPlayed === 1 ? "partida" : "partidas"}</p><p className="mt-2 flex items-center justify-center gap-2"><Coins className="h-4 w-4 text-amber-400" aria-hidden="true"/>{formatCrowns(history.siclos)} Siclos{history.streak > 0 ? <> · <Flame className="h-4 w-4 text-amber-400" aria-hidden="true"/> Racha de {history.streak} {history.streak === 1 ? "día" : "días"} · Récord {history.bestStreak}</> : null}</p>{history.equippedMarco || history.equippedTitulo ? <p className="mt-2 flex items-center justify-center gap-2">{history.equippedMarco ? <AvatarFrame name={history.name} marco={history.equippedMarco} className="h-6 w-6 text-[9px]" /> : null}{history.equippedTitulo ? <span className="rounded-full border border-amber-400/40 px-2 py-0.5 text-[10px] font-semibold text-amber-300">«{storeItem(history.equippedTitulo)?.name ?? history.equippedTitulo}»</span> : null}</p> : null}</> : <p>{historyError ? "Consulta tu historial en el Salón de la Sabiduría." : "Consultando tu historial…"}</p>}
         </div>
         <motion.p
           {...fadeUp(0.36)}
@@ -144,6 +171,41 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
         >
           {subline}
         </motion.p>
+
+        {/* Redención de Jonás: la segunda comisión, solo en la derrota con
+            escalón posterior al primero y sin Redención previa (el servidor
+            decide mediante canRedeem). */}
+        {redeemPrice ? (
+          <motion.div {...fadeUp(0.3)} className="mt-6 flex flex-col items-center gap-2">
+            <LozengeButton
+              variant="primary"
+              size="md"
+              icon={Fish}
+              disabled={redeemStep === "busy"}
+              onClick={() => void redeem()}
+              className="w-full sm:w-auto"
+            >
+              {redeemStep === "confirm"
+                ? `¿Ofrendar ${formatCrowns(redeemPrice)} Siclos por la Redención?`
+                : redeemStep === "busy"
+                  ? "Abriendo el camino…"
+                  : "Redención de Jonás"}
+            </LozengeButton>
+            {redeemStep === "idle" && redeemPrice && history ? (
+              <p className="text-xs text-amber-200/70">
+                {missing > 0
+                  ? `Te faltan ${formatCrowns(missing)} Siclos: reintenta el escalón ${result.level} desde el refugio (${formatCrowns(result.amount)} Coronas).`
+                  : `Reintenta el escalón ${result.level} desde el refugio (${formatCrowns(result.amount)} Coronas) con una pregunta nueva por ${formatCrowns(redeemPrice)} Siclos.`}
+              </p>
+            ) : null}
+            {redeemStep === "confirm" ? (
+              <button type="button" onClick={() => setRedeemStep("idle")} className="text-xs font-medium text-amber-300/80 underline decoration-amber-400/40 underline-offset-4 transition hover:text-amber-200">
+                Cancelar
+              </button>
+            ) : null}
+            {redeemError ? <p role="alert" className="text-sm text-red-300">{redeemError}</p> : null}
+          </motion.div>
+        ) : null}
 
         {/* Versículo */}
         <motion.blockquote
@@ -163,7 +225,13 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           {...fadeUp(0.58)}
           className="mt-10 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
         >
-          <LozengeButton variant="primary" size="md" icon={RotateCcw} onClick={onPlayAgain} className="w-full sm:w-auto">
+          <LozengeButton
+            variant={redeemPrice ? "secondary" : "primary"}
+            size="md"
+            icon={RotateCcw}
+            onClick={onPlayAgain}
+            className="w-full sm:w-auto"
+          >
             Volver a jugar
           </LozengeButton>
           <LozengeButton variant="secondary" size="md" icon={BookOpen} onClick={onHall} className="w-full sm:w-auto">

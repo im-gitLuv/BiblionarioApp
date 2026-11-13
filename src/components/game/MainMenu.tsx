@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ChevronRight, Coins, Crown, Flame, HelpCircle, Settings, Sparkles, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LozengeButton, fadeUp } from "@/components/game/ui";
+import { AvatarFrame } from "./AvatarFrame";
+import { storeItem } from "@/lib/store";
 import {
   SCRIPTURE_ROTATION,
   formatCrowns,
@@ -15,7 +17,7 @@ import {
 interface MainMenuProps {
   best: ScoreRecord | null;
   /** Perfil guardado en este navegador (null si aún no hay ninguno). */
-  profile: { name: string; tag: string } | null;
+  profile: { name: string; tag: string; equippedMarco?: string | null; equippedTitulo?: string | null } | null;
   /** Tesoro de Siclos y racha del perfil activo (null mientras se consulta). */
   wallet: { siclos: number; streak: number; bestStreak: number } | null;
   /** Modo "crear otro perfil": el nombre escrito fundará un perfil aparte. */
@@ -30,6 +32,7 @@ interface MainMenuProps {
   onPlay: () => void;
   onHowTo: () => void;
   onHall: () => void;
+  onShop: () => void;
   onSettings: () => void;
 }
 
@@ -47,6 +50,7 @@ export function MainMenu({
   onPlay,
   onHowTo,
   onHall,
+  onShop,
   onSettings,
 }: MainMenuProps) {
   const incomplete = nameAttention > 0 && name.trim().length < 2;
@@ -220,6 +224,11 @@ export function MainMenu({
           <LozengeButton variant="primary" size="md" icon={Crown} trailing={ChevronRight} onClick={onPlay} disabled={busy} className="max-w-sm">
             {newProfile ? "Crear perfil y jugar" : "Comenzar el camino"}
           </LozengeButton>
+          {/* El Gazofilacio, puerta de la tienda, bajo el bloque de perfil: el
+              saldo siempre visible en la píldora del tesoro lo acompaña. */}
+          <LozengeButton variant="secondary" size="sm" icon={Coins} onClick={onShop} className="w-full sm:w-auto">
+            El Gazofilacio
+          </LozengeButton>
           {/* El Salón de la Sabiduría ocupa fila propia en móvil y su ancho
               natural en escritorio: el nombre completo nunca se trunca. */}
           <div className="grid w-full max-sm:grid-cols-2 gap-3 max-sm:justify-items-stretch sm:grid-cols-[auto_auto_auto] sm:justify-center sm:gap-x-4">
@@ -245,14 +254,17 @@ export function MainMenu({
           </motion.div>
         ) : null}
 
-        {/* Tesoro del perfil: Siclos ganados y racha diaria vigente */}
+        {/* Tesoro del perfil: Siclos ganados y racha diaria vigente. El marco
+            equipado rodea las iniciales y el título acompaña al perfil. */}
         {wallet ? (
           <motion.div {...fadeUp(0.64)} className="mt-3 flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200">
+            {profile?.equippedMarco ? <AvatarFrame name={profile.name} marco={profile.equippedMarco} className="h-6 w-6 text-[9px]" /> : null}
             <Coins className="h-4 w-4 text-amber-400" aria-hidden="true" />
             <span><strong className="font-semibold">{formatCrowns(wallet.siclos)}</strong> Siclos</span>
             <span className="text-amber-300/40" aria-hidden="true">·</span>
             <Flame className="h-4 w-4 text-amber-400" aria-hidden="true" />
             <span>{wallet.streak > 0 ? <>Racha de <strong className="font-semibold">{wallet.streak}</strong> {wallet.streak === 1 ? "día" : "días"}</> : "Aún sin racha"}</span>
+            {profile?.equippedTitulo ? <span className="hidden rounded-full border border-amber-400/40 px-2 py-0.5 text-[10px] font-semibold text-amber-300 sm:inline">«{storeItem(profile.equippedTitulo)?.name ?? profile.equippedTitulo}»</span> : null}
           </motion.div>
         ) : null}
       </main>

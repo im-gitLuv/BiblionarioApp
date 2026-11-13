@@ -8,16 +8,20 @@ import { HallOfFaith } from "@/components/game/HallOfFaith";
 import { SettingsScreen } from "@/components/game/SettingsScreen";
 import { GameScreen } from "@/components/game/GameScreen";
 import { ResultsScreen } from "@/components/game/ResultsScreen";
+import { ShopScreen } from "@/components/game/ShopScreen";
 import { api } from "@/lib/api-client";
 import { STAGE_EASE } from "@/components/game/ui";
-import type { GameResult, PlayerProfile, ScoreRecord } from "@/lib/contracts";
+import type { GameResult, PlayerProfile, PublicGame, ScoreRecord } from "@/lib/contracts";
 export default function Home() {
     const [screen, setScreen] = useState("menu");
     const [scores, setScores] = useState<ScoreRecord[]>([]);
     const [result, setResult] = useState<GameResult | null>(null);
+    // Partida reabierta por la Redención de Jonás: entra a GameScreen sin
+    // iniciar de cero. Cualquier partida nueva la limpia.
+    const [resumeGame, setResumeGame] = useState<PublicGame | null>(null);
     const [nameAttention, setNameAttention] = useState(0);
     const [name, setName] = useState("");
-    const [profile, setProfile] = useState<{ name: string; tag: string } | null>(null);
+    const [profile, setProfile] = useState<{ name: string; tag: string; equippedMarco?: string | null; equippedTitulo?: string | null } | null>(null);
     const [wallet, setWallet] = useState<{ siclos: number; streak: number; bestStreak: number } | null>(null);
     const [newProfile, setNewProfile] = useState(false);
     const [error, setError] = useState("");
@@ -33,7 +37,7 @@ export default function Home() {
     const refreshPlayer = useCallback(async () => { try {
         const p = await api<PlayerProfile>("/api/player");
         setName(p.name);
-        setProfile({ name: p.name, tag: p.tag });
+        setProfile({ name: p.name, tag: p.tag, equippedMarco: p.equippedMarco, equippedTitulo: p.equippedTitulo });
         setWallet({ siclos: p.siclos, streak: p.streak, bestStreak: p.bestStreak });
     } catch { } }, []);
     useEffect(() => { const timer = setTimeout(() => { void refresh(); void refreshPlayer(); }, 0); return () => clearTimeout(timer); }, [refresh, refreshPlayer]);
@@ -48,6 +52,7 @@ export default function Home() {
         const saved = await api<{ name: string; tag: string }>("/api/player", { name, newProfile: newProfile || undefined });
         setProfile({ name: saved.name, tag: saved.tag });
         setNewProfile(false);
+        setResumeGame(null);
         setScreen("game");
     }
     catch (e) {
@@ -69,18 +74,20 @@ export default function Home() {
         setName(profile?.name ?? "");
     };
     const screenContent = screen === "menu"
-        ? <MainMenu best={scores[0] ?? null} profile={profile} wallet={wallet} newProfile={newProfile} onStartNewProfile={startNewProfile} onCancelNewProfile={cancelNewProfile} name={name} onNameChange={value => { setName(value); setNameAttention(0); }} nameAttention={nameAttention} busy={busy} onPlay={() => { if (!busy) void play(); }} onHowTo={() => setScreen("howto")} onHall={hall} onSettings={() => setScreen("settings")}/>
-        : screen === "settings"
-            ? <SettingsScreen timeLimit={timeLimit} onTimeLimitChange={setTimeLimit} onBack={menu}/>
-            : screen === "howto"
-                ? <HowToPlay onBack={menu}/>
-                : screen === "hall"
-                    ? <HallOfFaith scores={scores} onBack={menu}/>
-                    : screen === "game"
-                        ? <GameScreen timeLimit={timeLimit} onBack={menu} onFinish={r => { setResult(r); setScreen("results"); void refresh(); }}/>
-                        : result
-                            ? <ResultsScreen result={result} onMenu={menu} onHall={hall} onPlayAgain={() => setScreen("game")}/>
-                            : null;
+        ? <MainMenu best={scores[0] ?? null} profile={profile} wallet={wallet} newProfile={newProfile} onStartNewProfile={startNewProfile} onCancelNewProfile={cancelNewProfile} name={name} onNameChange={value => { setName(value); setNameAttention(0); }} nameAttention={nameAttention} busy={busy} onPlay={() => { if (!busy) void play(); }} onHowTo={() => setScreen("howto")} onHall={hall} onShop={() => setScreen("shop")} onSettings={() => setScreen("settings")}/>
+        : screen === "shop"
+            ? <ShopScreen onBack={menu} onChanged={() => { void refreshPlayer(); }}/>
+            : screen === "settings"
+                ? <SettingsScreen timeLimit={timeLimit} onTimeLimitChange={setTimeLimit} onBack={menu}/>
+                : screen === "howto"
+                    ? <HowToPlay onBack={menu}/>
+                    : screen === "hall"
+                        ? <HallOfFaith scores={scores} onBack={menu}/>
+                        : screen === "game"
+                            ? <GameScreen timeLimit={timeLimit} initialGame={resumeGame} onBack={menu} onFinish={r => { setResult(r); setScreen("results"); void refresh(); }}/>
+                            : result
+                                ? <ResultsScreen result={result} onMenu={menu} onHall={hall} onPlayAgain={() => { setResumeGame(null); setScreen("game"); }} onRedeemed={game => { setResumeGame(game); setScreen("game"); }}/>
+                                : null;
     return <div className="flex min-h-screen flex-col overflow-x-hidden bg-background font-sans text-foreground"><AmbientBackground />
  {error && <div role="alert" className="relative z-10 p-4 text-center text-red-300">{error} <button className="underline" onClick={() => void refresh()}>Reintentar</button></div>}
  <AnimatePresence mode="wait" initial={false}>

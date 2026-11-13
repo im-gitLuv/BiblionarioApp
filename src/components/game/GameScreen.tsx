@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Crown, DoorOpen, ListOrdered, MessageCircleQuestion, PhoneCall, ScrollText, X } from "lucide-react";
+import { BookOpen, Check, Crown, DoorOpen, Lightbulb, ListOrdered, MessageCircleQuestion, PhoneCall, ScrollText, Sun, X } from "lucide-react";
 import { MoneyLadder } from "./MoneyLadder";
 import { GameTimer } from "./GameTimer";
 import { LozengeButton } from "@/components/game/ui";
@@ -11,6 +11,7 @@ import { api } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { LETTERS, formatCrowns, prizeForLevel, walkAwayAmount } from "@/lib/rules";
 import { getHostMessage } from "@/lib/host-messages";
+import { LAMPARA_PRICE, SOL_MAX_USES, SOL_PRICE, SOL_SECONDS } from "@/lib/store";
 import type { ActionReply, PublicGame, GameResult } from "@/lib/contracts";
 
 const LIFELINES = [
@@ -25,6 +26,18 @@ const LIFELINE_INVITATIONS = {
   prophet: "El Consejo de un Sabio te dará una sugerencia para esta pregunta, aunque puede equivocarse. ¿Quieres usar este comodín?",
 };
 
+/* Las bendiciones del Gazofilacio: adquisición del jugador, en fila propia
+   con borde plateado frente al dorado de la casa. Se ofrendan al usarlas. */
+const BLESSINGS = [
+  { key: "lampara", label: "Lámpara", short: "Lámpara", icon: Lightbulb, price: LAMPARA_PRICE },
+  { key: "sol", label: "Sol de Josué", short: "Sol", icon: Sun, price: SOL_PRICE },
+] as const;
+type Blessing = typeof BLESSINGS[number]['key'];
+const BLESSING_INVITATIONS: Record<Blessing, string> = {
+  lampara: "La Lámpara de la palabra alumbrará la referencia de este nivel: te diré dónde buscar, no qué responder. Se ofrendan " + LAMPARA_PRICE + " Siclos. ¿Encendemos la lámpara?",
+  sol: "El Sol de Josué se detendrá y el reloj ganará " + SOL_SECONDS + " segundos. Se ofrendan " + SOL_PRICE + " Siclos por cada uso, hasta " + SOL_MAX_USES + " en el recorrido. ¿Lo llamas?",
+};
+
 /** Movimiento contenido para el interior de los contenedores reservados:
     solo opacidad y una elevación mínima; el contenedor nunca cambia de tamaño. */
 const swap = {
@@ -34,8 +47,8 @@ const swap = {
   transition: { duration: 0.24, ease: "easeOut" as const },
 };
 
-export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result: GameResult) => void; onBack: () => void; timeLimit: 0 | 30 | 45 | 60 }) {
-  const [game, setGame] = useState<PublicGame | null>(null);
+export function GameScreen({ onFinish, onBack, timeLimit, initialGame }: { onFinish: (result: GameResult) => void; onBack: () => void; timeLimit: 0 | 30 | 45 | 60; /** Partida reabierta por la Redención de Jonás: entra sin volver a iniciar. */ initialGame?: PublicGame | null }) {
+  const [game, setGame] = useState<PublicGame | null>(initialGame ?? null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [seconds, setSeconds] = useState(45);
@@ -43,12 +56,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
   const [walk, setWalk] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const [chosenLifeline, setChosenLifeline] = useState<Lifeline | null>(null);
+  const [chosenBlessing, setChosenBlessing] = useState<Blessing | null>(null);
   const [lifelineModal, setLifelineModal] = useState<Exclude<Lifeline, "fifty"> | null>(null);
   const [ladderOpen, setLadderOpen] = useState(false);
   const hostPanel = useRef<HTMLElement>(null);
   const questionPanel = useRef<HTMLDivElement>(null);
   const lock = useRef(false);
-  const started = useRef(false);
+  const started = useRef(!!initialGame);
   const mounted = useRef(true);
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
@@ -109,6 +123,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
       setReply(response);
       if (mounted.current) {
         setChosenLifeline(null);
+        setChosenBlessing(null);
         if (response.reveal) {
           setLifelineModal(null);
           if (!response.game.result) setGame(response.game);
@@ -154,7 +169,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
         return;
       }
       if (event.target instanceof HTMLElement && event.target.closest("button, input, [role=dialog]")) return;
-      if (busy || reply?.reveal || lifelineModal || chosenLifeline || walk || !game) return;
+      if (busy || reply?.reveal || lifelineModal || chosenLifeline || chosenBlessing || walk || !game) return;
       const index = "abcd".indexOf(event.key.toLowerCase());
       if (index >= 0 && !game.removed.includes(index)) setSelected(index);
       if (event.key === "Enter" && selected !== null) void action("answer", selected);
@@ -193,7 +208,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
     );
   }
 
-  const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : getHostMessage(game, selected, reply, walk);
+  const hostMessage = chosenLifeline ? LIFELINE_INVITATIONS[chosenLifeline] : chosenBlessing ? BLESSING_INVITATIONS[chosenBlessing] : getHostMessage(game, selected, reply, walk);
   const reveal = reply?.reveal;
 
   return (
@@ -233,7 +248,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               {LIFELINES.map(({ key, label, short, icon: Icon }) => {
                 const used = game.lifelines.includes(key);
                 return (
-                  <button key={key} type="button" aria-label={label} aria-pressed={chosenLifeline === key} disabled={busy || !!reply?.reveal || !!lifelineModal || used} onClick={() => { setChosenLifeline(key); setSelected(null); setWalk(false); }} className="group flex w-16 flex-none flex-col items-center gap-1.5 text-center disabled:cursor-not-allowed sm:w-[76px]">
+                  <button key={key} type="button" aria-label={label} aria-pressed={chosenLifeline === key} disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenBlessing || used} onClick={() => { setChosenLifeline(key); setChosenBlessing(null); setSelected(null); setWalk(false); }} className="group flex w-16 flex-none flex-col items-center gap-1.5 text-center disabled:cursor-not-allowed sm:w-[76px]">
                     <span className={cn(
                       "flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-500/60 bg-panel-mid text-amber-300 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-amber-300 group-hover:shadow-[0_0_24px_rgba(240,180,41,0.2)] sm:h-14 sm:w-14",
                       chosenLifeline === key && "glow-pulse border-yellow-200 shadow-[0_0_32px_rgba(252,211,77,0.65)]",
@@ -250,11 +265,53 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
               })}
             </motion.div>
 
+            {/* Fila plateada de las bendiciones del Gazofilacio: adquisición
+                del jugador, distinta de la herencia dorada de la casa. Un
+                saldo insuficiente no oculta el botón: muestra el faltante. */}
+            <motion.div {...swap} className="flex flex-none items-start justify-center gap-2 sm:gap-8" aria-label="Bendiciones del Gazofilacio">
+              {BLESSINGS.map(({ key, label, short, icon: Icon, price }) => {
+                const solUses = game.bendiciones.filter(item => item === "sol").length;
+                const used = key === "lampara" ? game.bendiciones.includes("lampara") : solUses >= SOL_MAX_USES;
+                const peace = key === "sol" && game.timeLimit === 0;
+                const faltante = Math.max(0, price - (game.wallet ?? 0));
+                return (
+                  <button key={key} type="button" aria-label={label} aria-pressed={chosenBlessing === key} disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenLifeline || used || peace} onClick={() => { setChosenBlessing(key); setChosenLifeline(null); setSelected(null); setWalk(false); }} className="group flex w-16 flex-none flex-col items-center gap-1.5 text-center disabled:cursor-not-allowed sm:w-[76px]">
+                    <span className={cn(
+                      "flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#b9c2d0]/55 bg-panel-mid text-[#ccd3df] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#e6eaf1] group-hover:shadow-[0_0_20px_rgba(214,222,235,0.22)] sm:h-12 sm:w-12",
+                      chosenBlessing === key && "glow-pulse border-[#f2f5fa] shadow-[0_0_26px_rgba(226,232,240,0.55)]",
+                      (used || peace) && "border-[#b9c2d0]/20 text-[#ccd3df]/25"
+                    )}>
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className={cn("flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#ccd3df]/75", (used || peace) && "text-[#ccd3df]/35")}>
+                      {used
+                        ? <>{short}<Check className="h-3 w-3" aria-label="Agotada" /></>
+                        : peace
+                          ? "Paz"
+                          : key === "sol" && solUses > 0
+                            ? `Restan ${SOL_MAX_USES - solUses}`
+                            : faltante > 0
+                              ? `Faltan ${faltante}`
+                              : `${price} Siclos`}
+                    </span>
+                  </button>
+                );
+              })}
+              <span className="ml-1 hidden self-center text-[10px] font-bold uppercase tracking-[0.18em] text-[#ccd3df]/55 sm:inline">Saldo: {formatCrowns(game.wallet ?? 0)} Siclos</span>
+            </motion.div>
+
             <motion.div ref={questionPanel} key={game.version + "-question"} {...swap} className="flex-none space-y-2.5 sm:space-y-3">
               <p className="mx-auto w-fit rounded-full border border-amber-500/30 bg-amber-500/5 px-5 py-1 text-[10px] font-bold uppercase tracking-[0.26em] text-amber-300">{game.question?.category}</p>
               <div className="clip-lozenge bg-gradient-to-r from-amber-700 via-amber-400 to-amber-700 p-[2px] shadow-[0_12px_38px_rgba(0,0,0,0.22)]">
                 <h1 className="clip-lozenge bg-gradient-to-b from-panel-raised to-panel-soft px-7 py-5 text-center font-display text-lg font-semibold leading-snug text-amber-50 sm:px-14 sm:py-9 sm:text-2xl">{game.question?.question}</h1>
               </div>
+              {/* La referencia que pagó la Lámpara permanece visible junto a
+                  las opciones hasta que el jugador responde. */}
+              {game.question?.reference ? (
+                <p className="mx-auto flex w-fit items-center gap-1.5 rounded-full border border-[#b9c2d0]/45 bg-[#1d2330]/60 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#d7dce4]">
+                  <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />{game.question.reference}
+                </p>
+              ) : null}
             </motion.div>
 
             <div role="group" aria-label="Opciones de respuesta" className="game-answers grid flex-none grid-cols-2 gap-2.5 sm:gap-3">
@@ -267,7 +324,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                   <motion.button
                     key={index}
                     type="button"
-                    disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenLifeline || walk || removed}
+                    disabled={busy || !!reply?.reveal || !!lifelineModal || !!chosenLifeline || !!chosenBlessing || walk || removed}
                     onClick={() => setSelected(index)}
                     whileHover={removed ? undefined : { scale: 1.012 }}
                     whileTap={removed ? undefined : { scale: 0.988 }}
@@ -333,6 +390,13 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
                   <motion.div key="walk" {...swap} className="absolute inset-0 flex items-center justify-center gap-2 sm:gap-3">
                     <LozengeButton variant="primary" size="sm" icon={DoorOpen} disabled={busy} onClick={() => void action("walk")}>Sí, retirarme</LozengeButton>
                     <LozengeButton variant="secondary" size="sm" onClick={() => setWalk(false)}>Seguir jugando</LozengeButton>
+                  </motion.div>
+                ) : chosenBlessing ? (
+                  <motion.div key="blessing" {...swap} className="absolute inset-0 flex items-center justify-center gap-2 sm:gap-3">
+                    <LozengeButton variant="primary" size="sm" disabled={busy} onClick={() => void action(chosenBlessing)}>
+                      Ofrendar {BLESSINGS.find(item => item.key === chosenBlessing)?.price} Siclos
+                    </LozengeButton>
+                    <LozengeButton variant="secondary" size="sm" disabled={busy} onClick={() => setChosenBlessing(null)}>Cancelar</LozengeButton>
                   </motion.div>
                 ) : chosenLifeline ? (
                   <motion.div key="lifeline" {...swap} className="absolute inset-0 flex items-center justify-center gap-2 sm:gap-3">

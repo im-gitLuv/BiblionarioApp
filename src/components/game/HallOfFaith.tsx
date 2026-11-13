@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RoundIconButton, StageHeading, fadeUp } from "@/components/game/ui";
+import { AvatarFrame } from "./AvatarFrame";
+import { storeItem } from "@/lib/store";
 import {
   formatCrowns,
   type Outcome,
@@ -106,16 +108,25 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
                   {i + 1}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm text-amber-200">
-                    {s.name}
+                  <p className="flex items-center gap-1.5 text-sm text-amber-200">
+                    {s.equippedMarco ? <AvatarFrame name={s.name} marco={s.equippedMarco} className="h-6 w-6 text-[9px]" /> : null}
+                    <span className="truncate">{s.name}</span>
                     {isRepeated(s) && (
                       <span
-                        className="ml-1.5 inline-block rounded border border-amber-500/25 bg-amber-500/10 px-1 py-px align-baseline font-mono text-[10px] font-semibold tracking-wider text-amber-300/70"
+                        className="inline-block shrink-0 rounded border border-amber-500/25 bg-amber-500/10 px-1 py-px align-baseline font-mono text-[10px] font-semibold tracking-wider text-amber-300/70"
                         title={`Perfil ${s.tag}`}
                       >
                         {s.tag}
                       </span>
                     )}
+                    {s.equippedTitulo ? (
+                      <span
+                        className="hidden shrink-0 rounded-full border border-amber-400/40 bg-amber-500/10 px-2 py-px text-[10px] font-semibold text-amber-300 sm:inline"
+                        title="Título del Gazofilacio"
+                      >
+                        «{storeItem(s.equippedTitulo)?.name ?? s.equippedTitulo}»
+                      </span>
+                    ) : null}
                   </p>
                   <p className="text-base font-bold tabular-nums text-amber-100">
                     {formatCrowns(s.amount)}{" "}

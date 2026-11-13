@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { validateBank } from '../scripts/question-bank.mjs';
 import { safeHavenAmount, walkAwayAmount, prizeForLevel, LADDER } from '../src/lib/rules.ts';
 import { siclosForLevels, streakBonus, nextStreak, awardSiclos } from '../src/lib/economy.ts';
+import { STORE_ITEMS, SOL_MAX_USES, SOL_SECONDS, isCosmetic, redencionPrice, storeItem } from '../src/lib/store.ts';
 test('premios en los límites de refugios y retiro', () => {
   assert.equal(safeHavenAmount(5), 0); assert.equal(safeHavenAmount(6), 1000);
   assert.equal(safeHavenAmount(10), 1000); assert.equal(safeHavenAmount(11), 32000);
@@ -53,4 +54,37 @@ test('racha diaria por jornada de Caracas: conserva, suma al día siguiente y re
   const trasMedianoche = new Date('2026-11-11T04:30:00Z'); // 00:30 de Caracas
   const nocheAnterior = new Date('2026-11-11T03:00:00Z');  // 23:00 de Caracas del día 10
   assert.equal(nextStreak(2, nocheAnterior, trasMedianoche), 3);
+});
+
+test('catálogo del Gazofilacio: claves únicas, datos completos y precios enteros positivos', () => {
+  const keys = STORE_ITEMS.map(item => item.key);
+  assert.equal(new Set(keys).size, keys.length);
+  for (const item of STORE_ITEMS) {
+    assert.ok(item.name && item.effect && item.scripture && item.limit, item.key);
+    if (item.key !== 'redencion') assert.ok(Number.isInteger(item.price) && (item.price ?? 0) > 0, item.key);
+  }
+  assert.equal(storeItem('marco:cedro')?.kind, 'marco');
+  assert.equal(storeItem('titulo:bereano')?.kind, 'titulo');
+  assert.equal(storeItem('lampara')?.kind, 'bendicion');
+  assert.equal(isCosmetic('marco:zafiro'), true);
+  assert.equal(isCosmetic('titulo:salomon'), true);
+  assert.equal(isCosmetic('lampara'), false); // las bendiciones se ofrendan en partida
+  assert.equal(isCosmetic('clave:intrusa'), false);
+});
+
+test('tramos de la Redención de Jonás: 45 / 90 / 150 y el primer escalón sin redención', () => {
+  assert.equal(redencionPrice(1), null);
+  assert.equal(redencionPrice(0), null);
+  assert.equal(redencionPrice(16), null);
+  assert.equal(redencionPrice(2), 45);
+  assert.equal(redencionPrice(5), 45);
+  assert.equal(redencionPrice(6), 90);
+  assert.equal(redencionPrice(10), 90);
+  assert.equal(redencionPrice(11), 150);
+  assert.equal(redencionPrice(15), 150);
+});
+
+test('Sol de Josué: quince segundos por uso y hasta tres usos por recorrido', () => {
+  assert.equal(SOL_SECONDS, 15);
+  assert.equal(SOL_MAX_USES, 3);
 });

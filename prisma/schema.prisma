@@ -10,16 +10,22 @@ datasource db {
 }
 
 model Player {
-  id           String    @id @default(cuid())
-  tokenHash    String    @unique
-  name         String
-  tag          String    @unique
-  siclos       Int       @default(0)
-  streak       Int       @default(0)
-  bestStreak   Int       @default(0)
-  lastPlayedAt DateTime?
-  createdAt    DateTime  @default(now())
-  games        Game[]
+  id             String     @id @default(cuid())
+  tokenHash      String     @unique
+  name           String
+  tag            String     @unique
+  siclos         Int        @default(0)
+  streak         Int        @default(0)
+  bestStreak     Int        @default(0)
+  lastPlayedAt   DateTime?
+  // Cosméticos equipados del Gazofilacio: el marco rodea las iniciales y el
+  // título acompaña al nombre en el Salón de la Sabiduría. Dos columnas
+  // porque se equipan en paralelo (marco y título a la vez).
+  equippedMarco  String?
+  equippedTitulo String?
+  createdAt      DateTime   @default(now())
+  games          Game[]
+  purchases      Purchase[]
 }
 
 model Question {
@@ -47,6 +53,9 @@ model Game {
   version    Int       @default(0)
   rounds     Json
   lifelines  String[]  @default([])
+  // Bendiciones ofrendadas en el recorrido (lampara, sol, redencion),
+  // al estilo del arreglo lifelines de los comodines de la casa.
+  bendiciones String[] @default([])
   removed    Int[]     @default([])
   deadline   DateTime
   createdAt  DateTime  @default(now())
@@ -54,4 +63,21 @@ model Game {
 
   @@index([playerId, createdAt])
   @@index([status, amount, finishedAt])
+}
+
+// Historial de compras y ofrendas del Gazofilacio (v1.2). Una fila por cada
+// gasto: cosméticos comprados en la tienda y bendiciones cobradas en partida
+// (con gameId cuando aplica). Permite histórico, métricas y auditoría sin
+// recalcular nada. gameId es una referencia informática sin llave foránea:
+// las partidas se limpian en pruebas sin arrastrar el historial.
+model Purchase {
+  id        String   @id @default(cuid())
+  playerId  String
+  player    Player   @relation(fields: [playerId], references: [id])
+  item      String
+  price     Int
+  gameId    String?
+  createdAt DateTime @default(now())
+
+  @@index([playerId, createdAt])
 }

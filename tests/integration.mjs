@@ -108,7 +108,184 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
     assert.equal(wallet.streak, 1);
     assert.equal(wallet.bestStreak, 1);
   } finally {
-    if (players.length) { await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
+    if (players.length) { await db.purchase.deleteMany({ where: { playerId: { in: players } } }); await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
+    await db.$disconnect(); await stopServer(server);
+  }
+});
+
+test('API: el Gazofilacio — tienda, bendiciones y Redención de Jonás', async () => {
+  if (process.env.BIBLIONARIO_INTEGRATION !== '1') throw new Error('Configura BIBLIONARIO_INTEGRATION=1 y una base de pruebas dedicada.');
+  const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-p', '3100'], { stdio: 'ignore', env: process.env });
+  const db = new PrismaClient();
+  const players = [];
+  try {
+    let ready = false;
+    for (let i = 0; i < 100; i++) {
+      try { if ((await fetch(base + '/api')).ok) { ready = true; break; } } catch {}
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    assert.ok(ready, 'La aplicación debe iniciar');
+    async function request(path, body, cookie = '', origin = base) {
+      const response = await fetch(base + path, { method: body === undefined ? 'GET' : 'POST', headers: { Origin: origin, Cookie: cookie, 'Content-Type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) });
+      return { status: response.status, data: await response.json(), cookie: response.headers.get('set-cookie')?.split(';')[0] };
+    }
+    const profile = await request('/api/player', { name: 'Ofrendante' });
+    assert.equal(profile.status, 200);
+    const cookie = profile.cookie;
+
+    // ── G1: victoria limpia que llena el arca (175 + 8 de racha) ──
+    let game = (await request('/api/games', {}, cookie)).data;
+    let stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    players.push(stored.playerId);
+    for (let level = 1; level <= 15; level++) {
+      const response = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: stored.rounds[level - 1].answer }, cookie);
+      assert.equal(response.status, 200);
+      game = response.data.game;
+      if (level < 15) game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
+    }
+    assert.equal(game.result.outcome, 'won');
+    let wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 183);
+
+    // ── Tienda: la vista abre vacía y las bendiciones no se compran aquí ──
+    const store0 = (await request('/api/store', undefined, cookie)).data;
+    assert.equal(store0.siclos, 183);
+    assert.deepEqual(store0.owned, []);
+    assert.equal(store0.equippedMarco, null);
+    assert.equal((await request('/api/store', { action: 'comprar', item: 'lampara' }, cookie)).status, 400); // las bendiciones se ofrendan en partida
+    assert.equal((await request('/api/store', { action: 'comprar', item: 'clave:intrusa' }, cookie)).status, 400);
+
+    // ── G2: la Lámpara cobra 10 y persiste la referencia; el Sol suma 15 s ──
+    game = (await request('/api/games', {}, cookie)).data;
+    stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    const lamp = await request('/api/games/' + game.id, { action: 'lampara', version: game.version }, cookie);
+    assert.equal(lamp.status, 200);
+    game = lamp.data.game; // sincroniza la versión tras la Lámpara
+    assert.equal(lamp.data.game.question.reference, stored.rounds[0].reference);
+    assert.deepEqual(lamp.data.game.bendiciones, ['lampara']);
+    assert.equal(lamp.data.game.wallet, 173); // 183 − 10
+    // La revelación persiste: releer la partida la mantiene.
+    assert.equal((await request('/api/games/' + game.id, undefined, cookie)).data.question.reference, stored.rounds[0].reference);
+    assert.equal((await request('/api/games/' + game.id, { action: 'lampara', version: game.version }, cookie)).status, 400);
+    for (let uses = 1; uses <= 3; uses++) {
+      const before = new Date((await db.game.findUniqueOrThrow({ where: { id: game.id } })).deadline).getTime();
+      const sol = await request('/api/games/' + game.id, { action: 'sol', version: game.version }, cookie);
+      assert.equal(sol.status, 200);
+      const after = new Date((await db.game.findUniqueOrThrow({ where: { id: game.id } })).deadline).getTime();
+      assert.equal(after - before, 15000);
+      assert.equal(sol.data.game.wallet, 173 - 15 * uses);
+      game = sol.data.game;
+    }
+    assert.deepEqual(game.bendiciones, ['lampara', 'sol', 'sol', 'sol']);
+    const lateSol = await request('/api/games/' + game.id, { action: 'sol', version: game.version }, cookie);
+    assert.equal(lateSol.status, 400);
+    assert.match(lateSol.data.error, /3 veces/); // el servidor interpola el dígito: ${SOL_MAX_USES}
+    wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 128); // 183 − 10 − 45
+    // El historial del Gazofilacio registra cada ofrenda con su partida.
+    const history = (await request('/api/store', undefined, cookie)).data.history;
+    assert.deepEqual(history.map(row => row.item).slice(0, 4), ['sol', 'sol', 'sol', 'lampara']);
+    assert.ok(history.slice(0, 4).every(row => row.gameId === game.id));
+
+    // ── G3: caer en el escalón 3, redimir y volver a caer es derrota definitiva ──
+    game = (await request('/api/games', {}, cookie)).data;
+    stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    const originalThird = stored.rounds[2].id;
+    for (let level = 1; level <= 2; level++) {
+      const answered = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: stored.rounds[level - 1].answer }, cookie);
+      assert.equal(answered.status, 200);
+      game = answered.data.game; // sincroniza la versión antes del next
+      game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
+    }
+    const firstFall = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: (stored.rounds[2].answer + 1) % 4 }, cookie);
+    assert.equal(firstFall.data.game.result.outcome, 'lost');
+    assert.equal(firstFall.data.game.result.level, 3);
+    assert.equal(firstFall.data.game.result.canRedeem, true);
+    assert.equal(firstFall.data.game.result.siclos, 10); // dos escalones vencidos
+    wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 138);
+    const reopened = await request('/api/games/' + game.id, { action: 'redencion', version: firstFall.data.game.result.version }, cookie);
+    assert.equal(reopened.status, 200);
+    const rg = reopened.data.game;
+    assert.equal(rg.result, null);
+    assert.equal(rg.level, 3);
+    assert.equal(rg.removed.length, 0);
+    // G3 corre sobre la partida de G2 (el servidor reanuda la activa, correcto):
+    // sus bendiciones previas se conservan y la Redención solo añade la suya.
+    assert.deepEqual(rg.bendiciones, ['lampara', 'sol', 'sol', 'sol', 'redencion']);
+    // Pregunta fresca del mismo escalón: distinta de la que causó la caída.
+    stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    assert.notEqual(stored.rounds[2].id, originalThird);
+    wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 93); // 138 − 45
+    // El refugio conservado: la derrota en el 3 pagó 0 Coronas y así continúa.
+    assert.equal(rg.amount, 0);
+    // Caer de nuevo: sin segunda Redención y sin doble pago de escalones.
+    const secondFall = await request('/api/games/' + game.id, { action: 'answer', version: rg.version, option: (stored.rounds[2].answer + 1) % 4 }, cookie);
+    assert.equal(secondFall.data.game.result.outcome, 'lost');
+    assert.equal(secondFall.data.game.result.canRedeem, false);
+    assert.equal(secondFall.data.game.result.siclos, 10); // libro contable: no se duplica
+    assert.equal((await request('/api/player', undefined, cookie)).data.siclos, 93);
+    assert.equal((await request('/api/games/' + game.id, { action: 'redencion', version: secondFall.data.game.result.version }, cookie)).status, 400);
+
+    // ── G4: victoria tras la Redención — el cierre acredita la diferencia ──
+    game = (await request('/api/games', {}, cookie)).data;
+    stored = await db.game.findUniqueOrThrow({ where: { id: game.id } });
+    for (let level = 1; level <= 2; level++) {
+      const answered = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: stored.rounds[level - 1].answer }, cookie);
+      assert.equal(answered.status, 200);
+      game = answered.data.game; // sincroniza la versión antes del next
+      game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
+    }
+    const fall = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: (stored.rounds[2].answer + 1) % 4 }, cookie);
+    assert.equal(fall.data.game.result.canRedeem, true);
+    const reopened2 = await request('/api/games/' + game.id, { action: 'redencion', version: fall.data.game.result.version }, cookie);
+    assert.equal(reopened2.status, 200);
+    const wrounds = (await db.game.findUniqueOrThrow({ where: { id: game.id } })).rounds;
+    game = reopened2.data.game;
+    for (let level = 3; level <= 15; level++) {
+      const response = await request('/api/games/' + game.id, { action: 'answer', version: game.version, option: wrounds[level - 1].answer }, cookie);
+      assert.equal(response.status, 200);
+      game = response.data.game;
+      if (level < 15) game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
+    }
+    assert.equal(game.result.outcome, 'won');
+    assert.equal(game.result.siclos, 183); // emisión total del recorrido, sin recargo
+    wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 231); // 93 + 10 (caída) − 45 (redención) + 173 (diferencia de la corona)
+
+    // ── G5: caer en el escalón 1 no admite Redención ──
+    game = (await request('/api/games', {}, cookie)).data;
+    await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
+    const instant = await request('/api/games/' + game.id, { action: 'timeout', version: game.version }, cookie);
+    assert.equal(instant.data.game.result.outcome, 'lost');
+    assert.equal(instant.data.game.result.level, 1);
+    assert.equal(instant.data.game.result.canRedeem, false);
+    assert.equal((await request('/api/games/' + game.id, { action: 'redencion', version: instant.data.game.result.version }, cookie)).status, 400);
+
+    // ── Tienda: compra y equipado del marco, con rechazos limpios ──
+    const bought = await request('/api/store', { action: 'comprar', item: 'marco:cedro' }, cookie);
+    assert.equal(bought.status, 200);
+    assert.equal(bought.data.siclos, 131); // 231 − 100
+    assert.ok(bought.data.owned.includes('marco:cedro'));
+    assert.equal((await request('/api/store', { action: 'comprar', item: 'marco:cedro' }, cookie)).status, 400); // ya es tuyo
+    const poor = await request('/api/store', { action: 'comprar', item: 'marco:zafiro' }, cookie);
+    assert.equal(poor.status, 400);
+    assert.match(poor.data.error, /faltan 169/); // 300 − 131
+    assert.equal((await request('/api/store', { action: 'equipar', item: 'titulo:bereano' }, cookie)).status, 400); // sin comprar
+    assert.equal((await request('/api/store', { action: 'equipar', item: 'marco:cedro' }, cookie)).data.equippedMarco, 'marco:cedro');
+    wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.equippedMarco, 'marco:cedro');
+    // Quitar y volver a equipar: la propiedad persiste.
+    assert.equal((await request('/api/store', { action: 'quitar', item: 'marco:cedro' }, cookie)).data.equippedMarco, null);
+    assert.equal((await request('/api/store', { action: 'equipar', item: 'marco:cedro' }, cookie)).data.equippedMarco, 'marco:cedro');
+
+    // La clasificación del Salón entrega los cosméticos equipados.
+    const board = (await request('/api/leaderboard')).data.find(row => row.id === players[0]);
+    assert.equal(board.equippedMarco, 'marco:cedro');
+    assert.equal(board.equippedTitulo, null);
+  } finally {
+    if (players.length) { await db.purchase.deleteMany({ where: { playerId: { in: players } } }); await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
     await db.$disconnect(); await stopServer(server);
   }
 });

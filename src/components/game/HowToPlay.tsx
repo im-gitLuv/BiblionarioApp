@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft,
   CircleHelp,
+  Coins,
   DoorOpen,
   Hourglass,
   MessageCircleQuestion,
@@ -52,6 +53,15 @@ const GUIDE_CARDS: GuideCard[] = [
     paragraphs: [
       <>Antes de confirmar una respuesta puedes <strong>retirarte</strong> con las Coronas que ya hayas ganado.</>,
       <>El prudente conoce cuándo descansar; el valiente decide cuándo continuar hacia la corona.</>,
+    ],
+  },
+  {
+    title: "El Gazofilacio",
+    icon: Coins,
+    paragraphs: [
+      <>Cada nivel cerrado ofrenda <strong>Siclos</strong> a tu tesoro, y la racha diaria multiplica esa emisión hasta un 50 %. En <strong>El Gazofilacio</strong>, la tienda del menú, los conviertes en ayudas y señales de caminar: aquí se ofrenda lo ganado recorriendo las Escrituras.</>,
+      <>Las <strong>bendiciones</strong> se ofrendan dentro de la partida, desde su fila plateada debajo de los comodines: la <strong>Lámpara</strong> (10 Siclos) revela la referencia del nivel, y el <strong>Sol de Josué</strong> (15 Siclos, hasta tres veces) añade quince segundos al reloj. Si tu partida termina perdida, la <strong>Redención de Jonás</strong> (45, 90 o 150 Siclos según el escalón de la caída) la reabre una sola vez con pregunta nueva.</>,
+      <>En la tienda también esperan <strong>marcos y títulos permanentes</strong> para tu perfil y el Salón de la Sabiduría. Los tres comodines de la casa siguen siendo gratuitos: las bendiciones no los reemplazan, los acompañan.</>,
     ],
   },
 ];
