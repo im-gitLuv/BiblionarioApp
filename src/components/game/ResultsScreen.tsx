@@ -5,8 +5,10 @@ import { api } from "@/lib/api-client";
 import { motion } from "framer-motion";
 import {
   BookOpen,
+  Coins,
   Crown,
   DoorOpen,
+  Flame,
   HeartHandshake,
   Home,
   RotateCcw,
@@ -38,11 +40,11 @@ const VERSES: Record<GameResult["outcome"], { text: string; ref: string }> = {
 };
 
 export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsScreenProps) {
-  const [history, setHistory] = useState<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number } | null>(null);
+  const [history, setHistory] = useState<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number; siclos: number; streak: number; bestStreak: number } | null>(null);
   const [historyError, setHistoryError] = useState(false);
   useEffect(() => {
     let mounted = true;
-    void api<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number }>("/api/player")
+    void api<{ totalCrowns: number; knowledgeCrowns: number; gamesPlayed: number; siclos: number; streak: number; bestStreak: number }>("/api/player")
       .then(value => { if (mounted) setHistory(value); })
       .catch(() => { if (mounted) setHistoryError(true); });
     return () => { mounted = false; };
@@ -124,11 +126,17 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
           <p className="mt-1 text-xs text-[#c4a875]">
             {result.lifelinesUsed} de 3 comodines utilizados
           </p>
+          {result.siclos > 0 ? (
+            <p className="mt-2 flex items-center justify-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-500/15 px-3 py-1 text-xs font-semibold text-amber-300">
+              <Coins className="h-3.5 w-3.5" aria-hidden="true" />
+              +{formatCrowns(result.siclos)} Siclos para tu tesoro
+            </p>
+          ) : null}
         </motion.div>
 
         {/* Historial */}
         <div aria-live="polite" className="mt-5 text-sm text-amber-200">
-          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} {history.knowledgeCrowns === 1 ? "Corona" : "Coronas"} de conocimiento · {history.gamesPlayed} {history.gamesPlayed === 1 ? "partida" : "partidas"}</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Fe." : "Consultando tu historial…"}</p>}
+          {history ? <><p>Histórico: <strong>{formatCrowns(history.totalCrowns)} Coronas</strong></p><p className="mt-2 flex items-center justify-center gap-2"><Crown className="h-5 w-5 text-amber-400" aria-hidden="true"/>{history.knowledgeCrowns} {history.knowledgeCrowns === 1 ? "Corona" : "Coronas"} de conocimiento · {history.gamesPlayed} {history.gamesPlayed === 1 ? "partida" : "partidas"}</p><p className="mt-2 flex items-center justify-center gap-2"><Coins className="h-4 w-4 text-amber-400" aria-hidden="true"/>{formatCrowns(history.siclos)} Siclos{history.streak > 0 ? <> · <Flame className="h-4 w-4 text-amber-400" aria-hidden="true"/> Racha de {history.streak} {history.streak === 1 ? "día" : "días"} · Récord {history.bestStreak}</> : null}</p></> : <p>{historyError ? "Consulta tu historial en el Salón de la Sabiduría." : "Consultando tu historial…"}</p>}
         </div>
         <motion.p
           {...fadeUp(0.36)}
@@ -159,7 +167,7 @@ export function ResultsScreen({ result, onPlayAgain, onHall, onMenu }: ResultsSc
             Volver a jugar
           </LozengeButton>
           <LozengeButton variant="secondary" size="md" icon={BookOpen} onClick={onHall} className="w-full sm:w-auto">
-            Salón de la Fe
+            Salón de la Sabiduría
           </LozengeButton>
           <LozengeButton variant="ghost" size="sm" icon={Home} onClick={onMenu} className="w-full sm:w-auto">
             Menú principal

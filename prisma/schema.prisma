@@ -10,12 +10,16 @@ datasource db {
 }
 
 model Player {
-  id        String   @id @default(cuid())
-  tokenHash String   @unique
-  name      String
-  tag       String   @unique
-  createdAt DateTime @default(now())
-  games     Game[]
+  id           String    @id @default(cuid())
+  tokenHash    String    @unique
+  name         String
+  tag          String    @unique
+  siclos       Int       @default(0)
+  streak       Int       @default(0)
+  bestStreak   Int       @default(0)
+  lastPlayedAt DateTime?
+  createdAt    DateTime  @default(now())
+  games        Game[]
 }
 
 model Question {
@@ -39,6 +43,7 @@ model Game {
   status     String    @default("playing")
   level      Int       @default(1)
   amount     Int       @default(0)
+  siclos     Int       @default(0)
   version    Int       @default(0)
   rounds     Json
   lifelines  String[]  @default([])

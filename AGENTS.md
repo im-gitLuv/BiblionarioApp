@@ -1,6 +1,6 @@
 # Biblionario
 
-Juego en español con Next.js App Router, Prisma y PostgreSQL. Conservar la estética dorada y el vocabulario: Coronas, Corona de Gloria, Sabiduría de Salomón, Preguntar a la congregación, Voz profética y Salón de la Fe.
+Juego en español con Next.js App Router, Prisma y PostgreSQL. Conservar la estética dorada y el vocabulario: Coronas, Corona de Gloria, Siclos, Los Dos Testigos, Concilio de los Setenta, Consejo de un Sabio y Salón de la Sabiduría (nombres actualizados por el propietario en la v1.1; las claves internas de los comodines siguen siendo fifty, audience y prophet).
 
 La autoridad del juego pertenece al servidor: nunca incluir preguntas con soluciones en componentes cliente ni aceptar premios elegidos por el navegador. Mantener control de propietario, versión y vencimiento en cada mutación. Las instantáneas de preguntas son privadas y no forman parte de PublicGame.
 

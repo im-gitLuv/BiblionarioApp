@@ -18,6 +18,7 @@ export default function Home() {
     const [nameAttention, setNameAttention] = useState(0);
     const [name, setName] = useState("");
     const [profile, setProfile] = useState<{ name: string; tag: string } | null>(null);
+    const [wallet, setWallet] = useState<{ siclos: number; streak: number; bestStreak: number } | null>(null);
     const [newProfile, setNewProfile] = useState(false);
     const [error, setError] = useState("");
     const [busy, setBusy] = useState(false);
@@ -29,8 +30,14 @@ export default function Home() {
     catch (e) {
         setError((e as Error).message);
     } }, []);
-    useEffect(() => { const timer = setTimeout(() => { void refresh(); void api<PlayerProfile>("/api/player").then(p => { setName(p.name); setProfile({ name: p.name, tag: p.tag }); }).catch(() => { }); }, 0); return () => clearTimeout(timer); }, [refresh]);
-    const menu = () => { setScreen("menu"); void refresh(); };
+    const refreshPlayer = useCallback(async () => { try {
+        const p = await api<PlayerProfile>("/api/player");
+        setName(p.name);
+        setProfile({ name: p.name, tag: p.tag });
+        setWallet({ siclos: p.siclos, streak: p.streak, bestStreak: p.bestStreak });
+    } catch { } }, []);
+    useEffect(() => { const timer = setTimeout(() => { void refresh(); void refreshPlayer(); }, 0); return () => clearTimeout(timer); }, [refresh, refreshPlayer]);
+    const menu = () => { setScreen("menu"); void refresh(); void refreshPlayer(); };
     const hall = () => { setScreen("hall"); void refresh(); };
     const play = async () => {
         if (name.trim().length < 2) {
@@ -62,7 +69,7 @@ export default function Home() {
         setName(profile?.name ?? "");
     };
     const screenContent = screen === "menu"
-        ? <MainMenu best={scores[0] ?? null} profile={profile} newProfile={newProfile} onStartNewProfile={startNewProfile} onCancelNewProfile={cancelNewProfile} name={name} onNameChange={value => { setName(value); setNameAttention(0); }} nameAttention={nameAttention} busy={busy} onPlay={() => { if (!busy) void play(); }} onHowTo={() => setScreen("howto")} onHall={hall} onSettings={() => setScreen("settings")}/>
+        ? <MainMenu best={scores[0] ?? null} profile={profile} wallet={wallet} newProfile={newProfile} onStartNewProfile={startNewProfile} onCancelNewProfile={cancelNewProfile} name={name} onNameChange={value => { setName(value); setNameAttention(0); }} nameAttention={nameAttention} busy={busy} onPlay={() => { if (!busy) void play(); }} onHowTo={() => setScreen("howto")} onHall={hall} onSettings={() => setScreen("settings")}/>
         : screen === "settings"
             ? <SettingsScreen timeLimit={timeLimit} onTimeLimitChange={setTimeLimit} onBack={menu}/>
             : screen === "howto"

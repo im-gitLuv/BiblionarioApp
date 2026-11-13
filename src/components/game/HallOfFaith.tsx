@@ -65,7 +65,7 @@ export function HallOfFaith({ scores, onBack }: HallOfFaithProps) {
         {/* Header */}
         <div className="mb-8 flex items-center gap-4">
           <RoundIconButton icon={ArrowLeft} label="Volver al menú principal" onClick={onBack} />
-          <StageHeading overline="Quienes recorrieron el camino" title="Salón de la Fe" shimmer={false} />
+          <StageHeading overline="Quienes recorrieron el camino" title="Salón de la Sabiduría" shimmer={false} />
         </div>
 
         <p className="mb-6 text-sm leading-relaxed text-amber-100/70">Clasificación por Coronas históricas: se suman los premios de todas tus partidas terminadas. Cada victoria de 15 preguntas concede una Corona de conocimiento. Los premios parciales suman al total, pero no conceden esa distinción. Si dos nombres coinciden, su etiqueta de perfil los distingue.</p>

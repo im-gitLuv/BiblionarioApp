@@ -17,8 +17,8 @@ export const HOST_PROGRESS_MESSAGES = {
   final: "Estás cerca de la corona. Aquí cada detalle de las Escrituras puede decidir el camino.",
   fallback: "Respira, repasa el pasaje y confía en lo que has aprendido.",
   walk: "Retirarse también puede ser una decisión sabia. Mira lo que has ganado antes de elegir.",
-  audience: "La congregación ya ha dado su parecer. La decisión final, sin embargo, sigue siendo tuya.",
-  prophet: "Has escuchado la voz profética. Considera su consejo, pero recuerda que puede equivocarse.",
+  audience: "El Concilio de los Setenta ya ha dado su parecer. La decisión final, sin embargo, sigue siendo tuya.",
+  prophet: "Has escuchado al sabio. Considera su consejo, pero recuerda que puede equivocarse.",
 } as const;
 
 function categoryCounsel(category: string) {

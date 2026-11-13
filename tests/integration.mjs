@@ -73,10 +73,12 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
       }
     }
     assert.equal(game.result.outcome, 'won'); assert.equal(game.amount, 1000000);
+    assert.equal(game.result.siclos, 183); // 175 base + 8 del bono de racha inicial
     assert.equal(game.result.lifelinesUsed, 3);
     assert.ok((await request('/api/leaderboard')).data.some(row => row.id === stored.playerId && row.amount === 1000000 && row.knowledgeCrowns === 1 && row.gamesPlayed === 1));
     const replay = await request('/api/games/' + game.id, { action: 'answer', version: 0, option: 0 }, cookie);
     assert.equal(replay.data.game.amount, 1000000);
+    assert.equal(replay.data.game.result.siclos, 183); // releer una partida terminada no vuelve a pagar
     game = (await request('/api/games', {}, cookie)).data;
     const second = await db.game.findUniqueOrThrow({ where: { id: game.id } });
     for (let level = 1; level <= 15; level++) {
@@ -86,17 +88,25 @@ test('API: identidad, soluciones privadas, concurrencia, comodines, victoria y v
       if (level < 15) game = (await request('/api/games/' + game.id, { action: 'next', version: game.version }, cookie)).data.game;
     }
     assert.equal(game.result.outcome, 'won');
+    assert.equal(game.result.siclos, 183); // misma jornada: la racha se mantiene y el pago no se duplica
     game = (await request('/api/games', {}, cookie)).data;
     await db.game.update({ where: { id: game.id }, data: { deadline: new Date(Date.now() - 1000) } });
     const timeout = await request('/api/games/' + game.id, { action: 'timeout', version: game.version }, cookie);
     assert.equal(timeout.data.game.result.outcome, 'lost'); assert.equal(timeout.data.game.amount, 0);
+    assert.equal(timeout.data.game.result.siclos, 0); // falló en el escalón 1: sin escalones completados
     game = (await request('/api/games', {}, cookie)).data;
     const retired = await request('/api/games/' + game.id, { action: 'walk', version: game.version }, cookie);
     assert.equal(retired.data.game.result.outcome, 'walked'); assert.equal(retired.data.game.amount, 0);
+    assert.equal(retired.data.game.result.siclos, 0);
     const historical = (await request('/api/leaderboard')).data.find(row => row.id === stored.playerId);
     assert.equal(historical.amount, 2000000);
     assert.equal(historical.knowledgeCrowns, 2);
     assert.equal(historical.gamesPlayed, 4);
+    // Tesoro del perfil: dos victorias pagan 183 cada una y la racha sigue en su primer día.
+    const wallet = (await request('/api/player', undefined, cookie)).data;
+    assert.equal(wallet.siclos, 366);
+    assert.equal(wallet.streak, 1);
+    assert.equal(wallet.bestStreak, 1);
   } finally {
     if (players.length) { await db.game.deleteMany({ where: { playerId: { in: players } } }); await db.player.deleteMany({ where: { id: { in: players } } }); }
     await db.$disconnect(); await stopServer(server);
@@ -143,6 +153,10 @@ test('API: perfiles — etiqueta única, nombres repetidos y cambio de jugador',
     const mine = board.filter(row => row.tag === luisA.data.tag || row.tag === luisB.data.tag);
     assert.equal(mine.length, 2);
     assert.ok(mine.every(row => row.name === 'Luis'));
+    // Retirarse también cuenta como jornada jugada para la racha, aunque no emita Siclos.
+    const walletA = (await request('/api/player', undefined, luisA.cookie)).data;
+    assert.equal(walletA.streak, 1);
+    assert.equal(walletA.siclos, 0);
     // Renombrar sin newProfile conserva el perfil (misma etiqueta).
     const renamed = await request('/api/player', { name: 'Luis Miguel' }, luisA.cookie);
     assert.equal(renamed.status, 200);

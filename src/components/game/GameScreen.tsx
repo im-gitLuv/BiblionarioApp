@@ -14,15 +14,15 @@ import { getHostMessage } from "@/lib/host-messages";
 import type { ActionReply, PublicGame, GameResult } from "@/lib/contracts";
 
 const LIFELINES = [
-  { key: "fifty", label: "Sabiduría de Salomón", short: "Salomón", icon: ScrollText },
-  { key: "audience", label: "Preguntar a la congregación", short: "Asamblea", icon: MessageCircleQuestion },
-  { key: "prophet", label: "Voz profética", short: "Profeta", icon: PhoneCall },
+  { key: "fifty", label: "Los Dos Testigos", short: "Testigos", icon: ScrollText },
+  { key: "audience", label: "Concilio de los Setenta", short: "Concilio", icon: MessageCircleQuestion },
+  { key: "prophet", label: "Consejo de un Sabio", short: "Sabio", icon: PhoneCall },
 ] as const;
 type Lifeline = typeof LIFELINES[number]['key'];
 const LIFELINE_INVITATIONS = {
-  fifty: "La Sabiduría de Salomón apartará dos respuestas incorrectas para dejarte dos caminos. ¿Quieres usar este comodín?",
-  audience: "Podemos pedir a la congregación que vote por la respuesta que considera correcta. Su consejo puede equivocarse. ¿Quieres usar este comodín?",
-  prophet: "La voz profética te dará una sugerencia para esta pregunta, aunque puede equivocarse. ¿Quieres usar este comodín?",
+  fifty: "Los Dos Testigos apartarán dos respuestas falsas para dejarte dos declaraciones: por boca de dos testigos se decide el asunto, y solo una es verdadera. ¿Quieres usar este comodín?",
+  audience: "Podemos reunir al Concilio de los Setenta para que vote por la respuesta que considera correcta. Su consejo puede equivocarse. ¿Quieres usar este comodín?",
+  prophet: "El Consejo de un Sabio te dará una sugerencia para esta pregunta, aunque puede equivocarse. ¿Quieres usar este comodín?",
 };
 
 /** Movimiento contenido para el interior de los contenedores reservados:
@@ -364,7 +364,7 @@ export function GameScreen({ onFinish, onBack, timeLimit }: { onFinish: (result:
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-amber-400/50 bg-panel-soft p-5 text-amber-100 shadow-[0_0_60px_rgba(240,180,41,0.18)] sm:p-7">
             <div className="mb-5 flex items-start justify-between gap-3">
-              <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "audience" ? "La congregación ha hablado" : "Voz profética"}</Dialog.Title>
+              <Dialog.Title className="font-display text-xl text-amber-200">{lifelineModal === "audience" ? "El Concilio ha hablado" : "Consejo de un Sabio"}</Dialog.Title>
               <GameTimer seconds={seconds} timeLimit={game.timeLimit} />
             </div>
             <Dialog.Description className="mb-5 text-sm leading-6 text-amber-100/65">Consejo simulado del juego; puede equivocarse.{game.timeLimit ? " Tienes 10 segundos adicionales para leerlo." : ""}</Dialog.Description>

@@ -43,7 +43,7 @@ const GUIDE_CARDS: GuideCard[] = [
     icon: Hourglass,
     paragraphs: [
       <>En Configuración puedes elegir <strong>30 segundos, 45 segundos, un minuto o sin límite</strong> por pregunta. Si el reloj se agota, la ronda termina como una respuesta incorrecta.</>,
-      <>Con reloj, la congregación y la voz profética añaden 10 segundos para escuchar el consejo.</>,
+      <>Con reloj, el Concilio de los Setenta y el Consejo de un Sabio añaden 10 segundos para escuchar el consejo.</>,
     ],
   },
   {
@@ -57,9 +57,9 @@ const GUIDE_CARDS: GuideCard[] = [
 ];
 
 const LIFELINES = [
-  { title: "Sabiduría de Salomón", icon: ScrollText, text: "Dos respuestas incorrectas desaparecen y quedan solamente dos caminos." },
-  { title: "Preguntar a la congregación", icon: MessageCircleQuestion, text: "La asamblea vota; su certeza puede disminuir en las preguntas más difíciles." },
-  { title: "Voz profética", icon: PhoneCall, text: "Una voz del juego ofrece su consejo. Puede ser sabia, pero también puede equivocarse." },
+  { title: "Los Dos Testigos", icon: ScrollText, text: "Dos respuestas incorrectas desaparecen y quedan dos declaraciones frente a ti: solo una es verdadera." },
+  { title: "Concilio de los Setenta", icon: MessageCircleQuestion, text: "Setenta consejeros votan; su certeza puede disminuir en las preguntas más difíciles." },
+  { title: "Consejo de un Sabio", icon: PhoneCall, text: "Un sabio del juego ofrece su consejo. Puede ser acertado, pero también puede equivocarse." },
 ] as const;
 
 export function HowToPlay({ onBack }: { onBack: () => void }) {
@@ -93,7 +93,7 @@ export function HowToPlay({ onBack }: { onBack: () => void }) {
           </span>
           <h2 className="text-base font-bold text-amber-200">Tres comodines</h2>
         </div>
-        <p className="mb-5 text-[15px] leading-6 text-[#eadbc4]/90">Cada uno puede utilizarse <strong className="text-amber-100">una vez por recorrido</strong>. Selecciónalo, escucha al anfitrión y pulsa «Usar comodín». El 50:50 elimina dos opciones directamente en la pregunta. Los otros dos muestran su consejo en una ventana con el reloj visible; pulsa «Volver a la pregunta» para continuar.</p>
+        <p className="mb-5 text-[15px] leading-6 text-[#eadbc4]/90">Cada uno puede utilizarse <strong className="text-amber-100">una vez por recorrido</strong>. Selecciónalo, escucha al anfitrión y pulsa «Usar comodín». Los Dos Testigos eliminan dos opciones directamente en la pregunta. Los otros dos muestran su consejo en una ventana con el reloj visible; pulsa «Volver a la pregunta» para continuar.</p>
         <div className="grid gap-4 md:grid-cols-3">
           {LIFELINES.map(({ title, icon: Icon, text }, index) => (
             <motion.article key={title} {...fadeUp(0.52 + index * 0.08, 10)} className="rounded-xl border border-amber-600/30 bg-[#170d05]/55 p-5 transition-colors hover:border-amber-400/40">

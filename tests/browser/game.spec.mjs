@@ -49,7 +49,7 @@ test('nombre, tres comodines, pausa persistente y nuevo reloj', async ({ page },
       await page.getByRole('button', { name: 'Cerrar', exact: true }).click();
       await expect(page.getByRole('dialog')).toHaveCount(0);
     }
-    for (const [label, key] of [['Sabiduría de Salomón', 'fifty'], ['Preguntar a la congregación', 'audience'], ['Voz profética', 'prophet']]) {
+    for (const [label, key] of [['Los Dos Testigos', 'fifty'], ['Concilio de los Setenta', 'audience'], ['Consejo de un Sabio', 'prophet']]) {
       const button = page.getByRole('button', { name: label, exact: true });
       await button.click();
       await expect(button).toHaveAttribute('aria-pressed', 'true');

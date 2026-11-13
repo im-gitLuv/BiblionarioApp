@@ -9,7 +9,7 @@ export async function GET() {
             db.game.aggregate({ where: { playerId: p.id, status: { in: ['won', 'walked', 'lost'] } }, _sum: { amount: true }, _count: true }),
             db.game.count({ where: { playerId: p.id, status: 'won' } }),
         ]);
-        return { name: p.name, tag: p.tag, totalCrowns: totals._sum.amount ?? 0, knowledgeCrowns, gamesPlayed: totals._count };
+        return { name: p.name, tag: p.tag, totalCrowns: totals._sum.amount ?? 0, knowledgeCrowns, gamesPlayed: totals._count, siclos: p.siclos, streak: p.streak, bestStreak: p.bestStreak };
     });
 }
 export async function POST(request: Request) {

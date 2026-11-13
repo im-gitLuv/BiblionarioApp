@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookOpen, ChevronRight, Crown, HelpCircle, Settings, Sparkles, Trophy } from "lucide-react";
+import { BookOpen, ChevronRight, Coins, Crown, Flame, HelpCircle, Settings, Sparkles, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LozengeButton, fadeUp } from "@/components/game/ui";
 import {
@@ -16,6 +16,8 @@ interface MainMenuProps {
   best: ScoreRecord | null;
   /** Perfil guardado en este navegador (null si aún no hay ninguno). */
   profile: { name: string; tag: string } | null;
+  /** Tesoro de Siclos y racha del perfil activo (null mientras se consulta). */
+  wallet: { siclos: number; streak: number; bestStreak: number } | null;
   /** Modo "crear otro perfil": el nombre escrito fundará un perfil aparte. */
   newProfile: boolean;
   onStartNewProfile: () => void;
@@ -34,6 +36,7 @@ interface MainMenuProps {
 export function MainMenu({
   best,
   profile,
+  wallet,
   newProfile,
   onStartNewProfile,
   onCancelNewProfile,
@@ -151,7 +154,7 @@ export function MainMenu({
         {/* Nombre del jugador — misma pieza lozenge que los botones */}
         <motion.div {...fadeUp(0.42)} className="mt-4 w-full max-w-sm">
           <label htmlFor="player" className="mb-1.5 block text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-300/70">
-            {newProfile ? "Nombre del nuevo jugador" : "Tu nombre en el Salón de la Fe"}
+            {newProfile ? "Nombre del nuevo jugador" : "Tu nombre en el Salón de la Sabiduría"}
           </label>
           <div ref={shellRef} className={cn("w-full", incomplete && "name-attention")}>
             <div className="clip-lozenge-slim bg-gradient-to-r from-amber-700/60 via-amber-500/60 to-amber-700/60 p-[2px] transition-all duration-300 focus-within:from-amber-400 focus-within:via-yellow-300 focus-within:to-amber-400">
@@ -213,18 +216,20 @@ export function MainMenu({
         </motion.div>
 
         {/* Acciones */}
-        <motion.div {...fadeUp(0.5)} className="mt-4 flex w-full max-w-md flex-col items-center gap-3">
+        <motion.div {...fadeUp(0.5)} className="mt-4 flex w-full max-w-md flex-col items-center gap-3 sm:max-w-xl">
           <LozengeButton variant="primary" size="md" icon={Crown} trailing={ChevronRight} onClick={onPlay} disabled={busy} className="max-w-sm">
             {newProfile ? "Crear perfil y jugar" : "Comenzar el camino"}
           </LozengeButton>
-          <div className="grid w-full grid-cols-2 gap-3 max-sm:justify-items-stretch sm:grid-cols-3">
-            <LozengeButton variant="secondary" size="sm" icon={HelpCircle} onClick={onHowTo} className="w-full">
+          {/* El Salón de la Sabiduría ocupa fila propia en móvil y su ancho
+              natural en escritorio: el nombre completo nunca se trunca. */}
+          <div className="grid w-full max-sm:grid-cols-2 gap-3 max-sm:justify-items-stretch sm:grid-cols-[auto_auto_auto] sm:justify-center sm:gap-x-4">
+            <LozengeButton variant="secondary" size="sm" icon={BookOpen} onClick={onHall} className="w-full max-sm:col-span-2 sm:w-auto sm:order-2">
+              Salón de la Sabiduría
+            </LozengeButton>
+            <LozengeButton variant="secondary" size="sm" icon={HelpCircle} onClick={onHowTo} className="w-full sm:w-auto sm:order-1">
               Cómo jugar
             </LozengeButton>
-            <LozengeButton variant="secondary" size="sm" icon={BookOpen} onClick={onHall} className="w-full">
-              Salón de la Fe
-            </LozengeButton>
-            <LozengeButton variant="secondary" size="sm" icon={Settings} onClick={onSettings} className="w-full max-sm:col-span-2">
+            <LozengeButton variant="secondary" size="sm" icon={Settings} onClick={onSettings} className="w-full sm:w-auto sm:order-3">
               Configuración
             </LozengeButton>
           </div>
@@ -237,6 +242,17 @@ export function MainMenu({
             <span>
               Líder histórico: <strong className="font-semibold">{formatCrowns(best.amount)} Coronas · ♛ {best.knowledgeCrowns}</strong>
             </span>
+          </motion.div>
+        ) : null}
+
+        {/* Tesoro del perfil: Siclos ganados y racha diaria vigente */}
+        {wallet ? (
+          <motion.div {...fadeUp(0.64)} className="mt-3 flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-4 py-1.5 text-sm text-amber-200">
+            <Coins className="h-4 w-4 text-amber-400" aria-hidden="true" />
+            <span><strong className="font-semibold">{formatCrowns(wallet.siclos)}</strong> Siclos</span>
+            <span className="text-amber-300/40" aria-hidden="true">·</span>
+            <Flame className="h-4 w-4 text-amber-400" aria-hidden="true" />
+            <span>{wallet.streak > 0 ? <>Racha de <strong className="font-semibold">{wallet.streak}</strong> {wallet.streak === 1 ? "día" : "días"}</> : "Aún sin racha"}</span>
           </motion.div>
         ) : null}
       </main>

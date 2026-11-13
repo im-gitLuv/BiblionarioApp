@@ -56,3 +56,4 @@ server.log
 /skills/
 !.env.example
 /db/*.db
+*.patch

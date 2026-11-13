@@ -3,6 +3,7 @@ import { randomInt } from 'node:crypto';
 import type { Game, Prisma } from '@prisma/client';
 import type { ActionReply, Outcome, PublicGame } from '../contracts';
 import { prizeForLevel, safeHavenAmount, walkAwayAmount } from '../rules';
+import { awardSiclos, nextStreak } from '../economy';
 import { db } from '../db';
 export type Round = {
     id: string;
@@ -28,11 +29,11 @@ export function shuffled<T>(items: T[]): T[] {
 export function publicGame(game: Game): PublicGame {
     const round = (game.rounds as Round[])[game.level - 1];
     return {
-        id: game.id, level: game.level, amount: game.amount, version: game.version,
+        id: game.id, level: game.level, amount: game.amount, version: game.version, siclos: game.siclos,
         review: round.awaitingNext ? { answer: round.answer, reference: round.reference, correct: true } : undefined,
         deadline: round.awaitingNext || (round.timeLimit ?? 45) === 0 ? null : game.deadline.toISOString(), timeLimit: round.timeLimit ?? 45, lifelines: game.lifelines, removed: game.removed,
         question: game.status === 'playing' ? { category: round.category, question: round.prompt, options: round.options } : null,
-        result: game.status === 'playing' ? null : { outcome: game.status as Outcome, amount: game.amount, level: game.level, lifelinesUsed: game.lifelines.length },
+        result: game.status === 'playing' ? null : { outcome: game.status as Outcome, amount: game.amount, level: game.level, lifelinesUsed: game.lifelines.length, siclos: game.siclos },
     };
 }
 export async function startGame(playerId: string, timeLimit: 0 | 30 | 45 | 60 = 45) {
@@ -131,9 +132,34 @@ export async function act(playerId: string, id: string, version: number, action:
         }
         else
             throw new GameError('Acción no válida.');
+        // Emisión de Siclos y racha: solo al finalizar la partida, dentro de la
+        // misma transacción y con el guard de versión; repetir la lectura de
+        // una partida terminada nunca vuelve a pagar.
+        let awarded: { total: number; streak: number; bestStreak: number } | null = null;
+        if (data.status) {
+            const completed = data.status === 'won' ? 15 : game.level - 1;
+            const profile = await tx.player.findUniqueOrThrow({
+                where: { id: playerId },
+                select: { streak: true, bestStreak: true, lastPlayedAt: true },
+            });
+            const streak = nextStreak(profile.streak, profile.lastPlayedAt, new Date());
+            const { total } = awardSiclos(completed, timeLimit === 0, streak);
+            awarded = { total, streak, bestStreak: Math.max(profile.bestStreak, streak) };
+            data.siclos = total;
+        }
         const changed = await tx.game.updateMany({ where: { id, playerId, version, status: 'playing' }, data });
         if (changed.count !== 1)
             throw new GameError('Otra acción ya actualizó esta partida.', 409);
+        if (awarded)
+            await tx.player.update({
+                where: { id: playerId },
+                data: {
+                    siclos: { increment: awarded.total },
+                    streak: awarded.streak,
+                    bestStreak: awarded.bestStreak,
+                    lastPlayedAt: new Date(),
+                },
+            });
         return { ...reply, game: publicGame((await tx.game.findUniqueOrThrow({ where: { id } }))) };
     });
 }
